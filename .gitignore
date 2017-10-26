@@ -45,3 +45,13 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/LoowooTech.iPadManagerSystem/bin
+/LoowooTech.iPadManagerSystem/obj
+/packages
+/LoowooTech.Managers/bin
+/LoowooTech.Managers/obj
+/LoowooTech.Models/bin
+/LoowooTech.Models/obj
+/LoowooTech.Common/bin
+/LoowooTech.Common/obj

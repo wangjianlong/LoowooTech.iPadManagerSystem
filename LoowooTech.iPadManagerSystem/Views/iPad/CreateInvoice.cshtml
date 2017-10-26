@@ -1,0 +1,63 @@
+﻿@using LoowooTech.iPadManagerSystem.Models
+<script src="~/Scripts/Contract.js"></script>
+@{
+    ViewBag.Title = "录入发票";
+    List<iPad> list = ViewBag.List;
+    Layout = null;
+}
+
+<h3 class="text-center">录入发票</h3>
+<form class="form-horizontal" method="post" action="/iPad/SaveInvoice" enctype="multipart/form-data">
+    <input type="hidden" name="Enter" value="@(ViewBag.Identity.Name)" />
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="form-group">
+                <label class="control-label col-md-4">开票时间[【必填】：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Time" placeholder="开票时间" class="form-control datetimepicker" readonly="readonly" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">发票编号【必填】：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Number" placeholder="发票编号" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">发票金额【元】【必填】：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Money" placeholder="发票金额" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">购买回执【必填】：</label>
+                <div class="col-md-7">
+                    <input type="file" name="File" placeholder="电子文件" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">关联平板【必选】:</label>
+                <div class="col-md-7">
+                    @foreach (var ipad in list)
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="iPadID" value="@(ipad.ID)" />@(ipad.Name)
+                        </label>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">采购人【必填】:</label>
+                <div class="col-md-7">
+                    <input type="text" name="Buyer" class="form-control" value="@(ViewBag.Identity.Name)" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

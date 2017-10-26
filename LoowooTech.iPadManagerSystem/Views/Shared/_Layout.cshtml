@@ -1,0 +1,121 @@
+﻿@{ 
+    LoowooTech.iPadManagerSystem.Common.UserIdentity identity = ViewBag.Identity;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -平板管理系统 杭州陆吾科技信息咨询有限公司</title>
+    <link rel="icon" href="~/loowootech1.png" />
+    <link rel="shortcut icon" href="~/loowootech1.png" />
+    <link href="~/Content/bootstrap.min.css"  rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/TodoMessage.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+
+    <script>
+        $(function () {
+            $("#Modal").on("hidden.bs.modal", function () {
+                $(this).removeData("bs.modal");
+            })
+        })
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home"><img alt="LoowooTech" src="~/loowootech2.png" /> </a>
+                <a class="navbar-brand" href="/Home">平板管理系统&nbsp;杭州陆吾科技信息咨询有限公司</a>
+            </div>
+
+            @if (identity != null && identity.IsAuthenticated)
+            {
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/ipad"> 首页<span class="sr-only">(current)</span></a>
+                        </li>
+                        @*<li class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                系统配置管理<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="">平板型号管理</a></li>
+                                <li><a class="dropdown-item" href="/Color/Index">平板颜色管理</a></li>
+                                <li><a class="dropdown-item" href="">平板空间管理</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/System">系统配置管理</a>
+                        </li>*@
+                        @*<li class="nav-item">
+                            <a class="nav-link" href="#">添加平板</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">使用登记</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>*@
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @(identity.DisplayName)<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/User/LoginOut">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>   
+    </nav>
+
+    <br />
+    <br />
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - 杭州陆吾科技信息咨询有限公司</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" id="Modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

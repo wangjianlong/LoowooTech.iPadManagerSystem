@@ -1,0 +1,29 @@
+﻿@using LoowooTech.iPadManagerSystem.Models
+@using LoowooTech.iPadManagerSystem.Common
+@{
+    Layout = null;
+    iPadType Type = ViewBag.Type;
+}
+
+<ul class="nav nav-pills" role="tablist">
+    @foreach (iPadType item in Enum.GetValues(typeof(iPadType)))
+    {
+        <li role="presentation" class="@(Type==item?"active":"")"><a href="#@(item.ToString())" role="tab" data-toggle="tab">@(item.GetDescription())</a></li>
+    }
+    <li role="presentation" class=""><a href="#Search" role="tab" data-toggle="tab">高级查询</a></li>
+</ul>
+
+<div class="tab-content">
+    @foreach (iPadType item in Enum.GetValues(typeof(iPadType)))
+    {
+        <div role="tabpanel" class="tab-pane @(Type==item?"active":"")" id="@(item.ToString())">
+            @{
+                Html.RenderAction("iPadList", new { iPadType = item });
+            }
+        </div>
+                }
+    <div role="tabpanel" class="tab-pane" id="Search">
+
+    </div>
+
+</div>

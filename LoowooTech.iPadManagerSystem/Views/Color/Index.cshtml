@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "平板颜色管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Color> list = ViewBag.List;
+}
+
+<div class="page-header">
+    <h3>平板颜色管理</h3>
+</div>
+
+<div class="btn-group">
+    <a href="/Color/Create" data-toggle="modal" data-target="#Modal" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i>添加颜色</a>
+</div>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>名称</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.ID)</td>
+                <td>@(item.Name)</td>
+                <td>
+                    <a href="" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                    <a href="/Color/Delete?id=@(item.ID)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
