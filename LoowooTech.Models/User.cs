@@ -17,5 +17,9 @@ namespace LoowooTech.Models
         public DateTime RegisterTime { get; set; }
         public int GroupId { get; set; }
         public int RoleId { get; set; }
+        public UserRole UserRole { get; set; }
+        [NotMapped]
+        public string AccessToken { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,5 +17,18 @@ namespace LoowooTech.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
+    }
+
+
+    public enum UserRole
+    {
+        [Description("游客")]
+        Guest,
+        [Description("一般用户")]
+        Common,
+        [Description("高级用户")]
+        Advance,
+        [Description("管理员")]
+        Admin,
     }
 }

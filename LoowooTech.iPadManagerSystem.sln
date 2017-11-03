@@ -5,6 +5,14 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.iPadManagerSystem", "LoowooTech.iPadManagerSystem\LoowooTech.iPadManagerSystem.csproj", "{F3A8573E-10CF-4D72-8506-6408E2364E2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Models", "LoowooTech.Models\LoowooTech.Models.csproj", "{F797818E-FF31-49A2-8B1D-E6A778B633CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Common", "LoowooTech.Common\LoowooTech.Common.csproj", "{AB103882-AD22-452A-A35E-9D5048B6B0C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Managers", "LoowooTech.Managers\LoowooTech.Managers.csproj", "{CCD8B2C5-5AE6-4C6C-800D-64F91663CF73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Offical.Web", "LoowooTech.Offical.Web\LoowooTech.Offical.Web.csproj", "{962398D6-7899-4A42-B061-DC8EA85ACA93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{F3A8573E-10CF-4D72-8506-6408E2364E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A8573E-10CF-4D72-8506-6408E2364E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A8573E-10CF-4D72-8506-6408E2364E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F797818E-FF31-49A2-8B1D-E6A778B633CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F797818E-FF31-49A2-8B1D-E6A778B633CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F797818E-FF31-49A2-8B1D-E6A778B633CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F797818E-FF31-49A2-8B1D-E6A778B633CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB103882-AD22-452A-A35E-9D5048B6B0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB103882-AD22-452A-A35E-9D5048B6B0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB103882-AD22-452A-A35E-9D5048B6B0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB103882-AD22-452A-A35E-9D5048B6B0C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD8B2C5-5AE6-4C6C-800D-64F91663CF73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD8B2C5-5AE6-4C6C-800D-64F91663CF73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD8B2C5-5AE6-4C6C-800D-64F91663CF73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD8B2C5-5AE6-4C6C-800D-64F91663CF73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962398D6-7899-4A42-B061-DC8EA85ACA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962398D6-7899-4A42-B061-DC8EA85ACA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962398D6-7899-4A42-B061-DC8EA85ACA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962398D6-7899-4A42-B061-DC8EA85ACA93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
