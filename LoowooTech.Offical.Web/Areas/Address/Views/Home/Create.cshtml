@@ -1,0 +1,102 @@
+﻿@{ 
+    Layout = null;
+    Contact contact = ViewBag.Contact;
+}
+
+<script>
+    $(function () {
+        $("#form-contact").submit(function () {
+            var $btn = $("#form-contact button");
+            $btn.attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/Address/Home/Save", data, function (json) {
+                if (json.result == 1) {
+                    alert("操作成功！");
+                    location.href = "/Address/Home/Index";
+                } else {
+                    alert(json.content);
+                    $btn.removeAttr("disabled");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(contact==null?"fa-plus-square":"fa-edit") modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}联系人", contact == null ? "添加" : "编辑")</h4>
+</div>
+
+<form class="form-horizontal" method="post" id="form-contact">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-sm-3">姓名：</label>
+            <div class="col-sm-7">
+                <input type="hidden" name="ID" value="@(contact==null?0:contact.ID)" />
+                <input type="hidden" name="UserId" value="@(contact==null?Identity.UserId:contact.UserId)" />
+                <input type="text" name="Name" class="form-control" placeholder="姓名" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">单位：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Company" class="form-control" placeholder="单位" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">固定电话：</label>
+            <div class="col-sm-7">
+                <input type="text" name="TelPhone" class="form-control" placeholder="固定电话" data-mask="9999-99999999"/>
+              
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">手机号码：</label>
+            <div class="col-sm-7">
+                <input type="text" name="iPhone" class="form-control" placeholder="手机号码" data-mask="99999999999" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">部门：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Department" class="form-control" placeholder="部门" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">职位：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Position" class="form-control" placeholder="职位" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">E-Mail：</label>
+            <div class="col-sm-7">
+               <input type="text" name="EMail" class="form-control" placeholder="邮箱" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">QQ:</label>
+            <div class="col-sm-7">
+                <input type="text" name="QQ" class="form-control" placeholder="QQ" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">地址：</label>
+            <div class="col-sm-7">
+                <textarea class="form-control" rows="3" name="Address"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">备注：</label>
+            <div class="col-sm-7">
+                <textarea class="form-control" rows="4" name="Remark"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+    </div>
+</form>

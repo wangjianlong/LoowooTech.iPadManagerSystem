@@ -1,8 +1,34 @@
 ﻿
 @{
-    ViewBag.Title = "首页";
+    ViewBag.Title = "欢迎页";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<LWSystem> list = ViewBag.List;
 }
 
-<h2>Index</h2>
+@{ 
+    Html.RenderPartial("ShowSystems", list as object);
+}
 
+@if (Identity.UserRole == UserRole.Admin)
+{
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="widget-head-color-box p-lg text-center navy-bg">
+                <div class="m-b-md">
+                    <h2 class="font-bold no-margins">
+                        管理系统
+                    </h2>
+                </div>
+                <i class="fa fa-4x fa-gears"></i>
+            </div>
+            <div class="widget-text-box">
+                <h4 class="media-heading">说明</h4>
+                <p>管理员管理系统</p>
+                <div class="text-right">
+
+                    <a href="/Admin/Home/Index" class="btn btn-xs btn-white"><i class="fa fa-arrow-circle-right"></i>进入</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@model List<City>
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+
+}
+
+<ol class="dd-list">
+    @foreach(var item in Model)
+    {
+        <li class="dd-item">
+            <div class="dd-handle">
+                @(item.Name)-@(item.Code)
+                <div class="btn-group btn-group-xs pull-right">
+                    <a href="/Admin/City/Create?cityId=@(item.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>添加辖区</a>
+                    <a href="/Admin/City/Create?id=@(item.ID)" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    <a href="/Admin/City/Delete?id=@(item.ID)" class="btn btn-danger" name="Delete" Url="/Admin/City/Index"><i class="fa fa-times-circle"></i>删除</a>
+                </div>
+            </div>
+            @if (item.Children != null)
+            {
+                Html.RenderPartial("_showCity", item.Children as object);
+            }
+        </li>
+    }
+</ol>

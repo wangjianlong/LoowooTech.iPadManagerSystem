@@ -1,0 +1,90 @@
+﻿@{ 
+    Layout = null;
+    Company company = ViewBag.Company;
+}
+
+<script>
+    $(function () {
+        $(".i-checks").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $("#form-company").submit(function () {
+            LWSubmit("#form-company");
+            return false;
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(company==null?"fa-plus-square":"fa-edit")  modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}单位", company == null ? "添加" : "编辑") </h4>
+</div>
+
+
+<form class="form-horizontal" method="post" id="form-company" action="/Admin/Company/Save" Url="/Admin/Company/Index">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-sm-3">名称：</label>
+            <div class="col-sm-7">
+                <input type="hidden" name="ID" value="@(company==null?0:company.ID)" />
+                <input type="text" name="Name" class="form-control" placeholder="名称" required value="@(company==null?"":company.Name)" />
+            </div>
+        </div>
+     
+        <div class="form-group">
+            <label class="control-label col-sm-3">统一社会信用代码：</label>
+            <div class="col-sm-7">
+                <input type="text" name="USCI" class="form-control" placeholder="统一社会信用代码" value="@(company==null?"":company.USCI)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">注册地址：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Address" class="form-control" placeholder="注册地址" value="@(company==null?"":company.Address)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">电话：</label>
+            <div class="col-sm-7">
+                <input type="text" name="TelPhone" class="form-control" placeholder="电话" value="@(company==null?"":company.TelPhone)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">开户行名称：</label>
+            <div class="col-sm-7">
+                <input type="text" name="BankName" class="form-control" placeholder="银行开户行全称"  value="@(company==null?"":company.BankName)"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">银行账号：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Account" class="form-control" placeholder="银行账号" value="@(company==null?"":company.Account)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">WidgetClass:</label>
+            <div class="col-sm-7">
+                <select name="Widget" class="form-control">
+                    <option value="" @(company==null||company.Widget==null?"selected=selected":"")>默认</option>
+                    @foreach(WidgetClass widget in Enum.GetValues(typeof(WidgetClass)))
+                    {
+                        <option value="@(widget)" @(company!=null&&company.Widget.HasValue&&company.Widget.Value==widget?"selected=selected":"")>@(widget.GetDescription())</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">项目单位：</label>
+            <div class="col-sm-7">
+                <div class="i-checks"><label><input type="checkbox" name="IsProject" value="true" @(company==null?"":company.IsProject.HasValue&&company.IsProject==true?"checked=checked":"") /><i></i>项目单位</label></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+    </div>
+</form>

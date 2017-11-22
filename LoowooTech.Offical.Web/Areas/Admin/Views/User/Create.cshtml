@@ -1,0 +1,76 @@
+﻿@{ 
+    Layout = null;
+    User user = ViewBag.User;
+    List<Group> groups = ViewBag.Groups;
+}
+
+<script>
+    $(document).ready(function () {
+        $(".i-checks").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $("#form-user").submit(function () {
+            LWSubmit("#form-user");
+            return false;
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(user==null?"fa-plus-square":"fa-edit")  modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}用户", user == null ? "添加" : "编辑") </h4>
+</div>
+
+
+<form class="form-horizontal" method="post" action="/Admin/User/Save" Url="/Admin/User/Index" id="form-user">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-sm-3">姓名：</label>
+            <div class="col-sm-7">
+                <input type="text" name="Name" class="form-control" placeholder="姓名" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">登录名：</label>
+            <div class="col-sm-7">
+                <input type="text" name="LoginName" class="form-control" placeholder="登录名" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">手机号码：</label>
+            <div class="col-sm-7">
+                <input type="text" name="iPhone" class="form-control" data-mask="99999999999"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">用户角色：</label>
+            <div class="col-sm-9">
+                @foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+                {
+                    <label class="radio-inline i-checks">
+                        <input type="radio" name="UserRole" value="@(role)" /><i></i>@(role.GetDescription())
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">部门：</label>
+            <div class="col-sm-7">
+                <select name="GroupId" class="form-control m-b">
+                    <option  value="">暂不选择</option>
+                    @foreach(var item in groups)
+                    {
+                        <option value="@(item.ID)">@(item.Name)</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+    </div>
+</form>

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncryptExtensions.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="JsonExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

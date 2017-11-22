@@ -41,8 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\City.cs" />
+    <Compile Include="Admin\Company.cs" />
+    <Compile Include="Admin\Flow.cs" />
+    <Compile Include="Admin\FlowNode.cs" />
+    <Compile Include="Admin\ProjectType.cs" />
+    <Compile Include="Contact.cs" />
+    <Compile Include="Evaluate.cs" />
+    <Compile Include="Expense\BillNumber.cs" />
+    <Compile Include="Expense\Category.cs" />
+    <Compile Include="Expense\Sheet.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="LWSystem.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="Power.cs" />
+    <Compile Include="PowerItem.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Project\ProjectUser.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

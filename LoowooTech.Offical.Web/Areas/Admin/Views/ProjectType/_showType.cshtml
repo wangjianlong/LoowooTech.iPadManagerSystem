@@ -1,0 +1,28 @@
+﻿@model List < ProjectType >
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+<ol class="dd-list">
+    @foreach(var item in Model)
+    {
+        <li class="dd-item">
+            <div class="dd-handle">
+                @(item.Name)
+                <div class="btn-group btn-group-xs pull-right">
+                    <a href="/Admin/ProjectType/Create?parentId=@(item.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>添加子类型</a>
+                    <a href="/Admin/ProjectType/Create?id=@(item.ID)" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    <a href="/Admin/ProjectType/Delete?id=@(item.ID)" class="btn btn-danger" name="Delete" Url="/Admin/ProjectType/Index"><i class="fa fa-times-circle"></i>删除</a>
+                </div>
+            </div>
+            @if (item.Children != null)
+            {
+                Html.RenderPartial("_showType", item.Children as object);
+            }
+        </li>
+    }
+</ol>

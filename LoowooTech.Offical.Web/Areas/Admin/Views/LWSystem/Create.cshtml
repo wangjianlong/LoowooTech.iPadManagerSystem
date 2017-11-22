@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+    LWSystem lw = ViewBag.Model;
+}
+
+<script>
+    $(function () {
+        $("#form-lwSystem").submit(function () {
+            LWSubmit("#form-lwSystem");
+            return false;
+
+        });
+
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(lw==null?"fa-plus-square":"fa-edit")  modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}子系统", lw == null ? "添加" : "编辑") </h4>
+</div>
+
+<form class="form-horizontal" method="post" id="form-lwSystem" action="/Admin/LWSystem/Save" Url="/Admin/LWSystem/Index">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-sm-3">系统名称：</label>
+            <div class="col-sm-9">
+                <input type="hidden" name="ID" value="@(lw==null?0:lw.ID)" />
+                <input type="text" class="form-control" name="Name" value="@(lw==null?"":lw.Name)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">系统地址：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="Address" value="@(lw==null?"":lw.Address)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">图标类：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="iConClass" value="@(lw==null?"":lw.iConClass)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Widgets:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="WidgetClass" value="@(lw==null?"":lw.WidgetClass)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">系统描述：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" rows="3" name="Description">@(lw == null ? "" : lw.Description)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+
+    </div>
+</form>
+

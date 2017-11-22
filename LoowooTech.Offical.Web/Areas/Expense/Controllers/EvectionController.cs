@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LoowooTech.Offical.Web.Controllers
+namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
 {
-    public class LWSystemController : ControllerBase
+    public class EvectionController : ExpenseControllerBase
     {
-        // GET: LWSystem
+        // GET: Expense/Evection
         public ActionResult Index()
         {
             return View();
@@ -16,6 +16,7 @@ namespace LoowooTech.Offical.Web.Controllers
 
         public ActionResult Create(int id = 0)
         {
+
             return View();
         }
     }

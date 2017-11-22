@@ -12,7 +12,7 @@ namespace LoowooTech.Offical.Web.Common
         private const string _cookieName = "loowooTech.user";
         public static string GenerateToken(this HttpContextBase context,User user)
         {
-            var ticket = new FormsAuthenticationTicket(1, user.ID + "|" + user.LoginName + "|" + user.Name + "|" + user.GroupId + "|" + user.RoleId,DateTime.Now,DateTime.MaxValue,true,"LoowooTech.Office_user_token");
+            var ticket = new FormsAuthenticationTicket(1, user.ID + "|" + user.LoginName + "|" + user.Name + "|" + user.GroupId + "|" + user.RoleId+"|"+user.UserRole,DateTime.Now,DateTime.MaxValue,true,"LoowooTech.Office_user_token");
             var token = FormsAuthentication.Encrypt(ticket);
             return token;
         }
@@ -49,16 +49,23 @@ namespace LoowooTech.Offical.Web.Common
                 if (ticket != null && !string.IsNullOrEmpty(ticket.Name))
                 {
                     var values = ticket.Name.Split('|');
-                    if (values.Length == 5)
+                    var role = UserRole.Guest;
+                    if (values.Length == 6)
                     {
-                        return new UserIdentity
+                        var user = new UserIdentity
                         {
                             UserId = int.Parse(values[0]),
                             LoginName = values[1],
                             Name = values[2],
-                            GroupId = int.Parse(values[3]),
-                            RoleId = int.Parse(values[4])
+                            //GroupId =  int.Parse(values[3]),
+                            RoleId = int.Parse(values[4]),
+                            UserRole = Enum.TryParse(values[5], out role) ? role : role
                         };
+                        if (!string.IsNullOrEmpty(values[3]))
+                        {
+                            user.GroupId = int.Parse(values[3]);
+                        }
+                        return user;
                     }
                 }
             }

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "用户管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<User> list = ViewBag.List;
+}
+
+@section Description{
+    用户管理系统用户
+    }
+
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/User/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>添加新用户</a>
+    </div>
+    }
+
+<div class="row">
+    @foreach(var item in list)
+    {
+        <div class="col-sm-3">
+            <div class="contact-box">
+                <a href="javascript:void(0)">
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <img alt="image" class="img-circle m-t-xs img-responsive" src="~/Images/loowootech -logo.png" />
+                            <div class="m-t font-bold">@(item.UserRole.GetDescription())</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>@(item.Name)</h3>
+                        <address>
+                            <abbr>手机号码：</abbr>@(item.iPhone)<br />
+                        </address>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </div>
+        </div>
+        
+    }
+</div>

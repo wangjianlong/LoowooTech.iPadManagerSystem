@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "报销";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    List<Company> companys = ViewBag.Companys;
+}
+
+<script>
+    $(function () {
+        $("#wizard").steps();
+    });
+</script>
+
+<div class="row">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>报销基础信息填报</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                请务必确认好报销单位以及报销项目！一旦确认，不能修改只能删除操作！
+            </div>
+
+            <div id="wizard">
+                <h1>1、报销单位</h1>
+                <div class="step-content">
+                    <div class="text-center m-t-md">
+                        <h2></h2>
+                    </div>
+                </div>
+                <h2>2、选择项目</h2>
+                <div class="step-content">
+                    <div class="text-center m-t-md">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

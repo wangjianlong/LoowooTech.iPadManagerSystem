@@ -1,0 +1,25 @@
+﻿@model FlowNode
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+<li class="dd-item">
+    <div class="dd-handle">
+        <span class="badge badge-primary">@(Model.Name) </span>审核人：<span class="badge badge-info">@(Model.User.Name)</span>  备注：@(Model.Remark)
+        <div class="pull-right">
+            <a href="/Admin/FlowNode/Prev?id=@(Model.ID)" class="btn btn-xs btn-default" name="Move" Url="/Admin/Flow/Index"><i class="fa fa-arrow-up"></i></a>
+            <a href="/Admin/FlowNode/Later?id=@(Model.ID)" class="btn btn-xs btn-default" name="Move" Url="/Admin/Flow/Index"><i class="fa fa-arrow-down"></i></a>
+            <a href="/Admin/FlowNode/Create?id=@(Model.ID)" class="btn btn-success btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i></a>
+            <a href="/Admin/FlowNode/Delete?id=@(Model.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Admin/Flow/Index"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+</li>
+
+@if (Model.Next != null)
+{
+    Html.RenderPartial("_showNode", Model.Next as object);
+}

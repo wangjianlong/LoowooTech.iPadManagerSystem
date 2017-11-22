@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "单位信息管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<Company> list = ViewBag.List;
+    List<Company> projects = ViewBag.Projects;
+}
+
+@section Description{
+    单位信息查看与管理,方便公司工作人员开具发票！
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/Company/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>新建单位信息</a>
+    </div>
+    }
+
+
+<div class="row">
+    @foreach (var item in list)
+            {
+        <div class="col-lg-4">
+            <div class="widget-head-color-box p-xl @(item.Widget.HasValue?item.Widget.GetDescription():"")">
+                <h2>
+                    @(item.Name)
+                </h2>
+                <ul class="list-unstyled m-t-md">
+                    <li>
+                        <span class="fa fa-credit-card m-r-xs"></span>
+                        <label>统一社会信息代码：</label>@(item.USCI)
+                    </li>
+                    <li>
+                        <span class="fa fa-map-marker m-r-xs"></span>
+                        <label>地址：</label>@(item.Address)
+                    </li>
+                    <li>
+                        <span class="fa fa-phone m-r-xs"></span>
+                        <label>电话：</label>@(item.TelPhone)
+                    </li>
+                    <li>
+                        <span class="fa fa-bank m-r-xs"></span>
+                        <label>开户行：</label>@(item.BankName)
+                    </li>
+                    <li>
+                        <span class="fa fa-bandcamp m-r-xs"></span>
+                        <label>账号：</label>@(item.Account)
+                    </li>
+                </ul>
+            </div>
+            <div class="widget-text-box">
+                <div class="text-right">
+                    <a href="/Admin/Company/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    <a href="/Admin/Company/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Admin/Company/Index"><i class="fa fa-times"></i>删除</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<br />
+<div class="row">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>项目单位</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>单位名称</th>
+                        <th>统一社会信用代码</th>
+                        <th>地址</th>
+                        <th>电话</th>
+                        <th>开户行</th>
+                        <th>账号</th>
+                        <th>快捷栏</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in projects)
+                    {
+                        <tr>
+                            <td>@(item.Name)</td>
+                            <td>@(item.USCI)</td>
+                            <td>@(item.Address)</td>
+                            <td>@(item.TelPhone)</td>
+                            <td>@(item.BankName)</td>
+                            <td>@(item.Account)</td>
+                            <td>
+                                <a href="/Admin/Company/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                                <a href="/Admin/Company/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Admin/Company/Index"><i class="fa fa-times"></i>删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

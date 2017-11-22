@@ -20,5 +20,48 @@ namespace LoowooTech.Managers
             password = password.MD5();
             return DB.Users.FirstOrDefault(e => e.LoginName.ToLower() == loginName.ToLower() && e.Password.ToLower() == password.ToLower());
         }
+
+        public User Get(int id)
+        {
+            return DB.Users.Find(id);
+        }
+
+        public List<User> GetList()
+        {
+            return DB.Users.Where(e => e.Delete == false).OrderByDescending(e => e.RegisterTime).ToList();
+        }
+
+        public bool Delete(int id)
+        {
+            var model = DB.Users.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.Delete = true;
+            DB.SaveChanges();
+
+            return true;
+        }
+
+        public int Add(User user)
+        {
+            DB.Users.Add(user);
+            DB.SaveChanges();
+            return user.ID;
+        } 
+
+        public bool Edit(User user)
+        {
+            var model = DB.Users.Find(user.ID);
+            if (model == null)
+            {
+                return false;
+            }
+            user.Password = model.Password;//密码不做修改操作！
+            DB.Entry(model).CurrentValues.SetValues(user);
+            DB.SaveChanges();
+            return true;
+        }
     }
 }

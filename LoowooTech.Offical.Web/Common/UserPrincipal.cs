@@ -29,7 +29,7 @@ namespace LoowooTech.Offical.Web.Common
         public UserRole UserRole { get; set; }
         public string Name { get; set; }
         public string LoginName { get; set; }
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
         public int RoleId { get; set; }
         public string AuthenticationType { get { return "Web.Session"; } }
         public bool IsAuthenticated { get { return UserId > 0; } }

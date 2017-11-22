@@ -50,11 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\CategoryManager.cs" />
+    <Compile Include="Admin\CityManager.cs" />
+    <Compile Include="Admin\CompanyManager.cs" />
+    <Compile Include="Admin\FlowManager.cs" />
+    <Compile Include="Admin\FlowNodeManager.cs" />
+    <Compile Include="Admin\GroupManager.cs" />
+    <Compile Include="Adress\ContactManager.cs" />
     <Compile Include="LWDbContext.cs" />
     <Compile Include="LWSystemManager.cs" />
     <Compile Include="ManagerBase.cs" />
     <Compile Include="ManagerCore.cs" />
+    <Compile Include="NoteManager.cs" />
     <Compile Include="OneContext.cs" />
+    <Compile Include="PowerManager.cs" />
+    <Compile Include="Project\ProjectManager.cs" />
+    <Compile Include="Project\ProjectTypeManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

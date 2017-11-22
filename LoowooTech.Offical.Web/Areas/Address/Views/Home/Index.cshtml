@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "通讯录";
+    Layout = "~/Areas/Address/Views/Shared/_Layout.cshtml";
+    List<Contact> list = ViewBag.List;
+}
+
+@section Description{
+    方便公司内部人员联系！请务将信息外泄！
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Address/Home/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>新建联系人</a>
+    </div>
+    }
+
+
+<div class="row">
+    @foreach (var item in list)
+    {
+        <div class="col-lg-3">
+            <div class="contact-box center-version">
+                <a href="">
+                    <img alt="image" class="img-circle" src="~/Images/loowootech -logo.png" />
+                    <h3 class="m-b-xs"><strong>@(item.Name)</strong></h3>
+                    <div class="font-bold">@(item.Position)</div>
+                    <address class="m-t-md">
+                        <abbr>单位：</abbr> <strong>@(item.Company)</strong><br />
+                        <abbr>固定电话：</abbr>@(item.TelPhone)<br />
+                        <abbr>手机号码：</abbr>@(item.iPhone)<br />
+                        <abbr>E-Mail:</abbr>@(item.EMail)<br />
+                    </address>
+                </a>
+              
+            </div>
+        </div>
+    }
+</div>
+

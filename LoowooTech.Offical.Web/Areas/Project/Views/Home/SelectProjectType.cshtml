@@ -1,0 +1,23 @@
+﻿@model ProjectType
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+
+    if (Model.Children == null)
+    {
+        return;
+    }
+}
+
+@foreach(var item in Model.Children)
+{
+    <option value="@(item.ID)">@(item.Name)-@(Model.ParentName)</option>
+    if (item.Children != null)
+    {
+        item.ParentName = item.Name + "-" + Model.ParentName;
+        Html.RenderPartial("SelectProjectType", item as object);
+    }
+}

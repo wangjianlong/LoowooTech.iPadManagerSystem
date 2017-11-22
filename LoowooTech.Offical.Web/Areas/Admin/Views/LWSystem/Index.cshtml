@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "子系统";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<LWSystem> lws = ViewBag.List;
+}
+
+
+@section Description{
+    管理员管理子系统
+}
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/LWSystem/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>添加子系统</a>
+    </div>
+}
+
+@{
+    Html.RenderPartial("ShowSystems", lws as object);
+}
+
+
+

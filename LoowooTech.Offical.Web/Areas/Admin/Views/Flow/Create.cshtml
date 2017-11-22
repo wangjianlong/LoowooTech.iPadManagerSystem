@@ -1,0 +1,73 @@
+﻿@{ 
+    Layout = null;
+    Flow flow = ViewBag.Flow;
+    List<LWSystem> systems = ViewBag.Systems;
+}
+
+<script>
+    $(function () {
+        $(".i-checks").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $(".chosen-select").chosen({ width: "100%" });
+
+        $("#form-flow").submit(function () {
+            LWSubmit("#form-flow");
+            return false;
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(flow==null?"fa-plus-square":"fa-edit")  modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}流程", flow == null ? "添加" : "编辑") </h4>
+</div>
+
+<form class="form-horizontal" method="post" id="form-flow" action="/Admin/Flow/Save" Url="/Admin/Flow/Index">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-sm-3">流程名称：</label>
+            <div class="col-sm-7">
+                <input type="hidden" name="ID" value="@(flow==null?0:flow.ID)" />
+                <input type="text" name="Name" class="form-control" placeholder="流程名称" required value="@(flow==null?"":flow.Name)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">撤回：</label>
+            <div class="col-sm-7">
+                <label class="radio-inline i-checks">
+                    <input type="radio" name="CanBack" value="true" @(flow==null?"":flow.CanBack==true?"checked=checked":"") /><i></i>支持
+                </label>
+                <label class="radio-inline i-checks">
+                    <input type="radio" name="CanBack" value="false" @(flow==null?"":flow.CanBack==false?"checked=checked":"")/><i></i>不支持
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">子系统：</label>
+            <div class="col-sm-7">
+                <select data-placeholder="" class="chosen-select" name="LWSystemId">
+                    <option value="" @(flow==null?"selected=selected":"")>请选择</option>
+                    @foreach(var item in systems)
+                    {
+                        <option value="@(item.ID)"@(flow!=null&&flow.LWSystemId==item.ID?"selected=selected":"") >@(item.Name)</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">备注：</label>
+            <div class="col-sm-7">
+                <textarea class="form-control" rows="3" name="Remark">@(flow==null?"":flow.Remark)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+    </div>
+</form>

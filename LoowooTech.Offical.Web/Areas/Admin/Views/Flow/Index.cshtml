@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "流程管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<Flow> list = ViewBag.List;
+}
+
+<script>
+    $(function () {
+        $("a[name='Move']").click(function () {
+            var href = $(this).attr("href");
+            var url = $(this).attr("Url");
+            $.request(href, null, function (json) {
+                if (json.result == 1) {
+                    swal({
+                        title: "成功移动",
+                        text: "成功移动，点击确定完成移动！",
+                        type:"success"
+                    }, function () {
+                        location.href = url;
+                    })
+                } else {
+                    swal("移动失败",json.content,"error");
+                }
+            });
+
+            return false;
+        });
+
+    });
+</script>
+
+@section Description{
+    管理系统流程
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/Flow/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>新建流程</a>
+    </div>
+    }
+
+<div class="row">
+    @foreach(var item in list)
+    {
+        <div class="col-lg-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>@(item.LWSystem.Name)-@(item.Name)</h5>
+                    <div class="pull-right">
+                        <a href="/Admin/FlowNode/Create?flowId=@(item.ID)" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i></a>
+                        <a href="/Admin/Flow/Create?id=@(item.ID)" class="btn btn-success btn-xs"data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i></a>
+                        <a href="/Admin/Flow/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Admin/Flow/Index"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="dd">
+                        <ol class="dd-list">
+                            @if (item.FlowNodes != null)
+                            {
+                                var first=item.GetFirstNode();
+                                if (first != null)
+                                {
+                                    Html.RenderPartial("_showNode", first as object);
+                                }
+
+                            }
+                           
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

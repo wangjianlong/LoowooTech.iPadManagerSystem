@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "项目类型管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<ProjectType> tree = ViewBag.Tree;
+}
+
+@section Description{
+    用于管理项目的类型，进行归类归档使用！
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/ProjectType/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>新建项目类型</a>
+    </div>
+    }
+
+
+<div class="row">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h4>项目类型列表</h4>
+        </div>
+        <div class="ibox-content">
+            <div class="dd">
+                <ol class="dd-list">
+                    @foreach (var item in tree)
+                    {
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                @(item.Name)
+                                <div class="btn-group btn-group-xs pull-right">
+                                    <a href="/Admin/ProjectType/Create?parentId=@(item.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>添加子类型</a>
+                                    <a href="/Admin/ProjectType/Create?id=@(item.ID)" class="btn btn-success"data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                                    <a href="/Admin/ProjectType/Delete?id=@(item.ID)" class="btn btn-danger" name="Delete" Url="/Admin/ProjectType/Index"><i class="fa fa-times-circle"></i>删除</a>
+                                </div>
+                            </div>
+                            @if (item.Children != null)
+                            {
+                                Html.RenderPartial("_showType", item.Children as object);
+                            }
+                        </li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+
+</div>

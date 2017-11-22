@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "部门/组信息";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<Group> list = ViewBag.List;
+}
+@section Description{
+    部门/组信息添加、编辑、删除等管理
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/Group/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>添加部门</a>
+    </div>
+    }
+
+<div class="row">
+    @foreach(var item in list)
+    {
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <div class="btn-group btn-group-xs pull-right">
+                        <a href="/Admin/Group/Delete?id=@(item.ID)" class="btn btn-danger" name="Delete" Url="/Admin/Group/Index"><i class="fa fa-times-circle"></i>删除</a>
+                        <a href="/Admin/Group/Create?id=@(item.ID)" class="btn btn-info" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    </div>
+                   
+                    <h5>@(item.Name)</h5>
+                </div>
+                <div class="ibox-content">
+                    <h4>说明</h4>
+                    <p>@(item.Description)</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

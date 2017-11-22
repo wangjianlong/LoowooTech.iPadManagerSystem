@@ -1,0 +1,24 @@
+﻿@model City
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+
+    if (Model.Children == null)
+    {
+        return;
+    }
+}
+
+@foreach(var item in Model.Children)
+{
+    <option value="@(item.ID)">@(item.Name)-@(Model.ParentName)</option>
+    if (item.Children != null)
+    {
+        item.ParentName = item.Name + "-" + Model.ParentName;
+        //item.ParentName = Model.ParentName + "-" + item.Name;
+        Html.RenderPartial("SelectCity", item as object);
+    }
+}

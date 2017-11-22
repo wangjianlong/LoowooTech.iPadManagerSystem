@@ -260,11 +260,14 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\loowootech -head.png" />
     <Content Include="Images\loowootech -logo.png" />
+    <Content Include="Images\loowootech -small-logo.png" />
     <Content Include="Images\loowootech.png" />
     <Content Include="Images\背景1.jpg" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\common.js" />
     <Content Include="scripts\demo\chartjs-demo.js" />
     <Content Include="scripts\demo\dashboard-demo.js" />
     <Content Include="scripts\demo\flot-demo.js" />
@@ -276,7 +279,9 @@
     <Content Include="scripts\inspinia.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-3.1.1.min.js" />
+    <Content Include="scripts\LoowooTech.js" />
     <Content Include="scripts\LW\Common.js" />
+    <Content Include="scripts\LW\Expense.js" />
     <Content Include="scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\bootstrap-markdown.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\markdown.js" />
@@ -626,6 +631,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Address\AddressAreaRegistration.cs" />
+    <Compile Include="Areas\Address\AddressControllerBase.cs" />
+    <Compile Include="Areas\Address\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AdminControllerBase.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FlowController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FlowNodeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LWSystemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProjectTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Expense\Controllers\EvectionController.cs" />
+    <Compile Include="Areas\Expense\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Expense\ExpenseAreaRegistration.cs" />
+    <Compile Include="Areas\Expense\ExpenseControllerBase.cs" />
+    <Compile Include="Areas\Memo\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Memo\MemoAreaRegistration.cs" />
+    <Compile Include="Areas\Memo\MemoControllerBase.cs" />
+    <Compile Include="Areas\Project\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
+    <Compile Include="Areas\Project\ProjectControllerBase.cs" />
     <Compile Include="Common\AuthenticateModule.cs" />
     <Compile Include="Common\AuthUtils.cs" />
     <Compile Include="Common\BaseView.cs" />
@@ -634,7 +664,6 @@
     <Compile Include="Common\UserRoleAttribute.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LWSystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -707,6 +736,51 @@
     <Content Include="Views\Shared\FiveZero.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Expense\Views\web.config" />
+    <Content Include="Views\Shared\ShowSystems.cshtml" />
+    <Content Include="Areas\Memo\Views\web.config" />
+    <Content Include="Areas\Memo\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Memo\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Memo\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Address\Views\web.config" />
+    <Content Include="Areas\Address\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Address\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Address\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Expense\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LWSystem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LWSystem\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Create.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Project\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Project\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\City\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\City\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\City\_showCity.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\Create.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectType\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectType\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProjectType\_showType.cshtml" />
+    <Content Include="Areas\Project\Views\Home\SelectCity.cshtml" />
+    <Content Include="Areas\Project\Views\Home\SelectProjectType.cshtml" />
+    <Content Include="Areas\Admin\Views\Flow\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Flow\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FlowNode\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Flow\_showNode.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -716,8 +790,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Address\Models\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Expense\Models\" />
+    <Folder Include="Areas\Expense\Views\Evection\" />
+    <Folder Include="Areas\Memo\Models\" />
+    <Folder Include="Areas\Project\Models\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\LWSystem\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">

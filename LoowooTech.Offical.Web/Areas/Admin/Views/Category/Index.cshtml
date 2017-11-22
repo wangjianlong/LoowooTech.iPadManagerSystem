@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "日常类别管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<Category> tree = ViewBag.Tree;
+}
+
+@section Description{
+    用于管理公司中涉及的日常报销类别！
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Admin/Category/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i>新建类别</a>
+    </div>
+    }
+

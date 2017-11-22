@@ -15,6 +15,8 @@ namespace LoowooTech.Offical.Web.Controllers
             {
                 return Redirect("/User/Login");
             }
+            var list = Core.LWSystemManager.GetList();
+            ViewBag.List = list;
             return View();
         }
     }

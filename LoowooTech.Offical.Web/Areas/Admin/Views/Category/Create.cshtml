@@ -1,0 +1,60 @@
+﻿@{ 
+    Layout = null;
+    Category category = ViewBag.Category;
+    Category prev = ViewBag.Prev;
+}
+
+<script>
+    $(function () {
+
+        $("#form-category").submit(function () {
+            LWSubmit("#form-category");
+            return false;
+        });
+    });
+</script>
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <i class="fa @(category==null?"fa-plus-square":"fa-edit")  modal-icon"></i>
+    <h4 class="modal-title">@string.Format("{0}类别", category == null ? "添加" : "编辑") </h4>
+</div>
+
+<form class="form-horizontal" method="post" id="form-category" action="/Admin/Category/Save" Url="/Admin/Category/Index">
+    <div class="modal-body">
+        @if (prev != null)
+        {
+            <div class="form-group">
+                <label class="control-label col-sm-3">上级类别：</label>
+                <div class="col-sm-7">
+                    <input type="hidden" name="CategoryId" value="@(prev.ID)" />
+                    <input type="text" class="form-control" readonly value="@(prev.Name)"/>
+                </div>
+            </div>
+        }
+        else
+        {
+            <input type="hidden" name="CategoryId" value="@(category==null?0:category.CategoryId)" />
+        }
+        <div class="form-group">
+            <label class="control-label col-sm-3">名称：</label>
+            <div class="col-sm-7">
+                <input type="hidden" name="ID" value="@(category==null?0:category.ID)" />
+                <input type="text" name="Name" class="form-control" placeholder="名称" required value="@(category==null?"":category.Name)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">备注：</label>
+            <div class="col-sm-7">
+                <textarea class="form-control" rows="3" name="Remark">@(category==null?"":category.Remark)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+            <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
+        </div>
+    </div>
+</form>

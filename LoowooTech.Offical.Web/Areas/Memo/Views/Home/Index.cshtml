@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "便签";
+    Layout = "~/Areas/Memo/Views/Shared/_Layout.cshtml";
+    List<Note> list = ViewBag.List;
+}
+
+@section Description{
+    方便记录事情，防止忘记！
+    }
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Memo/Home/Create" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-square"></i> 新建便签</a>
+    </div>
+  
+    }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <ul class="notes">
+                @foreach(var item in list)
+                {
+                    <li>
+                        <div>
+                            <small>@(item.Time.ToString("yyyy-MM-dd HH:mm:ss"))</small>
+                            <h4>@(item.Title)</h4>
+                            <p>@(item.Content)</p>
+                            <a href="/Memo/Home/Delete?id=@(item.ID)" name="Delete" Url="/Memo/Home/Index"><i class="fa fa-trash-o "></i></a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
