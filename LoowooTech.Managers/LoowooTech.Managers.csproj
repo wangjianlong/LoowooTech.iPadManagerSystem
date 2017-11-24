@@ -57,6 +57,7 @@
     <Compile Include="Admin\FlowNodeManager.cs" />
     <Compile Include="Admin\GroupManager.cs" />
     <Compile Include="Adress\ContactManager.cs" />
+    <Compile Include="Expense\SheetManager.cs" />
     <Compile Include="LWDbContext.cs" />
     <Compile Include="LWSystemManager.cs" />
     <Compile Include="ManagerBase.cs" />

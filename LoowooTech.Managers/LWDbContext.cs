@@ -38,5 +38,13 @@ namespace LoowooTech.Managers
 
         #endregion
 
+        #region  项目
+
+        public DbSet<Models.Project.Project> Projects { get; set; }
+        #endregion
+
+        #region  报销
+        public DbSet<Sheet> Sheets { get; set; }
+        #endregion
     }
 }

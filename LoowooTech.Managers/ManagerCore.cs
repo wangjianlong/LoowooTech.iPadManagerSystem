@@ -1,4 +1,5 @@
 ﻿using LoowooTech.Managers.Admin;
+using LoowooTech.Managers.Expense;
 using LoowooTech.Managers.Project;
 
 namespace LoowooTech.Managers
@@ -37,6 +38,16 @@ namespace LoowooTech.Managers
         private CategoryManager _categoryManager { get; set; }//种类
         public CategoryManager CategoryManager { get { return _categoryManager == null ? _categoryManager = new CategoryManager() : _categoryManager; } }
 
+        #endregion
+
+        #region 项目
+        private ProjectManager _projectManager { get; set; }
+        public ProjectManager ProjectManager { get { return _projectManager == null ? _projectManager = new ProjectManager() : _projectManager; } }
+        #endregion
+
+        #region 报销
+        private SheetManager _sheetManager { get; set; }
+        public SheetManager SheetManager { get { return _sheetManager == null ? _sheetManager = new SheetManager() : _sheetManager; } }
         #endregion
     }
 }

@@ -4,20 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
+namespace LoowooTech.Offical.Web.Areas.Admin.Controllers
 {
-    public class EvectionController : ExpenseControllerBase
+    public class TrafficController : AdminControllerBase
     {
-        // GET: Expense/Evection
+        // GET: Admin/Traffic
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Create(int SheetId = 0)
+        public ActionResult Create(int id = 0)
         {
-            var sheet = Core.SheetManager.Get(SheetId);
-            ViewBag.Sheet = sheet;
             return View();
         }
         [HttpPost]
@@ -25,7 +23,5 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         {
             return SuccessJsonResult();
         }
-
-
     }
 }

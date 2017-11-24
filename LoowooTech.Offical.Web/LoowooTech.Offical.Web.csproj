@@ -639,15 +639,19 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CityController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExpenseController.cs" />
     <Compile Include="Areas\Admin\Controllers\FlowController.cs" />
     <Compile Include="Areas\Admin\Controllers\FlowNodeController.cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LWSystemController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProjectTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrafficController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Expense\Controllers\DailyController.cs" />
     <Compile Include="Areas\Expense\Controllers\EvectionController.cs" />
     <Compile Include="Areas\Expense\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Expense\Controllers\UserController.cs" />
     <Compile Include="Areas\Expense\ExpenseAreaRegistration.cs" />
     <Compile Include="Areas\Expense\ExpenseControllerBase.cs" />
     <Compile Include="Areas\Memo\Controllers\HomeController.cs" />
@@ -781,6 +785,9 @@
     <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
     <Content Include="Areas\Expense\Views\Home\Create.cshtml" />
+    <Content Include="Views\Shared\Empty.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\Create.cshtml" />
+    <Content Include="Areas\Expense\Views\User\Select.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -792,8 +799,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Address\Models\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Expense\" />
+    <Folder Include="Areas\Admin\Views\Traffic\" />
     <Folder Include="Areas\Expense\Models\" />
-    <Folder Include="Areas\Expense\Views\Evection\" />
+    <Folder Include="Areas\Expense\Views\Daily\" />
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />
     <Folder Include="Models\" />

@@ -49,9 +49,16 @@
     <Compile Include="EnumHelper.cs" />
     <Compile Include="JsonExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryableExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoowooTech.Models\LoowooTech.Models.csproj">
+      <Project>{F797818E-FF31-49A2-8B1D-E6A778B633CD}</Project>
+      <Name>LoowooTech.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

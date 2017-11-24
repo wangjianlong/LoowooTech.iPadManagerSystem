@@ -3,11 +3,33 @@
     ViewBag.Title = "报销";
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
     List<Company> companys = ViewBag.Companys;
+    List<Project> projects = ViewBag.Projects;
 }
 
 <script>
     $(function () {
         $("#wizard").steps();
+
+        $("#form-sheet").steps({
+            bodyTag: "fieldset",
+            onFinished: function (event, currentIndex) {
+                var form = $(this);
+                form.submit();
+
+            }
+        });
+
+        $(".i-checks").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $(".chosen-select").chosen({ width: "100%" });
+
+        $("#form-sheet").submit(function () {
+            LWSubmit("#form-sheet");
+            return false;
+        });
     });
 </script>
 
@@ -22,20 +44,121 @@
                 请务必确认好报销单位以及报销项目！一旦确认，不能修改只能删除操作！
             </div>
 
-            <div id="wizard">
-                <h1>1、报销单位</h1>
-                <div class="step-content">
-                    <div class="text-center m-t-md">
-                        <h2></h2>
+            <form id="form-sheet" action="/Expense/Home/Save" class="wizard-big widget clearfix" method="post" Url="/Expense/Home/Navigation?id=">
+                <h1>报销基础信息</h1>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label class="control-label">报销单位：</label>
+                                <div class="col-sm-12">
+                                    @foreach(var item in companys)
+                                    {
+                                        <div class="radio-inline i-checks">
+                                            <label>
+                                                <input type="radio" name="CompanyId" value="@(item.ID)" /><i></i>@(item.Name)
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                         
+                            <div class="form-group">
+                                <label class="control-label">报销类型：</label>
+                                <div class="col-sm-12">
+                                    @foreach (SheetType type in Enum.GetValues(typeof(SheetType)))
+                                    {
+                                        <div class="radio-inline i-checks">
+                                            <label>
+                                                <input type="radio" name="SheetType" value="@(type)" /><i></i>@(type.GetDescription())
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="control-label">报销时间：</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="" value="@(DateTime.Now.ToLongDateString())" readonly  class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">报销人：</label>
+                                <div class="col-sm-12">
+                                    <input type="hidden" name="UserId" value="@(Identity.UserId)" />
+                                    <input type="text" name="" value="@(Identity.Name)" readonly class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center">
+                                <div style="margin-top:20px;">
+                                    <i class="fa fa-sign-in" style="font-size:180px;color:#e5e5e5"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <h2>2、选择项目</h2>
-                <div class="step-content">
-                    <div class="text-center m-t-md">
-
+                </fieldset>
+                <h1>关联项目</h1>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="alert alert-warning alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                如当前报销项目未录入系统，在其他输入框中输入项目名称！如需对项目信息进行完善，可进入项目系统进行管理！
+            
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">项目：</label>
+                                <div class="col-sm-12">
+                                    <select data-placeholder="请选择项目" name="ProjectId" class="chosen-select">
+                                        <option value="">请选择项目</option>
+                                        @foreach (var item in projects)
+                                        {
+                                            <option value="@(item.ID)">@(item.Name)</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">其他：</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="ProjectName" class="form-control" placeholder="手动输入项目" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <div style="margin-top:20px;">
+                                    <i class="fa fa-briefcase" style="font-size:180px;color:#e5e5e5"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </fieldset>
+                <h1>其他</h1>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label">备注：</label>
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" rows="3" name="Remark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <div style="margin-top:20px;">
+                                    <i class="fa fa-paper-plane" style="font-size:180px;color:#e5e5e5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
 </div>

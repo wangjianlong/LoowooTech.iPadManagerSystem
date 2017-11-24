@@ -268,6 +268,10 @@ function LWSubmit(form) {
     console.log("url");
     $.request(href, data, function (json) {
         if (json.result == 1) {
+            
+            if (json.data != null) {
+                url = url + json.data;
+            }
             swal({
                 title: "操作成功！",
                 text: "操作成功，点击确定继续！",
