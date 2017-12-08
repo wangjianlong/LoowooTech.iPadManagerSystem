@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "招待报销查看";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Sheet sheet = ViewBag.Sheet;
+}
+
+@section Description{
+    招待报销详情
+}
+
+@section buttonHead{
+    <div class="title-action">
+        <a href="/Expense/Reception/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑招待详情</a>
+        <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-sm-8">
+        @{ 
+            Html.RenderPartial("_showSheet", sheet as object);
+            if (sheet.Reception == null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <p>当前报销单未输入相关报销报销信息，点击右上角“<strong>编辑招待详情</strong>”进行输入！</p>
+                </div>
+            }else
+            {
+                Html.RenderPartial("_DetailReception", sheet.Reception as object);
+            }
+        }
+
+        
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+</div>

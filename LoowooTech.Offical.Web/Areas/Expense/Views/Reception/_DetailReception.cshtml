@@ -1,0 +1,54 @@
+﻿@model Reception
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>招待基础信息</h5>
+    </div>
+    <div class="ibox-content">
+        <dl class="dl-horizontal">
+            <dt>招待时间：</dt>
+            <dd>@(Model.Time.ToLongDateString())</dd>
+            <dt>招待单位：</dt>
+            <dd>
+                @if (Model.Companys != null)
+                {
+                    foreach(var company in Model.Companys)
+                    {
+                        <span class="badge badge-success">@(company.Name)</span>
+                    }
+                }
+            </dd>
+            <dt>招待人数：</dt>
+            <dd>@(Model.Number)</dd>
+            <dt>公司人员：</dt>
+            <dd>
+                @if (Model.Users != null)
+                {
+                    foreach (var user in Model.Users)
+                    {
+                        <span class="badge badge-primary">@(user.Name)</span>
+                    }
+                }
+            </dd>
+            <dt>备注：</dt>
+            <dd>@(Model.Remark)</dd>
+        </dl>
+    </div>
+</div>
+
+
+@if (Model.Items != null)
+{
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>招待分项清单</h5>
+        </div>
+    </div>
+}

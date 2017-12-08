@@ -49,6 +49,11 @@ namespace LoowooTech.Managers.Admin
         {
             return DB.Flows.Where(e => e.Delete == false).OrderBy(e => e.ID).ToList();
         }
+
+        public Flow Get(string name)
+        {
+            return DB.Flows.FirstOrDefault(e => e.Name == name);
+        }
         
     }
 }

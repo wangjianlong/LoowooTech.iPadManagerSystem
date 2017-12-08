@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "报销系统";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
 }
 
 @section Description{
@@ -13,4 +13,61 @@
         <a href="/Expense/Home/Create" class="btn btn-primary"><i class="fa fa-plus-square"></i>报销</a>
     </div>
     }
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>日常报销</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                @{ 
+                    Html.RenderAction("Index", "Daily");
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>出差报销</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                @{ 
+                    Html.RenderAction("Index", "Evection");
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>招待报销</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                @{
+                    Html.RenderAction("Index", "Reception");
+                }
+            </div>
+        </div>
+    </div>
+</div>
 

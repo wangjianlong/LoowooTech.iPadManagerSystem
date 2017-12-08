@@ -15,3 +15,36 @@
     </div>
     }
 
+
+<div class="row">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>日常类别详情</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="dd">
+                <ol class="dd-list">
+                    @foreach(var item in tree)
+                    {
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                @(item.Name)
+                                <div class="btn-group btn-group-xs pull-right">
+                                    <a href="/Admin/Category/Create?categoryId=@(item.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>添加子类型</a>
+                                    <a href="/Admin/Category/Create?id=@(item.ID)" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                                    <a href="/Admin/Category/Delete?id=@(item.ID)" class="btn btn-danger" name="Delete" Url="/Admin/Category/Index"><i class="fa fa-times-circle"></i>删除</a>
+                                </div>
+                            </div>
+                            @if (item.Children != null)
+                            {
+                                Html.RenderPartial("_showCategory", item.Children as object);
+                            }
+                        </li>
+                        
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+

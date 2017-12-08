@@ -648,9 +648,11 @@
     <Compile Include="Areas\Admin\Controllers\ProjectTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrafficController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Expense\Controllers\CityController.cs" />
     <Compile Include="Areas\Expense\Controllers\DailyController.cs" />
     <Compile Include="Areas\Expense\Controllers\EvectionController.cs" />
     <Compile Include="Areas\Expense\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Expense\Controllers\ReceptionController.cs" />
     <Compile Include="Areas\Expense\Controllers\UserController.cs" />
     <Compile Include="Areas\Expense\ExpenseAreaRegistration.cs" />
     <Compile Include="Areas\Expense\ExpenseControllerBase.cs" />
@@ -776,7 +778,7 @@
     <Content Include="Areas\Admin\Views\ProjectType\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProjectType\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ProjectType\_showType.cshtml" />
-    <Content Include="Areas\Project\Views\Home\SelectCity.cshtml" />
+    <Content Include="Views\Shared\SelectCity.cshtml" />
     <Content Include="Areas\Project\Views\Home\SelectProjectType.cshtml" />
     <Content Include="Areas\Admin\Views\Flow\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Flow\Create.cshtml" />
@@ -788,6 +790,26 @@
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Areas\Expense\Views\Evection\Create.cshtml" />
     <Content Include="Areas\Expense\Views\User\Select.cshtml" />
+    <Content Include="Areas\Expense\Views\City\Select.cshtml" />
+    <Content Include="Areas\Expense\Views\Shared\_showSheet.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_CreateEvection.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_CreateErrand.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_CreateTraffic.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\Detail.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_DetailErrand.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_DetailEvection.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\_DetailTraffic.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\_showCategory.cshtml" />
+    <Content Include="Areas\Expense\Views\Daily\Create.cshtml" />
+    <Content Include="Views\Shared\SelectCategory.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\Index.cshtml" />
+    <Content Include="Areas\Expense\Views\Daily\Index.cshtml" />
+    <Content Include="Areas\Expense\Views\Daily\Detail.cshtml" />
+    <Content Include="Areas\Expense\Views\Daily\_DetailDaily.cshtml" />
+    <Content Include="Areas\Expense\Views\Reception\Create.cshtml" />
+    <Content Include="Areas\Expense\Views\Reception\Index.cshtml" />
+    <Content Include="Areas\Expense\Views\Reception\Detail.cshtml" />
+    <Content Include="Areas\Expense\Views\Reception\_DetailReception.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -802,7 +824,6 @@
     <Folder Include="Areas\Admin\Views\Expense\" />
     <Folder Include="Areas\Admin\Views\Traffic\" />
     <Folder Include="Areas\Expense\Models\" />
-    <Folder Include="Areas\Expense\Views\Daily\" />
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />
     <Folder Include="Models\" />

@@ -1,0 +1,24 @@
+﻿@model Category
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+    if (Model.Children == null)
+    {
+        return;
+    }
+
+    int? selected = ViewBag.CategoryId;
+}
+
+@foreach(var item in Model.Children)
+{
+    <option value="@(item.ID)">@(item.Name)-@(Model.PrevName)</option>
+    if (item.Children != null)
+    {
+        item.PrevName = item.Name + "-" + Model.PrevName;
+        Html.RenderPartial("SelectCategory", item as object);
+    }
+}

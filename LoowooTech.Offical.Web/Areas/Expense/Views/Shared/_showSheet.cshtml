@@ -1,0 +1,58 @@
+﻿@model Sheet
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+
+
+}
+
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>报销基础信息</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <dl class="dl-horizontal">
+                    <dt>报销人：</dt>
+                    <dd>@(Model.User.Name)</dd>
+                    <dt>报销单位：</dt>
+                    <dd>@(Model.Company.Name)</dd>
+                    <dt>发票张数：</dt>
+                    <dd>@(Model.Count)</dd>
+                    <dt>报销时间：</dt>
+                    <dd>@(Model.Time.ToLongDateString())</dd>
+                    <dt>报销类型：</dt>
+                    <dd><span class="label label-primary">@(Model.SheetType.GetDescription())</span> </dd>
+                    <dt>备注：</dt>
+                    <dd>@(Model.Remark)</dd>
+                    <dt>相关项目：</dt>
+                    <dd>
+                        <a href="" class="">@(Model.Project.Name)</a>
+                    </dd>
+                    <dt>报销金额:</dt>
+                    <dd>
+                        &yen;@(Model.Money)元
+                    </dd>
+                    <dt>操作：</dt>
+                    <dd>
+                        <a href="/Expense/Home/Create?id=@(Model.ID)" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i>编辑</a>
+                        <a href="/Expense/Home/Delete?id=@(Model.ID)" class="btn btn-xs btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LoowooTech.Common
+namespace LoowooTech.Managers
 {
     public static class QueryableExtensions
     {

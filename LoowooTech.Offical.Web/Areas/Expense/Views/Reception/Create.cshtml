@@ -1,0 +1,275 @@
+﻿
+@{
+    ViewBag.Title = "录入招待报销详情";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Sheet sheet = ViewBag.Sheet;
+    List<Company> projects = ViewBag.Projects;
+}
+<link rel="stylesheet" href="~/Content/css/plugins/datapicker/datepicker3.css" />
+<script src="~/scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<script>
+    function UserOK() {
+        var mans = [];//ID
+        var vv = [];//Name
+        $("input[name='UserId']:checked").each(function () {
+            mans.push($(this).val());
+            vv.push($(this).parent().next().text());
+        });
+
+        $("input[name='Persons']").val(vv.join(','));
+        $("input[name='UserIdValues']").val(mans.join(','));
+
+    }
+
+    $(function () {
+        $(".select2-Company").select2({
+            placeholder: "选择招待单位",
+            allowClear: true
+        });
+
+        $("#date_1 .input-group.date").datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $("form[name='form-Reception']").submit(function () {
+            LWSubmit("form[name='form-Reception']");
+            return false;
+        });
+    });
+</script>
+
+
+
+@section Description{
+    完善招待报销详情！
+}
+
+<form class="form-horizontal" method="post" action="/Expense/Reception/Save" Url="/Expense/Reception/Detail?sheetId=@(sheet.ID)" name="form-Reception" >
+    <input type="hidden" name="SheetId" value="@(sheet.Reception!=null?sheet.Reception.SheetId: sheet.ID)" />
+    <div class="row">
+        <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>招待报销基础信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+               <div class="ibox-content">
+                   <div class="alert alert-warning" role="alert">
+                       <p class="lead">填写说明</p>
+                       <p>1、招待单位是指对方所属哪个项目单位，如多个单位，可以多选；</p>
+                       <p>2、招待人数是指对方来了多少人，不包括公司人员；</p>
+                   </div>
+                   <div class="form-group" id="date_1">
+                       <label class="control-label col-sm-3">招待日期：</label>
+                       <div class="col-sm-8">
+                           <div class="input-group date">
+                               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                               <input type="text" class="form-control" name="Time"placeholder="招待日期" value="@(sheet.Reception!=null?sheet.Reception.Time.ToString("/dd/MM/yyyy"):"")" />
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label col-sm-3">招待单位：</label>
+                       <div class="col-sm-8">
+                           <select class="select2-Company form-control" multiple="multiple" name="CompanyIds">
+                               @foreach(var item in projects)
+                               {
+                                   <option value="@(item.ID)" @(sheet.Reception!=null&&sheet.Reception.CompanyIds.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)</option>
+                               }
+                           </select>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label col-sm-3">招待人数：</label>
+                       <div class="col-sm-8">
+                           <div class="input-group">
+                               <input type="number" name="Number" class="form-control" placeholder="招待人数"  value="@(sheet.Reception!=null?sheet.Reception.Number:0)"/>
+                               <span class="input-group-addon">人</span>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label col-sm-3">公司人员：</label>
+                       <div class="col-sm-8">
+                           <div class="input-group">
+                               <input type="hidden" name="UserIdValues" value="@(sheet.Reception!=null?sheet.Reception.UserIdValues:"")" />
+                               <input type="text" name="Persons" class="form-control" placeholder="公司人员" readonly value="@(sheet.Reception!=null&sheet.Reception.Users!=null?string.Join(",",sheet.Reception.Users.Select(e=>e.Name).ToArray()):"")" />
+                               <div class="input-group-btn">
+                                   <a href="/Expense/User/Select" goal="UserIdValues" action="/Expense/User/Select?" data-toggle="modal" data-target="#Modal" class="btn btn-primary" name="Select2"><i class="fa fa-mouse-pointer"></i></a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label col-sm-3">备注：</label>
+                       <div class="col-sm-8">
+                           <textarea class="form-control" rows="3" name="Remark">@(sheet.Reception!=null?sheet.Reception.Remark:"")</textarea>
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>招待详情</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="alert alert-warning" role="alert">
+                            <p class="lead">填写说明</p>
+                            <p>1、招待内容一般填写：餐费</p>
+                            <p>
+                                2、支付方式：
+                                @foreach(PayWay way in Enum.GetValues(typeof(PayWay)))
+                                {
+                                    <span class="badge badge-primary">@(way.GetDescription())</span>
+                                }
+                            </p>
+                            <p>
+                                3、其中
+                                @foreach(PayWay way in Enum.GetValues(typeof(PayWay)))
+                                {
+                                    if ((int)way > 4)
+                                    {
+                                        <span class="badge badge-danger">@(way.GetDescription())</span>
+                                    }
+                                }
+                                不计报销金额，但是存在该支付方式，务必填写；
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>招待内容</th>
+                                        <th>金额</th>
+                                        <th>支付方式</th>
+                                        <th>备注</th>
+                                        <th>
+                                            <button class="btn btn-xs btn-primary" type="button" name="PlusItem"><i class="fa fa-plus-circle"></i></button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody name="Reception">
+                                    @if (sheet.Reception != null && sheet.Reception.Items != null)
+                                    {
+                                        foreach (var item in sheet.Reception.Items)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="Content" class="form-control" placeholder="招待内容" value="@(item.Content)"/>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">&yen;</span>
+                                                        <input type="text" name="Cost" class="form-control" placeholder="金额" value="@(item.Cost)" />
+                                                        <span class="input-group-addon">元</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" name="Way">
+                                                        @foreach (PayWay way in Enum.GetValues(typeof(PayWay)))
+                                                        {
+                                                            <option value="@(way)" @(item.PayWay==way?"selected=selected":"")>@(way.GetDescription())</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="Memo" class="form-control" placeholder="备注" value="@(item.Memo)" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-danger" name="Remove"><i class="fa fa-times-circle"></i></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                  
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                      
+                        <div class="col-xs-12">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3">合计：</label>
+                                <div class="col-xs-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">&yen;</span>
+                                        <input type="text" name="Fee-Reception" class="form-control" readonly />
+                                        <span class="input-group-addon">元</span>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" name="Reception"><i class="fa fa-calculator"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12 col-sm-12">
+            @{ 
+                Html.RenderPartial("_showSheet", sheet as object);
+            }
+            <div class="hr-line-dashed"></div>
+            <div class="wrapper wrapper-content project-manager">
+                <div class="text-center m-t-md">
+                    <a href="" class="btn btn-primary"><i class="fa fa-arrow-up"></i>提交</a>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="hidden">
+    <table>
+        <tbody id="RE">
+            <tr>
+                <td>
+                    <input type="text" name="Content" class="form-control" placeholder="招待内容" />
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon">&yen;</span>
+                        <input type="text" name="Cost" class="form-control" placeholder="金额" />
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </td>
+                <td>
+                    <select class="form-control" name="Way">
+                        @foreach (PayWay way in Enum.GetValues(typeof(PayWay)))
+                        {
+                            <option value="@(way)">@(way.GetDescription())</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="Memo" class="form-control" placeholder="备注" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-danger" name="Remove"><i class="fa fa-times-circle"></i></button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

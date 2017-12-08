@@ -48,6 +48,20 @@ namespace LoowooTech.Managers
         #region 报销
         private SheetManager _sheetManager { get; set; }
         public SheetManager SheetManager { get { return _sheetManager == null ? _sheetManager = new SheetManager() : _sheetManager; } }
+        private EvectionManager _evectionManager { get; set; }
+        public EvectionManager EvectionManager { get { return _evectionManager == null ? _evectionManager = new EvectionManager() : _evectionManager; } }
+        private TrafficManager _trafficManager { get; set; }
+        public TrafficManager TrafficManager { get { return _trafficManager == null ? _trafficManager = new TrafficManager() : _trafficManager; } }
+        private ErrandManager _errandManager { get; set; }
+        public ErrandManager ErrandManager { get { return _errandManager == null ? _errandManager = new ErrandManager() : _errandManager; } }
+        private DailyManager _dailyManager { get; set; }
+        public DailyManager DailyManager { get { return _dailyManager == null ? _dailyManager = new DailyManager() : _dailyManager; } }
+        private SubstanceManager _substanceManager { get; set; }
+        public SubstanceManager SubstanceManager { get { return _substanceManager == null ? _substanceManager = new SubstanceManager() : _substanceManager; } }
+        private ReceptionManager _receptionManager { get; set; }
+        public ReceptionManager ReceptionManager { get { return _receptionManager == null ? _receptionManager = new ReceptionManager() : _receptionManager; } }
+        private ReceptionItemManager _receptionItemManager { get; set; }
+        public ReceptionItemManager ReceptionItemManager { get { return _receptionItemManager == null ? _receptionItemManager = new ReceptionItemManager() : _receptionItemManager; } }
         #endregion
     }
 }

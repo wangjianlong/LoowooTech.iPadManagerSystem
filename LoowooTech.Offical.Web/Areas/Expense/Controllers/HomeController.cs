@@ -15,8 +15,9 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int id=0)
         {
+            ViewBag.Sheet = Core.SheetManager.GetSingle(id);
             var companys = Core.CompanyManager.GetList();
             ViewBag.Companys = companys;
             ViewBag.Projects = Core.ProjectManager.Search(new Models.Project.ProjectParameter { IsDone = false, Delete = false });
@@ -91,6 +92,8 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                         return Redirect("/Expense/Evection/Create?sheetId=" + id);
                     case SheetType.Daily:
                         return Redirect("/Expense/Daily/Create?sheetId=" + id);
+                    case SheetType.Reception:
+                        return Redirect("/Expense/Reception/Create?sheetId=" + id);
                 }
             }
             return View("Empty");

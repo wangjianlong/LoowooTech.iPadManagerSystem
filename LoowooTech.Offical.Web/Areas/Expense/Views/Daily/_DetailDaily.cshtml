@@ -1,0 +1,45 @@
+﻿@model Daily
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>日常报销详情</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>类别</th>
+                            <th>金额</th>
+                            <th>详情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Substances != null)
+                        {
+                            foreach(var item in Model.Substances)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge badge-primary">@(item.Category.LongName)</span>
+                                    </td>
+                                    <td>&yen;@(item.Cost)元</td>
+                                    <td>@(item.Content)</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

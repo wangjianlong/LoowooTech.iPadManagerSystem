@@ -10,15 +10,15 @@
     {
         return;
     }
+    int[] selected = ViewBag.CityIds;
 }
 
 @foreach(var item in Model.Children)
 {
-    <option value="@(item.ID)">@(item.Name)-@(Model.ParentName)</option>
+    <option value="@(item.ID)" @(selected!=null&&selected.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)-@(Model.ParentName)</option>
     if (item.Children != null)
     {
         item.ParentName = item.Name + "-" + Model.ParentName;
-        //item.ParentName = Model.ParentName + "-" + item.Name;
         Html.RenderPartial("SelectCity", item as object);
     }
 }

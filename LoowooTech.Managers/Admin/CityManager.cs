@@ -44,7 +44,22 @@ namespace LoowooTech.Managers.Admin
 
         public City Get(int id)
         {
-            return DB.Citys.Find(id);
+            var city= DB.Citys.Find(id);
+            if (city != null && city.ParentId.HasValue)
+            {
+                city.Parent = Get(city.ParentId.Value);
+            }
+            return city;
+        }
+        public List<City> GetList(int[] Ids)
+        {
+            var list = new List<City>();
+            foreach(var id in Ids)
+            {
+                var model = Get(id);
+                list.Add(Get(id));
+            }
+            return list;
         }
 
         /// <summary>

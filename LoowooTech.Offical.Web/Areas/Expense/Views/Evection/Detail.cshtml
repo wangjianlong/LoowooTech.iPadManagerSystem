@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "出差报销查看";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Sheet sheet = ViewBag.Sheet;
+}
+
+@section Description{
+    出差报销详情
+    }
+
+@section buttonHead{
+    <div class="title-action">
+        <a href="/Expense/Evection/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑出差详情</a>
+        <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+    </div>
+    }
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-8">
+            @{
+                Html.RenderPartial("_showSheet", sheet as object);
+            }
+
+            @if (sheet.Evection == null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <p>当前报销单未输入相关出差报销信息，点击右上角“<strong>编辑出差详情</strong>”进行输入！</p>
+                </div>
+            }
+            else
+            {
+                Html.RenderPartial("_DetailEvection", sheet.Evection as Evection);
+            }
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

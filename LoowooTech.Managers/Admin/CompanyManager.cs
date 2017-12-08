@@ -52,5 +52,19 @@ namespace LoowooTech.Managers.Admin
         {
             return DB.Companys.Where(e => e.Delete == false && e.IsProject == true).OrderBy(e => e.ID).ToList();
         }
+
+        public List<Company> Get(int[] Ids)
+        {
+            var list = new List<Company>();
+            foreach(var id in Ids)
+            {
+                var model = Get(id);
+                if (model != null)
+                {
+                    list.Add(model);
+                }
+            }
+            return list;
+        }
     }
 }

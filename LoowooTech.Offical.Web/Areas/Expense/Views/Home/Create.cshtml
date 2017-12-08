@@ -4,6 +4,7 @@
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
     List<Company> companys = ViewBag.Companys;
     List<Project> projects = ViewBag.Projects;
+    Sheet sheet = ViewBag.Sheet;
 }
 
 <script>
@@ -39,9 +40,9 @@
             <h5>报销基础信息填报</h5>
         </div>
         <div class="ibox-content">
-            <div class="alert alert-danger alert-dismissable">
+            <div class="alert alert-warning alert-dismissable">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                请务必确认好报销单位以及报销项目！一旦确认，不能修改只能删除操作！
+                当前为报销第一步，确认本次报销的基础信息！根据报销类型，进行第二步填写操作！
             </div>
 
             <form id="form-sheet" action="/Expense/Home/Save" class="wizard-big widget clearfix" method="post" Url="/Expense/Home/Navigation?id=">
@@ -56,13 +57,18 @@
                                     {
                                         <div class="radio-inline i-checks">
                                             <label>
-                                                <input type="radio" name="CompanyId" value="@(item.ID)" /><i></i>@(item.Name)
+                                                <input type="radio" name="CompanyId" value="@(item.ID)" @(sheet!=null&&sheet.CompanyId==item.ID?"checked=checked":"") /><i></i>@(item.Name)
                                             </label>
                                         </div>
                                     }
                                 </div>
                             </div>
-                         
+                         <div class="form-group">
+                             <label class="control-label">发票张数：</label>
+                             <div class="col-sm-12">
+                                 <input type="number" name="Count" class="form-control" placeholder="发票张数" value="@(sheet!=null?sheet.Count:0)" />
+                             </div>
+                         </div>
                             <div class="form-group">
                                 <label class="control-label">报销类型：</label>
                                 <div class="col-sm-12">
@@ -70,26 +76,14 @@
                                     {
                                         <div class="radio-inline i-checks">
                                             <label>
-                                                <input type="radio" name="SheetType" value="@(type)" /><i></i>@(type.GetDescription())
+                                                <input type="radio" name="SheetType" value="@(type)" @(sheet!=null&&sheet.SheetType==type?"checked=checked":"") /><i></i>@(type.GetDescription())
                                             </label>
                                         </div>
                                     }
                                 </div>
                             </div>
                            
-                            <div class="form-group">
-                                <label class="control-label">报销时间：</label>
-                                <div class="col-sm-12">
-                                    <input type="text" name="" value="@(DateTime.Now.ToLongDateString())" readonly  class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">报销人：</label>
-                                <div class="col-sm-12">
-                                    <input type="hidden" name="UserId" value="@(Identity.UserId)" />
-                                    <input type="text" name="" value="@(Identity.Name)" readonly class="form-control" />
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="col-lg-4">
                             <div class="text-center">
@@ -106,17 +100,19 @@
                         <div class="col-sm-8">
                             <div class="alert alert-warning alert-dismissable">
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                如当前报销项目未录入系统，在其他输入框中输入项目名称！如需对项目信息进行完善，可进入项目系统进行管理！
-            
+                                <p class="lead">填写说明</p>
+                                <p>1、 如当前报销项目未录入系统，在其他输入框中输入项目名称！如需对项目信息进行完善，可进入项目系统进行管理！</p>
+                                <p>2、如本次报销参与多个项目，以主要项目作为报销项目；</p>
+                               
                             </div>
                             <div class="form-group">
                                 <label class="control-label">项目：</label>
                                 <div class="col-sm-12">
                                     <select data-placeholder="请选择项目" name="ProjectId" class="chosen-select">
-                                        <option value="">请选择项目</option>
+                                        <option value="" @(sheet==null?"selected=selected":"")>请选择项目</option>
                                         @foreach (var item in projects)
                                         {
-                                            <option value="@(item.ID)">@(item.Name)</option>
+                                            <option value="@(item.ID)" @(sheet!=null&&sheet.ProjectId==item.ID?"slected=selected":"")>@(item.Name)</option>
                                         }
                                     </select>
                                 </div>
@@ -144,7 +140,20 @@
                             <div class="form-group">
                                 <label class="control-label">备注：</label>
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" rows="3" name="Remark"></textarea>
+                                    <textarea class="form-control" rows="3" name="Remark">@(sheet==null?"":sheet.Remark)</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">报销时间：</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="Time" value="@(sheet==null? DateTime.Now.ToLongDateString():sheet.Time.ToLongDateString())" readonly class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">报销人：</label>
+                                <div class="col-sm-12">
+                                    <input type="hidden" name="UserId" value="@(sheet==null?Identity.UserId:sheet.UserId)" />
+                                    <input type="text" name="" value="@(sheet==null?Identity.Name:sheet.User.Name)" readonly class="form-control" />
                                 </div>
                             </div>
                         </div>

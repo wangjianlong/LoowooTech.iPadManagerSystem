@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "录入日常详情";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Sheet sheet = ViewBag.Sheet;
+    List<Category> tree = ViewBag.Category;
+}
+
+<script>
+    $(function () {
+        $(".chosen-select").chosen({ width: "100%" });
+
+        $("form[name='form-daily']").submit(function () {
+            LWSubmit("form[name='form-daily']");
+            return false;
+        });
+    });
+</script>
+
+<form class="form-horizontal" method="post" action="/Expense/Daily/Save" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="form-daily">
+    <input class="hidden" name="ID" value="@(sheet.Daily==null?0:sheet.Daily.ID)" />
+    <input class="hidden" name="SheetId" value="@(sheet.Daily==null?sheet.ID:sheet.Daily.SheetId)" />
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <input type="hidden" name="SheetId" value="@(sheet.ID)" />
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>日常报销详情</h5>
+                    <div class="ibox-tools">
+                        <button type="button" class="btn btn-xs btn-primary" name="PlusCategory"><i class="fa fa-plus-square"></i></button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-xs-3">类别</th>
+                                        <th class="col-xs-3">金额</th>
+                                        <th>详情</th>
+                                        <th class="col-xs-1">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody name="Category">
+                                    @if (sheet.Daily != null && sheet.Daily.Substances != null)
+                                    {
+                                        foreach (var sub in sheet.Daily.Substances)
+                                        {
+                                            ViewBag.CategoryId = sub.CategoryId;
+                                            <tr>
+                                                <td>
+                                                    <select name="CategoryId" class="form-control chosen-select" data-placeholder="请选择">
+                                                        <option value="">请选择</option>
+                                                        @foreach (var item in tree)
+                                                        {
+                                                            
+                                                            <option value="@(item.ID)" @(sub.CategoryId==item.ID?"selected=selected":"")>@(item.Name)</option>
+                                                            if (item.Children != null)
+                                                            {
+                                                                item.PrevName = item.Name;
+                                                                Html.RenderPartial("SelectCategory", item as object);
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">&yen;</span>
+                                                        <input type="text" name="Cost" class="form-control" placeholder="金额" value="@(sub.Cost)" />
+                                                        <span class="input-group-addon">元</span>
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="Content" class="form-control" placeholder="详情" style="width:100%;" value="@(sub.Content)" />
+                                                </td>
+
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-xs" name="Remove"><i class="fa fa-times"></i></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">合计金额：</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="text" name="Fee-Category" class="form-control" placeholder="合计金额" readonly />
+                                        <span class="input-group-addon">元</span>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" name="Daily"><i class="fa fa-calculator"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            @{
+                Html.RenderPartial("_showSheet", sheet as object);
+            }
+            <div class="hr-line-dashed"></div>
+            <div class="wrapper wrapper-content project-manager">
+                <div class="text-center m-t-md">
+                    <a href="" class="btn btn-primary"><i class="fa fa-arrow-up"></i>提交</a>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="hidden">
+    <table>
+        <tbody id="Cate">
+            <tr>
+                <td>
+                    <select name="CategoryId" class="form-control chosen-select" data-placeholder="请选择">
+                        <option value="">请选择</option>
+                        @foreach (var item in tree)
+                        {
+                            <option value="@(item.ID)">@(item.Name)</option>
+                            if (item.Children != null)
+                            {
+                                item.PrevName = item.Name;
+                                Html.RenderPartial("SelectCategory", item as object);
+                            }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon">&yen;</span>
+                        <input type="text" name="Cost" class="form-control" placeholder="金额" />
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </td>
+                <td>
+                    <input type="text" name="Content" class="form-control" placeholder="详情" style="width:100%;" />
+                </td>
+             
+                <td>
+                    <button type="button" class="btn btn-danger btn-xs" name="Remove"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+

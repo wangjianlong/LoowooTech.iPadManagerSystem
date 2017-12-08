@@ -26,13 +26,19 @@ namespace LoowooTech.Managers
         public DbSet<Contact> Contacts { get; set; }//联系人
         #endregion
 
+        #region 流程
+        public DbSet<Flow> Flows { get; set; }//流程
+        public DbSet<FlowNode> FlowNodes { get; set; }//流程节点
+        public DbSet<FlowNodeData> FlowNodeDatas { get; set; }//实际流程记录信息
+        public DbSet<FlowData> FlowDatas { get; set; }
+
+        #endregion
+
         #region  管理员
         public DbSet<Group> Groups { get; set; }//
         public DbSet<City> Citys { get; set; }//城市
         public DbSet<Company> Companys { get; set; }//单位  公司
         public DbSet<ProjectType> ProjectTypes { get; set; }//项目类型
-        public DbSet<Flow> Flows { get; set; }//流程
-        public DbSet<FlowNode> FlowNodes { get; set; }//流程节点
         public DbSet<Category> Categorys { get; set; }//种类
 
 
@@ -45,6 +51,13 @@ namespace LoowooTech.Managers
 
         #region  报销
         public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<Evection> Evections { get; set; }
+        public DbSet<Errand> Errands { get; set; }
+        public DbSet<Traffic> Traffics { get; set; }
+        public DbSet<Daily> Dailys { get; set; }
+        public DbSet<Substance> Substances { get; set; }
+        public DbSet<Reception> Receptions { get; set; }
+        public DbSet<ReceptionItem> ReceptionItems { get; set; }
         #endregion
     }
 }

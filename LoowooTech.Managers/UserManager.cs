@@ -25,6 +25,19 @@ namespace LoowooTech.Managers
         {
             return DB.Users.Find(id);
         }
+        public List<User> Get(int[] Ids)
+        {
+            var list = new List<User>();
+            foreach(var id in Ids)
+            {
+                var model = Get(id);
+                if (model != null)
+                {
+                    list.Add(model);
+                }
+            }
+            return list;
+        }
 
         public List<User> GetList()
         {

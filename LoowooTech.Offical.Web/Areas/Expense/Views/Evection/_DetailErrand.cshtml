@@ -1,0 +1,27 @@
+﻿@model List<Errand>
+
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>出差人员详情</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <dl class="dl-horizontal">
+                    @foreach (var item in Model)
+                    {
+                        <dt>@(item.User.Name):</dt>
+                        <dd>@(item.Description)</dd>
+                    }
+                </dl>
+                <div class="hr-line-dashed"></div>
+                <dl class="dl-horizontal">
+                    <dt>合计金额：</dt>
+                    <dd>&yen;@(Model.Sum(e=>e.Fee))元</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+

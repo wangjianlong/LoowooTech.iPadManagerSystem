@@ -22,28 +22,7 @@
         });
 
         $("button[name='OK']").click(function () {
-            var mans = [];
-            var vv = [];
-            $("input[name='UserId']:checked").each(function () {
-                mans.push($(this).val());
-                vv.push($(this).parent().next().text());
-            });
-
-          
-            var node = $("#Time");
-            node.empty();
-            var mode = $("#U").html();
-            $.each(vv, function (i, value) {
-                var appendHtml = mode.replace("{Name}", value).replace("{UserId}",mans[i]);
-                node.append(appendHtml);
-            });
-            $(".input-daterange").datepicker({
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
-            $("input[name='Persons']").val(vv.join(';'));
+            UserOK();
         });
     });
 </script>
@@ -54,10 +33,10 @@
             <label class="control-label col-sm-3">{Name}:</label>
             <div class="col-sm-8">
                 <input type="hidden" name="UserId" value="{UserId}" />
-                <div class="input-daterange input-group input-group-sm">
-                    <input type="text" name="start" class="form-control" placeholder="出差起始时间" />
+                <div class="input-daterange input-group">
+                    <input type="text" name="startTime" class="form-control" placeholder="出差起始时间" />
                     <span class="input-group-addon">-</span>
-                    <input type="text" name="end" class="form-control" placeholder="出差结束时间" />
+                    <input type="text" name="endTime" class="form-control" placeholder="出差结束时间" />
                 </div>
             </div>
            
@@ -72,27 +51,6 @@
 </div>
 
 <div class="modal-body">
-    @*<div class="slick-user">
-        @foreach(var item in list)
-        {
-            <div>
-                <div class="ibox-content">
-                    <h2>@(item.Name)</h2>
-                    <p>
-                        @if (item.Users != null)
-                        {
-                            foreach (var user in item.Users)
-                            {
-                                <label class="checkbox-inline i-checks">
-                                    <input type="checkbox" value="@(user.ID)" />@(user.Name)
-                                </label>
-                            }
-                        }
-                    </p>
-                </div>
-            </div>
-        }
-    </div>*@
 
     @foreach(var item in list)
     {

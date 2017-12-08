@@ -1,0 +1,26 @@
+﻿@model List<Category>
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+<ol class="dd-list">
+    @foreach(var item in Model)
+    {
+        <li class="dd-item">
+            <div class="dd-handle">
+                @(item.Name)
+                <div class="btn-group btn-group-xs pull-right">
+
+                </div>
+            </div>
+            @if (item.Children != null)
+            {
+                Html.RenderPartial("_showCategory", item.Children as object);
+            }
+        </li>
+    }
+</ol>

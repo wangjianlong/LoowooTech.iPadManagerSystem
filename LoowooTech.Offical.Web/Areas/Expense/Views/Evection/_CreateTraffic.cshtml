@@ -1,0 +1,149 @@
+﻿@model List<Traffic>
+
+@{ 
+    var company = Model == null ? null : Model.FirstOrDefault(e => e.Vehicles == Vehicles.Company);
+    var personal = Model == null ? null : Model.FirstOrDefault(e => e.Vehicles == Vehicles.Personal);
+}
+
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>交通费详情</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-warning" role="alert">
+                    <span><strong>互联网用车(企业支付)</strong>:不计入交通费合计！但是存在互联网企业支付，请务必填写！ </span>
+                </div>
+
+                @foreach (Vehicles item in Enum.GetValues(typeof(Vehicles)))
+                {
+                    if ((int)item < 50)
+                    {
+                        var entry = Model == null ? null : Model.FirstOrDefault(e => e.Vehicles == item);
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 checkbox i-checks">
+                                <input type="checkbox" name="Vehicles" value="@(item)" @(entry==null?"":"checked=checked") />@(item.GetDescription())
+                            </label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="Cost" class="form-control" placeholder="金额"  value="@(entry==null?0:entry.Cost)"/>
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+                <div class="hr-line-dashed"></div>
+                <div class="alert alert-warning" role="alert">
+                    <p><strong>公司车金额计算公式</strong>: 车补费+过路费+油费;<strong>车补费</strong>：公里数*0.5</p>
+                    <p><strong>自备车金额计算公式</strong>: 车补费;<strong>车补费</strong>：公里数*1.5</p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3 checkbox i-checks">
+                        <input type="checkbox" name="Vehicles" value="@(Vehicles.Company)" @(company == null ? "" : "checked=checked") />@(Vehicles.Company.GetDescription())
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="input-group m-b">
+                            <input type="text" name="Cost" class="form-control" placeholder="金额" value="@(company==null?0:company.Cost)" readonly />
+                            <span class="input-group-addon">元</span>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary" name="Company"><i class="fa fa-calculator"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">里程:</span>
+                            <input type="text" name="KiloMeter" class="form-control" placeholder="公里数" value="@(company==null?0:company.KiloMeter)" />
+                            <span class="input-group-addon">公里</span>
+                            <span class="input-group-addon">车补：</span>
+                            <input type="text" name="CarPetty" class="form-control" placeholder="车补" value="@(company==null?0:company.CarPetty)" readonly />
+                            <span class="input-group-addon">元</span>
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">车牌：</span>
+                            <input type="text" name="Plate" class="form-control" placeholder="车牌" value="@(company==null?"":company.Plate)" />
+                            <span class="input-group-addon">司机：</span>
+                            <input type="text" name="Driver" class="form-control" placeholder="司机" value="@(company==null?"":company.Driver)" />
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">油费：</span>
+                            <input type="text" name="Petrol" class="form-control" placeholder="油费" value="@(company==null?0:company.Petrol)" />
+                            <span class="input-group-addon">元</span>
+                            <span class="input-group-addon">过路费:</span>
+                            <input type="text" name="Toll" class="form-control" placeholder="过路费" value="@(company==null?0:company.Toll)" />
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3 checkbox i-checks">
+                        <input type="checkbox" name="Vehicles" value="@(Vehicles.Personal)" />@(Vehicles.Personal.GetDescription())
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="input-group m-b">
+                            <input type="text" name="Cost" class="form-control" placeholder="金额" value="@(personal==null?0:personal.Cost)" readonly />
+                            <span class="input-group-addon">元</span>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary" name="Personal"><i class="fa fa-calculator"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">里程:</span>
+                            <input type="text" name="KiloMeter" class="form-control" placeholder="公里数" value="@(personal==null?0:personal.KiloMeter)" />
+                            <span class="input-group-addon">公里</span>
+                            <span class="input-group-addon">车补：</span>
+                            <input type="text" name="CarPetty" class="form-control" placeholder="车补" value="@(personal==null?0:personal.CarPetty)" readonly />
+                            <span class="input-group-addon">元</span>
+
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">车牌：</span>
+                            <input type="text" name="Plate" class="form-control" placeholder="车牌" value="@(personal==null?"":personal.Plate)" />
+                            <span class="input-group-addon">司机：</span>
+                            <input type="text" name="Driver" class="form-control" placeholder="司机" value="@(personal==null?"":personal.Driver)" />
+                        </div>
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">油费：</span>
+                            <input type="text" name="Petrol" class="form-control" placeholder="油费" value="@(personal==null?0:personal.Petrol)" />
+                            <span class="input-group-addon">元</span>
+                            <span class="input-group-addon">过路费:</span>
+                            <input type="text" name="Toll" class="form-control" placeholder="过路费" value="@(personal==null?0:personal.Toll)" />
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="col-sm-12">
+        
+            </div>
+            <div class="col-sm-12">
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">交通费合计：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" name="TrafficSum" class="form-control" placeholder="交通费合计" readonly />
+                            <span class="input-group-addon">元</span>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary" name="Traffic"><i class="fa fa-calculator"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

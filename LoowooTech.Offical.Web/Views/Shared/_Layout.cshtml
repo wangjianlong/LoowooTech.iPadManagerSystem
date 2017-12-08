@@ -55,10 +55,6 @@
     </style>
     <script>
         $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
 
             $("#Modal").on("hidden.bs.modal", function () {
                 $(this).removeData("bs.modal");
@@ -97,47 +93,15 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label"></span>欢迎页</a>
+                        <a href="/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">欢迎页</span></a>
                     </li>
                     <li>
-                        <a href="/Memo/Home/Index"><i class="fa fa-pencil"></i><span class="nav-label"></span> 便签</a>
+                        <a href="/Memo/Home/Index"><i class="fa fa-pencil"></i><span class="nav-label">便签</span> </a>
                     </li>
                     <li>
-                        <a href="/Address/Home/Index"><i class="fa fa-address-book"></i><span class="nav-label"></span>通讯录</a>
+                        <a href="/Address/Home/Index"><i class="fa fa-address-book"></i><span class="nav-label">通讯录</span></a>
                     </li>
                     @RenderSection("navigation",false)
-                   
-                    <li>
-                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="graph_flot.html">Flot Charts</a></li>
-                            <li><a href="graph_morris.html">Morris.js Charts</a></li>
-                            <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
-                            <li><a href="graph_chartjs.html">Chart.js</a></li>
-                            <li><a href="graph_chartist.html">Chartist</a></li>
-                            <li><a href="c3.html">c3 charts</a></li>
-                            <li><a href="graph_peity.html">Peity Charts</a></li>
-                            <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span class="label label-warning pull-right">16/24</span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="mailbox.html">Inbox</a></li>
-                            <li><a href="mail_detail.html">Email view</a></li>
-                            <li><a href="mail_compose.html">Compose email</a></li>
-                            <li><a href="email_template.html">Email templates</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span>  </a>
-                    </li>
-                    <li>
-                        <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Widgets</span></a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -149,7 +113,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to Hangzhou Loowoo Tech Co.Ltd </span>
+                            <span class="m-r-sm text-muted welcome-message">Welcome to Hangzhou Loowoo Tech Co.,Ltd. </span>
                         </li>
                         <li>
                             <a href="/Feed/Index"><i class="fa fa-envelope"></i></a>

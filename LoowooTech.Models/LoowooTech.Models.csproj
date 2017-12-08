@@ -48,13 +48,21 @@
     <Compile Include="Admin\City.cs" />
     <Compile Include="Admin\Company.cs" />
     <Compile Include="Admin\Flow.cs" />
+    <Compile Include="Admin\FlowData.cs" />
     <Compile Include="Admin\FlowNode.cs" />
+    <Compile Include="Admin\FlowNodeData.cs" />
     <Compile Include="Admin\ProjectType.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Evaluate.cs" />
     <Compile Include="Expense\BillNumber.cs" />
     <Compile Include="Expense\Category.cs" />
+    <Compile Include="Expense\Daily.cs" />
+    <Compile Include="Expense\Errand.cs" />
+    <Compile Include="Expense\Evection.cs" />
+    <Compile Include="Expense\Reception.cs" />
     <Compile Include="Expense\Sheet.cs" />
+    <Compile Include="Expense\SheetParameter.cs" />
+    <Compile Include="Expense\Substance.cs" />
     <Compile Include="Expense\Traffic.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="LWSystem.cs" />
@@ -73,6 +81,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">
+      <Project>{ab103882-ad22-452a-a35e-9d5048b6b0c4}</Project>
+      <Name>LoowooTech.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

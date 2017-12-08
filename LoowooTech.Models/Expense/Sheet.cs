@@ -17,7 +17,13 @@ namespace LoowooTech.Models.Expense
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
-        public double Money { get; set; }
+        /// <summary>
+        /// 发票张数
+        /// </summary>
+        public int Count { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Remark { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
@@ -26,6 +32,30 @@ namespace LoowooTech.Models.Expense
         public SheetType SheetType { get; set; }
         public int ProjectId { get; set; }
         public virtual Project.Project Project { get; set; }
+        [NotMapped]
+        public Evection Evection { get; set; }
+        [NotMapped]
+        public Daily Daily { get; set; }
+        [NotMapped]
+        public Reception Reception { get; set; }
+        [NotMapped]
+        public double Money
+        {
+            get
+            {
+                switch (SheetType)
+                {
+                    case SheetType.Daily:
+                        return Daily.Sum;
+                    case SheetType.Evection:
+                        return Evection.Sum;
+                    case SheetType.Reception:
+                        break;
+                }
+
+                return .0;
+            }
+        }
         public bool Delete { get; set; }
     }
 

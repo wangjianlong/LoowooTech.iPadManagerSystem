@@ -1,0 +1,55 @@
+﻿@model Evection
+
+@{ 
+    if (Model == null)
+    {
+        return;
+    }
+}
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>出差基础详情</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <dl class="dl-horizontal">
+                    <dt>出差城市：</dt>
+                    <dd>
+                        @if (Model.Citys != null)
+                        {
+                            foreach(var city in Model.Citys)
+                            {
+                                <span class="badge badge-info">@(city.LongName)</span>
+                            }
+                        }
+                    </dd>
+                    <dt>住宿/房费：</dt>
+                    <dd>&yen;@(Model.Hotel)元</dd>
+                    <dt>其他内容：</dt>
+                    <dd>@(Model.Other)</dd>
+                    <dt>其他费用：</dt>
+                    <dd>&yen;@(Model.Fee)元</dd>
+                </dl>
+                <div class="hr-line-dashed"></div>
+                <dl class="dl-horizontal">
+                    <dt>合计金额：</dt>
+                    <dd>&yen; @(Model.Fee+Model.Hotel)元</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (Model.Traffics != null)
+    {
+        Html.RenderPartial("_DetailTraffic", Model.Traffics as object);
+    }
+
+    if (Model.Errands != null)
+    {
+        Html.RenderPartial("_DetailErrand", Model.Errands as object);
+    }
+}
