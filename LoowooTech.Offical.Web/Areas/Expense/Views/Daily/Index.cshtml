@@ -10,7 +10,7 @@
             <th>报销单位</th>
             <th>填报时间</th>
             <th>发票张数</th>
-            <th>报销金额</th>
+            <th>报销金额【元】</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,9 @@
                 </td>
                 <td>@(item.Time.ToLongDateString())</td>
                 <td>@(item.Count)</td>
-                <td></td>
+                <td>
+                    <span class="badge badge-primary">@(item.Money)</span> 
+                </td>
             </tr>
         }
     </tbody>

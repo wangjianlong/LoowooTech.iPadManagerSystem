@@ -37,6 +37,10 @@ namespace LoowooTech.Managers
         public FlowNodeManager FlowNodeManager { get { return _flowNodeManager == null ? _flowNodeManager = new FlowNodeManager() : _flowNodeManager; } }
         private CategoryManager _categoryManager { get; set; }//种类
         public CategoryManager CategoryManager { get { return _categoryManager == null ? _categoryManager = new CategoryManager() : _categoryManager; } }
+        private FlowDataManager _flowDataManager { get; set; }
+        public FlowDataManager FlowDataManager { get { return _flowDataManager == null ? _flowDataManager = new FlowDataManager() : _flowDataManager; } }
+        private FlowNodeDataManager _flowNodeDataManager { get; set; }
+        public FlowNodeDataManager FlowNodeDataManager { get { return _flowNodeDataManager == null ? _flowNodeDataManager = new FlowNodeDataManager() : _flowNodeDataManager; } }
 
         #endregion
 

@@ -50,5 +50,30 @@
         <div class="ibox-title">
             <h5>招待分项清单</h5>
         </div>
+        <div class="ibox-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>内容</th>
+                        <th>金额</th>
+                        <th>支付方式</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@(item.Content)</td>
+                            <td>&yen;@(item.Cost)元</td>
+                            <td>
+                                <span class="badge @((int)item.PayWay>=20?"badge-warning":"badge-primary")  ">@(item.PayWay.GetDescription())</span> 
+                            </td>
+                            <td>@(item.Memo)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 }

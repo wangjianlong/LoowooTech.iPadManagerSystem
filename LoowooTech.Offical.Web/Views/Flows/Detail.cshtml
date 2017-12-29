@@ -1,0 +1,43 @@
+﻿@{
+    FlowData data = ViewBag.Data;
+}
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>审批流程信息</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        @if (data.NodeDatas != null && data.NodeDatas.Count > 0)
+        {
+            <div class="vertical-container dark-timeline center-orientation">
+                @foreach (var node in data.NodeDatas)
+                {
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg">
+                            <i class="fa fa-comments"></i>
+                        </div>
+                        <div class="vertical-timeline-content">
+                            <h2>@(node.FlowNode.Name)</h2>
+                            <p>@(node.Content)</p>
+                            <span class="vertical-date">@(node.Time.ToLongDateString())</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                <span>当前无审批信息</span>
+            </div>
+        }
+        <div class="hr-line-dashed"></div>
+
+        
+    </div>
+</div>

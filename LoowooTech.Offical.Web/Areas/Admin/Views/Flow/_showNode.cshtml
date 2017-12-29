@@ -9,7 +9,16 @@
 
 <li class="dd-item">
     <div class="dd-handle">
-        <span class="badge badge-primary">@(Model.Name) </span>审核人：<span class="badge badge-info">@(Model.User.Name)</span>  备注：@(Model.Remark)
+        <span class="badge badge-primary">@(Model.Name) </span>
+        审核人：
+        @if (Model.Users != null)
+        {
+            foreach (var user in Model.Users)
+            {
+                <span class="badge badge-info">@(user.Name)</span>
+            }
+        }
+         备注：@(Model.Remark)
         <div class="pull-right">
             <a href="/Admin/FlowNode/Prev?id=@(Model.ID)" class="btn btn-xs btn-default" name="Move" Url="/Admin/Flow/Index"><i class="fa fa-arrow-up"></i></a>
             <a href="/Admin/FlowNode/Later?id=@(Model.ID)" class="btn btn-xs btn-default" name="Move" Url="/Admin/Flow/Index"><i class="fa fa-arrow-down"></i></a>

@@ -20,6 +20,10 @@ namespace LoowooTech.Managers
             password = password.MD5();
             return DB.Users.FirstOrDefault(e => e.LoginName.ToLower() == loginName.ToLower() && e.Password.ToLower() == password.ToLower());
         }
+        public User Get(string loginName)
+        {
+            return DB.Users.FirstOrDefault(e => e.LoginName.ToLower() == loginName.ToLower());
+        }
 
         public User Get(int id)
         {
@@ -73,6 +77,18 @@ namespace LoowooTech.Managers
             }
             user.Password = model.Password;//密码不做修改操作！
             DB.Entry(model).CurrentValues.SetValues(user);
+            DB.SaveChanges();
+            return true;
+        }
+
+        public bool Password(int id,string newPassword)
+        {
+            var user = DB.Users.Find(id);
+            if (user == null)
+            {
+                return false;
+            }
+            user.Password = newPassword.MD5();
             DB.SaveChanges();
             return true;
         }

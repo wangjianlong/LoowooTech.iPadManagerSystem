@@ -8,7 +8,7 @@
 
 <script>
     $(function () {
-
+        //$(".select2-user").select2();
 
         $(".chosen-select").chosen({ width: "100%" });
 
@@ -31,7 +31,7 @@
             <label class="control-label col-sm-3">所属流程：</label>
             <div class="col-sm-7">
                 <input type="hidden" name="FlowId" value="@(flow==null?0:flow.ID)" />
-                <input type="hidden" name="PrevId" value="@(last==null?0:last.ID)" />
+                <input type="hidden" name="PrevId" value="@(node==null?(last==null?0:last.ID):node.PrevId)" />
                 <input type="text" class="form-control" value="@(flow==null?"":flow.Name)"  readonly/>
             </div>
         </div>
@@ -39,8 +39,7 @@
         {
             <div class="form-group">
                 <label class="control-label col-sm-3">上一节点：</label>
-                <div class="col-sm-7">
-                    
+                <div class="col-sm-7"> 
                     <input type="text" class="form-control" readonly value="@(last.Name)" />
                 </div>
             </div>
@@ -50,20 +49,22 @@
             <label class="control-label col-sm-3">节点名称：</label>
             <div class="col-sm-7">
                 <input type="hidden" name="ID" value="@(node==null?0:node.ID)" />
-                <input type="hidden" name="PrevId" value="@(node==null?0:node.PrevId)" />
+      
                 <input type="text" name="Name" class="form-control" placeholder="节点名称" required  value="@(node==null?"":node.Name)"/>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">节点审核人：</label>
             <div class="col-sm-7">
-                <select name="UserId" class="chosen-select" data-placeholder="请选择审核人">
-                    <option value="" @(node==null?"selected=selected":"")>请选择</option>
+                <select class="chosen-select form-control" multiple name="UserIds" data-placeholder="请选择审核人员">
                     @foreach(var item in users)
                     {
-                        <option value="@(item.ID)" @(node!=null&&node.UserId==item.ID?"selected=selected":"")>@(item.Name)</option>
+                        <option value="@(item.ID)" @(node!=null&&node.UserIds!=null&&node.UserIds.Contains(item.ID)?"selected=selected":"")>@(item.Name)</option>
                     }
                 </select>
+
+
+       
             </div>
         </div>
         <div class="form-group">

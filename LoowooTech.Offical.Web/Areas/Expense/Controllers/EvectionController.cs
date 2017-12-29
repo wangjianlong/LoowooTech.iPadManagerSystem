@@ -25,7 +25,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
 
         public ActionResult Create(int SheetId)
         {
-            var sheet = Core.SheetManager.Get(SheetId);
+            var sheet = Core.SheetManager.Get(SheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             ViewBag.Citys = Core.CityManager.GetTree();
             return View();
@@ -71,14 +71,19 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 return ErrorJsonResult(message);
             }
-
+            evection.Errands = errands;
+            evection.Traffics = traffics;
+            if (!Core.SheetManager.UpdateMoney(evection.SheetId, evection.Sum))
+            {
+                return ErrorJsonResult("更新报销金额失败！");
+            }
             return SuccessJsonResult();
         }
 
 
         public ActionResult Detail(int sheetId)
         {
-            var sheet = Core.SheetManager.Get(sheetId);
+            var sheet = Core.SheetManager.Get(sheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             return View();
         }

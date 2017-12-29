@@ -97,23 +97,33 @@ namespace LoowooTech.Managers.Admin
             }
             return Prev(next.ID);
         }
-
-
-
-        public class Node
+        public FlowNode GetNext(int currentId)
         {
-            public int ID { get; set; }
-            public string Name { get; set; }
-            public int PrevID { get; set; }
+            return DB.FlowNodes.FirstOrDefault(e => e.PrevId == currentId);
         }
 
-
-        public void Function()
+        public FlowNode GetPrev(int currentId)
         {
-            var a = new Node { ID = 1, Name = "a", PrevID = 0 };
-            var b = new Node { ID = 2, Name = "b", PrevID = 1 };
-            var c = new Node { ID = 3, Name = "c", PrevID = 2 };
-            var d = new Node { ID = 4, Name = "d", PrevID = 3 };
+            var current = Get(currentId);
+            if (current != null)
+            {
+                return Get(current.PrevId);
+            }
+            return null;
         }
+
+        public List<FlowNode> GetList(int flowId)
+        {
+            var result = DB.FlowNodes.Where(e => e.FlowId == flowId).ToList();
+            foreach(var item in result)
+            {
+                if (item.UserIds != null&&item.UserIds.Length>0)
+                {
+                    item.Users = Core.UserManager.Get(item.UserIds);
+                }
+            }
+            return result;
+        }
+
     }
 }

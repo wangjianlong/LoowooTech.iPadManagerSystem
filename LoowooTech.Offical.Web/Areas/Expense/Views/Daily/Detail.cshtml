@@ -3,6 +3,8 @@
     ViewBag.Title = "查看日常报销";
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
     Sheet sheet = ViewBag.Sheet;
+    Flow flow = ViewBag.Flow;
+    ViewBag.URL = "/Expense/Daily/Detail?sheetId=" + sheet.ID;
 }
 
 @section Description{
@@ -11,8 +13,33 @@
 
 @section buttonHead{
     <div class="title-action">
-        <a href="/Expense/Daily/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑日常详情</a>
-        <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+        @if (sheet.FlowData.State == FlowDataState.None)
+        {
+            if (sheet.UserId == Identity.UserId)
+            {
+                <a href="/Flows/Commit?flowDataId=@(sheet.FlowData.ID)" class="btn btn-success" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="Commit"><i class="fa fa-arrow-up"></i>提交审核</a>
+                <a href="/Expense/Daily/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑日常</a>
+                <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+            }
+        }
+        else if (sheet.FlowData.State == FlowDataState.Checking)//正在审核
+        {
+            if (sheet.FlowData.CanCancel(Identity.UserId, sheet.UserId))//当前用户可以点击撤销
+            {
+                if (sheet.FlowData.Current.UserId != Identity.UserId)
+                {
+                    <a href="/Flows/Cancel?flowDataId=@(sheet.FlowData.ID)&&OwnId=@(sheet.UserId)" class="btn btn-danger" name="Cancel" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)"><i class="fa fa-arrow-left"></i>撤回</a>
+                }
+
+            }
+        }
+        else if(sheet.FlowData.State==FlowDataState.Done)
+        {
+            <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
+        }
+
+        <a href="/Expense/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>报销系统</a>
+        <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
     </div>
     }
 
@@ -34,7 +61,9 @@
             }
         </div>
         <div class="col-sm-4">
-            
+            @{ 
+                Html.RenderPartial("_showFlow", sheet.FlowData as object);
+            }
         </div>
     </div>
 </div>

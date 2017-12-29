@@ -30,6 +30,35 @@
                 <div class="ibox-content">
                     <h4>说明</h4>
                     <p>@(item.Description)</p>
+                    <h4>部门人员</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                @foreach(var user in item.Users)
+                                {
+                                    <tr>
+                                        <td class="client-avatar">
+                                            <img src="~/Images/loowootech -head.png" />
+                                        </td>
+                                        <td>
+                                            @(user.Name)
+                                        </td>
+                                        <td>@(user.iPhone)</td>
+                                        <td>
+                                            @if (user.Delete == true)
+                                            {
+                                                <span class="label label-danger">删除</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-primary">激活</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

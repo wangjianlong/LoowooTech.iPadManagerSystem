@@ -33,30 +33,33 @@ namespace LoowooTech.Models.Expense
         public int ProjectId { get; set; }
         public virtual Project.Project Project { get; set; }
         [NotMapped]
+        public FlowData FlowData { get; set; }
+        [NotMapped]
         public Evection Evection { get; set; }
         [NotMapped]
         public Daily Daily { get; set; }
         [NotMapped]
         public Reception Reception { get; set; }
-        [NotMapped]
-        public double Money
-        {
-            get
-            {
-                switch (SheetType)
-                {
-                    case SheetType.Daily:
-                        return Daily.Sum;
-                    case SheetType.Evection:
-                        return Evection.Sum;
-                    case SheetType.Reception:
-                        break;
-                }
+        public double Money { get; set; }
+        //public double Money
+        //{
+        //    get
+        //    {
+        //        switch (SheetType)
+        //        {
+        //            case SheetType.Daily:
+        //                return Daily==null?.0: Daily.Sum;
+        //            case SheetType.Evection:
+        //                return Evection==null?.0: Evection.Sum;
+        //            case SheetType.Reception:
+        //                return Reception==null?.0: Reception.Sum;
+        //        }
 
-                return .0;
-            }
-        }
+        //        return .0;
+        //    }
+        //}
         public bool Delete { get; set; }
+
     }
 
     public enum SheetType

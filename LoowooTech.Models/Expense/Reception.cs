@@ -71,6 +71,14 @@ namespace LoowooTech.Models.Expense
         public int SheetId { get; set; }
         public virtual Sheet Sheet { get; set; }
         public virtual List<ReceptionItem> Items { get; set; }
+        public double Sum
+        {
+            get
+            {
+                if (Items == null) return .0;
+                return Items.Where(e => e.PayWay < PayWay.Card).Sum(e => e.Cost);
+            }
+        }
     }
 
 
@@ -112,7 +120,7 @@ namespace LoowooTech.Models.Expense
     public enum PayWay
     {
         [Description("现金")]
-        Cash,
+        Cash=0,
         [Description("支付宝")]
         AliPay,
         [Description("微信")]
@@ -122,7 +130,7 @@ namespace LoowooTech.Models.Expense
         [Description("信用卡/借记卡")]
         CreditCard,
         [Description("储值卡支付")]
-        Card,
+        Card=20,
         [Description("挂账")]
         Bill,
         [Description("自备")]

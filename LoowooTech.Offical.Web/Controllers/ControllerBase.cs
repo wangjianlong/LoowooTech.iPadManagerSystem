@@ -21,6 +21,11 @@ namespace LoowooTech.Offical.Web.Controllers
                 return HttpContext.User.Identity as UserIdentity;
             }
         }
+        protected ActionResult WarningJsonResult(object data = null)
+        {
+            return new ContentResult { Content = new { result = 2, content = "警告", data }.ToJson(), ContentEncoding = System.Text.Encoding.UTF8, ContentType = "text/json" };
+        }
+
         protected ActionResult SuccessJsonResult(object data = null)
         {
             return new ContentResult { Content = new { result = 1, content = "操作成功", data }.ToJson(), ContentEncoding = System.Text.Encoding.UTF8, ContentType = "text/json" };
@@ -37,6 +42,7 @@ namespace LoowooTech.Offical.Web.Controllers
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ViewBag.Area = filterContext.RouteData.DataTokens["area"] == null ? "" : filterContext.RouteData.DataTokens["area"].ToString(); 
             ViewBag.Controller = filterContext.RequestContext.RouteData.Values["controller"];
             ViewBag.Action = filterContext.RequestContext.RouteData.Values["action"];
             base.OnActionExecuting(filterContext);

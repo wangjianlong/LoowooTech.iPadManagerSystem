@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "基本信息设置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>个人基本信息</h5>
+            </div>
+            <div class="ibox-content">
+                <form class="m-t" role="form" action="" id="form-user">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">用户名：</label>
+                        <div class="col-xs-8">
+                            <input type="text" name="Name" class="form-control" placeholder="用户名" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">联系电话：</label>
+                        <div class="col-xs-8">
+                            <input type="text" name="iPhone" class="form-control" placeholder="联系电话" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

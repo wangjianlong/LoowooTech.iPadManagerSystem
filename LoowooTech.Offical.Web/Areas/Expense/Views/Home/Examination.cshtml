@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "待审核报销单";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    List<Sheet> sheets = ViewBag.Sheets;
+}
+
+<form method="get">
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label class="control-label">报销单位</label>
+                    <select name="" class="form-control">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label class="control-label">审核状态</label>
+                    <select name="State" class="form-control">
+                        <option value="">请选择</option>
+                        @foreach (VerificationState state in Enum.GetValues(typeof(VerificationState)))
+                        {
+                            <option value="@(state)">@(state.GetDescription())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label class="control-label">按钮</label>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>过滤</button>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</form>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <table class="footable table table-striped toggle-arrow-tiny" data-page-size="15">
+                    <thead>
+                        <tr>
+                            <th>报销单位</th>
+                            <th>报销人</th>
+                            <th>报销类型</th>
+                            <th>报销时间</th>
+                            <th>发票张数</th>
+                            <th>报销金额【元】</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var sheet in sheets)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@(sheet.SheetType==SheetType.Daily?"/Expense/Daily/Detail?sheetId=":sheet.SheetType==SheetType.Evection?"/Expense/Evection/Detail?sheetId=":"/expense/Reception/Detail?sheetId=")@(sheet.ID)">@(sheet.Company.Name)</a>
+                                </td>
+                                <td>@(sheet.User.Name)</td>
+                                <td>
+                                    <span class="badge @(sheet.SheetType==SheetType.Daily?"badge-primary":sheet.SheetType==SheetType.Evection?"badge-success":"badge-warning")">
+                                        @(sheet.SheetType.GetDescription())
+                                    </span>
+                                </td>
+                                <td>@(sheet.Time.ToString("yyyy-MM-dd"))</td>
+                                <td>@(sheet.Count)</td>
+                                <td>
+                                    <span class="badge badge-primary">@(sheet.Money)</span>
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group btn-group-xs">
+                                        <button type="button" class="btn btn-default">View</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -23,9 +23,18 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
+        public ActionResult Search(int? CategoryId=null,int? CompanyId=null,DateTime? startTime=null,DateTime? endTime=null,string content=null, int page=1,int rows=20)
+        {
+            //var parameter=new DailyParameter
+            //{
+
+            //}
+            return View();
+        }
+
         public ActionResult Create(int sheetId)
         {
-            var sheet = Core.SheetManager.Get(sheetId);
+            var sheet = Core.SheetManager.Get(sheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             ViewBag.Category = Core.CategoryManager.GetTree();
             return View();
@@ -58,12 +67,16 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 return ErrorJsonResult("保存日常项目失败！");
             }
+            if (!Core.SheetManager.UpdateMoney(Daily.SheetId, substances.Sum(e => e.Cost)))
+            {
+                return ErrorJsonResult("更新报销金额失败！");
+            }
             return SuccessJsonResult();
         }
 
         public ActionResult Detail(int sheetId)
         {
-            var sheet = Core.SheetManager.Get(sheetId);
+            var sheet = Core.SheetManager.Get(sheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             return View();
         }

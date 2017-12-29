@@ -9,8 +9,7 @@
             <th data-toggle="true">报销单位</th>
             <th>填报时间</th>
             <th>发票张数</th>
-            <th>报销金额</th>
-            <th>查看</th>
+            <th>报销金额【元】</th>
         </tr>
     </thead>
     <tbody>
@@ -23,9 +22,8 @@
                 </td>
                 <td>@(item.Time.ToLongDateString())</td>
                 <td>@(item.Count)</td>
-                <td></td>
                 <td>
-                    <a href="" class="btn btn-primary btn-xs"><i class="fa fa-"</a>
+                    <span class="badge badge-primary">@(item.Money)</span> 
                 </td>
             </tr>
         }

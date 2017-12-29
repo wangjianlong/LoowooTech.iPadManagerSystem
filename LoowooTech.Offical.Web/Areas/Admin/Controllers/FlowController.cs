@@ -27,7 +27,7 @@ namespace LoowooTech.Offical.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Flow flow)
+        public ActionResult Save(Models.Admin.Flow flow)
         {
             if (flow.ID > 0)
             {

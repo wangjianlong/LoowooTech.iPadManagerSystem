@@ -1,72 +1,60 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Hangzhou Loowoo Tech Co.,Ltd. 杭州陆吾科技信息咨询有限公司</title>
-
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/Content/css/animate.css" />
-    <link rel="stylesheet" href="~/Content/css/style.css" />
-
-    <script src="~/scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/scripts/bootstrap.min.js"></script>
-    <script src="~/scripts/LW/Common.js"></script>
-
-    <script>
+<script>
         $(function () {
             $("#form-user").submit(function () {
                 var $btn = $("#form-user button[type='submit']");
                 $btn.attr("disabled", "disabled");
                 var data = $(this).serialize();
                 $.request("/user/login", data, function (json) {
-                    if (json.result == 1) {
+                    if (json.result === 1) {
                         location.href = "/Home/Index";
-                    } else {
-                        alert(json.content);
+                    } else if (json.result === 2) {
+                        swal({
+                            title: "第一次登录系统",
+                            text: "您第一次登录系统，需设置您的密码！",
+                            type:"warning"
+                        }, function () {
+                            location.href = "/User/Password?id=" + json.data;
+                        })
+                        
+                    }
+                    else {
+                        swal("登录失败", json.content, "error");
+                        //alert(json.content);
                         $btn.removeAttr("disabled");
                     }
                 });
 
                 return false;
             });
-
-
-    
         });
-    </script>
-</head>
-<body class="gray-bg">
-    <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
-            <div>
-                <h1 class="logo-name">LW</h1>
-            </div>
-            <h3>Welcome to LoowooTech</h3>
-            <p></p>
-            <form class="m-t" role="form" action="/User/Login" id="form-user" >
-                <div class="form-group">
-                    <input type="text" name="LoginName" class="form-control" placeholder="LoginName"  />
-                </div>
-                <div class="form-group">
-                    <input type="password" name="Password" class="form-control" placeholder="PassWord"  />
-                </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-                <a href="#"><small>Forgot password?</small></a>
-                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="/user/Register">Create an account</a>
-            </form>
-            <p class="m-t"> <small>Hangzhou Loowoo Tech Co.,Ltd. &copy; @(DateTime.Now.Year)</small> </p>
-        </div> 
-    </div>
+</script>
 
-   
-</body>
-</html>
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">LW</h1>
+        </div>
+        <h3>Welcome to LoowooTech</h3>
+        <p></p>
+        <form class="m-t" role="form" action="/User/Login" id="form-user">
+            <div class="form-group">
+                <input type="text" name="LoginName" class="form-control" placeholder="LoginName" required />
+            </div>
+            <div class="form-group">
+                <input type="password" name="Password" class="form-control" placeholder="PassWord" />
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            <a href="#"><small>Forgot password?</small></a>
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="/user/Register">Create an account</a>
+        </form>
+        <p class="m-t"> <small>Hangzhou Loowoo Tech Co.,Ltd. &copy; @(DateTime.Now.Year)</small> </p>
+    </div>
+</div>
+

@@ -29,7 +29,7 @@
                 <select class="select2-city form-control" multiple="multiple" name="CityIds">
                     @foreach(var item in citys)
                     {
-                        <option value="@(item.ID)" @(Model.CityIds.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)</option>
+                        <option value="@(item.ID)" @(Model!=null&&Model.CityIds.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)</option>
                         if (item.Children != null)
                         {
                             item.ParentName = item.Name;

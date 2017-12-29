@@ -210,4 +210,26 @@
         var sum = CalculatorReception();
         $("input[name='Fee-Reception']").val(sum.toFixed(2));
     });
+
+    $("a[name='Cancel']").click(function () {
+        var href = $(this).attr("href");
+        var url = $(this).attr("Url");
+        var $btn = $(this);
+        $btn.attr("disabled", "disabled");
+        $.getJSON(href, function (data) {
+            if (data.result == 1) {
+                swal({
+                    title: '成功撤回',
+                    text: "成功撤回，点击确定完成撤回操作！",
+                    type:'success'
+                }, function () {
+                    location.href = url;
+                });
+            } else {
+                swal("撤回失败", data.content, "error");
+                $btn.removeAttr("disabled");
+            }
+        });
+        return false;
+    });
 });

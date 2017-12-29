@@ -16,7 +16,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 UserId = Identity.UserId,
                 Type = SheetType.Reception,
-                Page = new Models.PageParameter(1, 20)
+                Page = new LoowooTech.Models.PageParameter(1, 20)
             };
             var list = Core.SheetManager.Search(parameter);
             ViewBag.List = list;
@@ -24,7 +24,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         }
         public ActionResult Create(int sheetId)
         {
-            var sheet = Core.SheetManager.Get(sheetId);
+            var sheet = Core.SheetManager.Get(sheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             var list = Core.CompanyManager.GetProjects();
             ViewBag.Projects = list;
@@ -58,14 +58,18 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 return ErrorJsonResult("招待分项内容获取失败！请刷新重试");
             }
-
+            reception.Items = items;
+            if (!Core.SheetManager.UpdateMoney(reception.SheetId, reception.Sum))
+            {
+                return ErrorJsonResult("更新报销金额失败！");
+            }
             return SuccessJsonResult();
         }
        
 
         public ActionResult Detail(int sheetId)
         {
-            var sheet = Core.SheetManager.Get(sheetId);
+            var sheet = Core.SheetManager.Get(sheetId,Flow.ID);
             ViewBag.Sheet = sheet;
             return View();
         }

@@ -1,4 +1,5 @@
-﻿using LoowooTech.Models.Expense;
+﻿using LoowooTech.Models;
+using LoowooTech.Models.Expense;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,6 +98,21 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                 }
             }
             return View("Empty");
+        }
+
+        public ActionResult Examination(Models.Admin.VerificationState? state=null, int page=1,int rows=20)
+        {
+            var parameter = new FlowDataParameter
+            {
+                UserId = Identity.UserId,
+                FlowId = Flow.ID,
+                State=state,
+                Page = new PageParameter(page, rows)
+            };
+            var flowData = Core.FlowDataManager.Search(parameter);
+            var sheets = Core.SheetManager.Search(flowData);
+            ViewBag.Sheets = sheets;
+            return View();
         }
 
     }

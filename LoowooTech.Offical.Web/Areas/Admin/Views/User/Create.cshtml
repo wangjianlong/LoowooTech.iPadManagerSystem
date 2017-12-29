@@ -30,19 +30,20 @@
         <div class="form-group">
             <label class="control-label col-sm-3">姓名：</label>
             <div class="col-sm-7">
-                <input type="text" name="Name" class="form-control" placeholder="姓名" required />
+                <input type="hidden" name="ID" value="@(user==null?0:user.ID)" />
+                <input type="text" name="Name" class="form-control" placeholder="姓名" value="@(user==null?"":user.Name)" required />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">登录名：</label>
             <div class="col-sm-7">
-                <input type="text" name="LoginName" class="form-control" placeholder="登录名" required />
+                <input type="text" name="LoginName" class="form-control" placeholder="登录名" value="@(user==null?"":user.LoginName)" required />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">手机号码：</label>
             <div class="col-sm-7">
-                <input type="text" name="iPhone" class="form-control" data-mask="99999999999"/>
+                <input type="text" name="iPhone" class="form-control" data-mask="99999999999" value="@(user==null?"":user.iPhone)"/>
             </div>
         </div>
         <div class="form-group">
@@ -51,7 +52,7 @@
                 @foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
                 {
                     <label class="radio-inline i-checks">
-                        <input type="radio" name="UserRole" value="@(role)" /><i></i>@(role.GetDescription())
+                        <input type="radio" name="UserRole" value="@(role)" @(user==null?"":(user.UserRole==role?"checked=checked":"")) /><i></i>@(role.GetDescription())
                     </label>
                 }
             </div>
@@ -63,7 +64,7 @@
                     <option  value="">暂不选择</option>
                     @foreach(var item in groups)
                     {
-                        <option value="@(item.ID)">@(item.Name)</option>
+                        <option value="@(item.ID)" @(user==null?"":user.GroupId==item.ID?"selected=selected":"")>@(item.Name)</option>
                     }
                 </select>
             </div>

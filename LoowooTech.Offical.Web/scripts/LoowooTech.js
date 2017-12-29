@@ -36,6 +36,28 @@
         return false;
     });
 
+    $("a[name='Commit']").click(function () {
+        var href = $(this).attr("href");
+        var url = $(this).attr("Url");
+        var $btn = $(this);
+        $btn.attr("disabled", "disabled");
+        $.getJSON(href, function (data) {
+            if (data.result == 1) {
+                swal({
+                    title: "成功提交",
+                    text: "成功提交，点击确定完成提交！",
+                    type:"success"
+                }, function () {
+                    location.href = url;
+                });
+            } else {
+                swal("删除失败", json.content, "error");
+                $btn.removeAttr("disabled");
+            }
+        });
+
+        return false;
+    });
     //点赞事件
     $("a[name='Good']").click(function () {
 

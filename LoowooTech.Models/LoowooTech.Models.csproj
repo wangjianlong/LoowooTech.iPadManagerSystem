@@ -51,12 +51,14 @@
     <Compile Include="Admin\FlowData.cs" />
     <Compile Include="Admin\FlowNode.cs" />
     <Compile Include="Admin\FlowNodeData.cs" />
+    <Compile Include="Admin\Parameters\FlowDataParameter.cs" />
     <Compile Include="Admin\ProjectType.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Evaluate.cs" />
     <Compile Include="Expense\BillNumber.cs" />
     <Compile Include="Expense\Category.cs" />
     <Compile Include="Expense\Daily.cs" />
+    <Compile Include="Expense\DailyParameter.cs" />
     <Compile Include="Expense\Errand.cs" />
     <Compile Include="Expense\Evection.cs" />
     <Compile Include="Expense\Reception.cs" />

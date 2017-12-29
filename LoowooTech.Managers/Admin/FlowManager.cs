@@ -47,7 +47,12 @@ namespace LoowooTech.Managers.Admin
 
         public List<Flow> GetList()
         {
-            return DB.Flows.Where(e => e.Delete == false).OrderBy(e => e.ID).ToList();
+            var result= DB.Flows.Where(e => e.Delete == false).OrderBy(e => e.ID).ToList();
+            foreach(var item in result)
+            {
+                item.FlowNodes2 = Core.FlowNodeManager.GetList(item.ID);
+            }
+            return result;
         }
 
         public Flow Get(string name)

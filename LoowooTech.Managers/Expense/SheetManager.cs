@@ -1,4 +1,5 @@
 ﻿using LoowooTech.Common;
+using LoowooTech.Models.Admin;
 using LoowooTech.Models.Expense;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace LoowooTech.Managers.Expense
             return DB.Sheets.Find(id);
         }
 
-        public Sheet Get(int id)
+        public Sheet Get(int id,int flowId=0)
         {
             var model = DB.Sheets.Find(id);
             if (model != null)
@@ -61,6 +62,11 @@ namespace LoowooTech.Managers.Expense
                         model.Reception = Core.ReceptionManager.GetBySheetId(model.ID);
                         break;
                 }
+                if (flowId > 0)
+                {
+                    model.FlowData = Core.FlowDataManager.Get(flowId, id);
+                }
+               
             }
             return model;
         }
@@ -93,6 +99,23 @@ namespace LoowooTech.Managers.Expense
             }
             query = query.OrderByDescending(e => e.Time).SetPage(parameter.Page);
             return query.ToList();
+        }
+
+        public List<Sheet> Search(List<FlowData> flowDatas)
+        {
+            return flowDatas.Select(e => Get(e.InfoId)).ToList();
+        }
+
+        public bool UpdateMoney(int id,double money)
+        {
+            var model = DB.Sheets.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.Money = money;
+            DB.SaveChanges();
+            return true;
         }
 
     }

@@ -22,7 +22,8 @@ namespace LoowooTech.Models.Admin
         public int LWSystemId { get; set; }
         public virtual LWSystem LWSystem { get; set; }
         public virtual List<FlowNode> FlowNodes { get; set; }
-
+        [NotMapped]
+        public List<FlowNode> FlowNodes2 { get; set; }
         public FlowNode GetFirstNode()
         {
             if (FlowNodes == null)
@@ -45,6 +46,16 @@ namespace LoowooTech.Models.Admin
             }
             return node;
         }
+        public FlowNode GetPrevNode(int Id)
+        {
+            var node = FlowNodes.FirstOrDefault(e => e.ID == Id);
+            if (node == null)
+            {
+                return null;
+            }
+
+            return FlowNodes.FirstOrDefault(e => e.ID == node.PrevId);
+        }
         public FlowNode GetLastNode()
         {
             if (FlowNodes == null)
@@ -58,7 +69,8 @@ namespace LoowooTech.Models.Admin
                     return node;
                 }
             }
-            throw new Exception("配置节点信息错误！");
+            return null;
+           // throw new Exception("配置节点信息错误！");
         }
     }
 }

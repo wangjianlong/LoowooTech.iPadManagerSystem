@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LoowooTech.Common;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoowooTech.Models.Admin
@@ -11,8 +13,30 @@ namespace LoowooTech.Models.Admin
         public int ID { get; set; }
         public string Name { get; set; }
         public int FlowId { get; set; }
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        [Column("UserIds")]
+        public string UserIdValues { get; set; }
+        [NotMapped]
+        public int[] UserIds
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(UserIdValues)) return null;
+                return UserIdValues.ToIntArray();
+            }
+            set
+            {
+                if (value == null || value.Length == 0)
+                {
+                    UserIdValues = null;
+                }
+                else
+                {
+                    UserIdValues = string.Join(",", value);
+                }
+            }
+        }
+        [NotMapped]
+        public List<User> Users { get; set; }
         public int? GroupId { get; set; }
         public int PrevId { get; set; }
 

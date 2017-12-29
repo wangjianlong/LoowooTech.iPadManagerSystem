@@ -46,11 +46,13 @@
                     <dd>
                         &yen;@(Model.Money)元
                     </dd>
-                    <dt>操作：</dt>
-                    <dd>
-                        <a href="/Expense/Home/Create?id=@(Model.ID)" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i>编辑</a>
-                        <a href="/Expense/Home/Delete?id=@(Model.ID)" class="btn btn-xs btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
-                    </dd>
+                    @if (Model.FlowData.State == FlowDataState.None)
+                    {
+                        <dt>操作：</dt>
+                        <dd>
+                            <a href="/Expense/Home/Create?id=@(Model.ID)" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i>编辑</a>
+                        </dd>
+                    }
                 </dl>
             </div>
         </div>

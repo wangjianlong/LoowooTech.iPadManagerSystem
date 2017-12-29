@@ -669,7 +669,9 @@
     <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Common\UserRoleAttribute.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\FlowsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -810,6 +812,13 @@
     <Content Include="Areas\Expense\Views\Reception\Index.cshtml" />
     <Content Include="Areas\Expense\Views\Reception\Detail.cshtml" />
     <Content Include="Areas\Expense\Views\Reception\_DetailReception.cshtml" />
+    <Content Include="Views\Flows\Detail.cshtml" />
+    <Content Include="Views\Shared\_showFlow.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Examination.cshtml" />
+    <None Include="Properties\PublishProfiles\lw.pubxml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\User\Password.cshtml" />
+    <Content Include="Views\Personal\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -832,6 +841,10 @@
     <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">
       <Project>{ab103882-ad22-452a-a35e-9d5048b6b0c4}</Project>
       <Name>LoowooTech.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.iPadManagerSystem\LoowooTech.iPadManagerSystem.csproj">
+      <Project>{F3A8573E-10CF-4D72-8506-6408E2364E2A}</Project>
+      <Name>LoowooTech.iPadManagerSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Managers\LoowooTech.Managers.csproj">
       <Project>{ccd8b2c5-5ae6-4c6c-800d-64f91663cf73}</Project>

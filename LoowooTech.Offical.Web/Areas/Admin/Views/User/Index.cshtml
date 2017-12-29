@@ -21,7 +21,8 @@
     {
         <div class="col-sm-3">
             <div class="contact-box">
-                <a href="javascript:void(0)">
+                <a href="/Admin/User/Delete?id=@(item.ID)" class="btn btn-white btn-xs pull-right" name="Delete" Url="/Admin/User/Index"><i class="fa fa-times"></i></a>
+                <a href="/Admin/User/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal">
                     <div class="col-sm-4">
                         <div class="text-center">
                             <img alt="image" class="img-circle m-t-xs img-responsive" src="~/Images/loowootech -logo.png" />
@@ -29,8 +30,11 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
-                        <h3>@(item.Name)</h3>
+                        <h3>
+                             @(item.Name)
+                        </h3>
                         <address>
+                            <abbr>所属部门：</abbr>@(item.Group!=null?item.Group.Name:"未设置部门")<br />
                             <abbr>手机号码：</abbr>@(item.iPhone)<br />
                         </address>
                     </div>
