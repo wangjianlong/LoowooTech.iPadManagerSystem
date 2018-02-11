@@ -1,0 +1,28 @@
+﻿@{ 
+    List<Project> list = ViewBag.List;
+}
+
+
+<table class="footable table table-striped toggle-arrow-tiny">
+    <thead>
+        <tr>
+            <th>项目编号</th>
+            <th>项目名称</th>
+            <th>创建时间</th>
+            <th>创建人</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>
+                    <a href="/Project/Home/Detail?id=@(item.ID)">@(item.Serial)</a>
+                </td>
+                <td>@(item.Name)</td>
+                <td>@(item.CreateTime.ToLongDateString())</td>
+                <td>@(item.User.Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>

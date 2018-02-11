@@ -23,12 +23,35 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
-        public ActionResult Search(int? CategoryId=null,int? CompanyId=null,DateTime? startTime=null,DateTime? endTime=null,string content=null, int page=1,int rows=20)
+        public ActionResult Search(
+            int? CategoryId=null,int? CompanyId=null,
+            int? projectId=null,
+            double? minCost=null,double? maxCost=null, 
+            DateTime? startTime=null,DateTime? endTime=null,
+            bool? Delete=null,
+            string content=null, int page=1,int rows=20)
         {
-            //var parameter=new DailyParameter
-            //{
-
-            //}
+            var parameter = new DailyParameter
+            {
+                Type = SheetType.Daily,
+                CompanyId = CompanyId,
+                UserId = Identity.UserId,
+                ProjectId = projectId,
+                CategoryId = CategoryId,
+                MinCost = minCost,
+                MaxCost = maxCost,
+                StartTime = startTime,
+                EndTime = endTime,
+                Content = content,
+                Delete=Delete,
+                Page=new Models.PageParameter(page,rows)
+            };
+            var list = Core.DailyManager.Search(parameter);
+            ViewBag.Companys = Core.UserCompanyManager.GetCompanys(Identity.UserId);
+            ViewBag.Projects = Core.ProjectManager.Search(new Models.Project.ProjectParameter { Delete = false });
+            ViewBag.Categorys = Core.CategoryManager.GetTree();
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
             return View();
         }
 

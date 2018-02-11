@@ -14,6 +14,7 @@ namespace LoowooTech.Managers
 
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserCompany> UserCompanys { get; set; }
         public DbSet<LWSystem> LWSystems { get; set; }
         public DbSet<Power> Powers { get; set; }
         public DbSet<PowerItem> Items { get; set; }
@@ -51,6 +52,8 @@ namespace LoowooTech.Managers
 
         #region  报销
         public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<SheetFlowView> SheetViews { get; set; }
+        public DbSet<SheetFlowDataView> SheetFlowDataViews { get; set; }
         public DbSet<Evection> Evections { get; set; }
         public DbSet<Errand> Errands { get; set; }
         public DbSet<Traffic> Traffics { get; set; }

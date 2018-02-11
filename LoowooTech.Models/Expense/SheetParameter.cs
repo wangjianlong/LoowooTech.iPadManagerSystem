@@ -15,5 +15,6 @@ namespace LoowooTech.Models.Expense
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string Content { get; set; }
+        public bool? Delete { get; set; }
     }
 }

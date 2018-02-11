@@ -36,6 +36,20 @@ namespace LoowooTech.Managers.Admin
                 data = new FlowData { FlowId = flowId, InfoId = infoId };
                 var id = Add(data);
             }
+            else
+            {
+                if (data.NodeDatas != null)
+                {
+                    foreach(var item in data.NodeDatas)
+                    {
+                        if (item.UserIds != null)
+                        {
+                            item.Users = Core.UserManager.Get(item.UserIds);
+                        }
+                      
+                    }
+                }
+            }
             return data;
         }
         public FlowData Get(int id)
@@ -65,11 +79,7 @@ namespace LoowooTech.Managers.Admin
             {
                 query = query.Where(e => e.Completed == parameter.Completed.Value);
             }
-            if (parameter.UserId.HasValue)
-            {
-                query = query.Where(e => e.NodeDatas.Any(j => j.UserIds.Contains(parameter.UserId.Value)));
-                //query = query.Where(e => e.NodeDatas.Any(j => j.UserId == parameter.UserId.Value));
-            }
+    
             if (parameter.State.HasValue)
             {
                 query = query.Where(e => e.NodeDatas.Any(j => j.state == parameter.State.Value));
@@ -81,6 +91,13 @@ namespace LoowooTech.Managers.Admin
             if (parameter.EndTime.HasValue)
             {
                 query = query.Where(e => e.NodeDatas.Any(j => j.Time <= parameter.EndTime.Value));
+            }
+            if (parameter.UserId.HasValue)
+            {
+
+                query = query.ToList().Where(e => e.NodeDatas.Any(j => j.UserIds.Contains(parameter.UserId.Value))).AsQueryable();
+
+                //query = query.Where(e => e.NodeDatas.Any(j => j.UserIdValues.IndexOf(parameter.UserId.Value.ToString()) > 0&&j.user));
             }
             query = query.OrderByDescending(e => e.InfoId).SetPage(parameter.Page);
             return query.ToList();

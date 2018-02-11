@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LoowooTech.Models.Admin;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoowooTech.Models
@@ -21,6 +23,7 @@ namespace LoowooTech.Models
         public UserRole UserRole { get; set; }
         public bool Delete { get; set; }
         public string iPhone { get; set; }
+        public virtual List<UserCompany> Companys { get; set; }
         [NotMapped]
         public string AccessToken { get; set; }
 

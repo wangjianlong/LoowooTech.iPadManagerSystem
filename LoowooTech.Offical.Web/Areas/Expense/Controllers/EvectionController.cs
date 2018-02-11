@@ -88,5 +88,34 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
+        public ActionResult Search(
+            int? companyId=null,int?projectId=null,
+            DateTime? startTime=null,DateTime? endTime=null,bool? Delete=null,
+            string content=null,int? cityId=null,Vehicles? vehicles=null,int? userId2=null,int page=1,int rows=20
+            )
+        {
+            var parameter = new EvectionParameter
+            {
+                CompanyId = companyId,
+                ProjectId = projectId,
+                StartTime = startTime,
+                EndTime = endTime,
+                Content = content,
+                CityId = cityId,
+                Vehicales = vehicles,
+                UserId=Identity.UserId,
+                UserId2 = userId2,
+                Delete=Delete,
+                Page = new Models.PageParameter(page, rows)
+            };
+            ViewBag.Companys = Core.UserCompanyManager.GetCompanys(Identity.UserId);
+            ViewBag.Projects = Core.ProjectManager.Search(new Models.Project.ProjectParameter { Delete = false });
+            ViewBag.Citys = Core.CityManager.GetTree();
+            var list = Core.EvectionManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+            return View();
+        }
+
     }
 }

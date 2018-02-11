@@ -14,7 +14,7 @@
     <div class="ibox-content">
         @if (data.NodeDatas != null && data.NodeDatas.Count > 0)
         {
-            <div class="vertical-container dark-timeline center-orientation">
+            <div class="vertical-container dark-timeline">
                 @foreach (var node in data.NodeDatas)
                 {
                     <div class="vertical-timeline-block">
@@ -23,6 +23,16 @@
                         </div>
                         <div class="vertical-timeline-content">
                             <h2>@(node.FlowNode.Name)</h2>
+                            <p>
+                                可审核人:
+                                @if (node.Users != null)
+                                {
+                                    foreach(var user in node.Users)
+                                    {
+                                        <span class="label label-default">@(user.Name)</span>
+                                    }
+                                }
+                            </p>
                             <p>@(node.Content)</p>
                             <span class="vertical-date">@(node.Time.ToLongDateString())</span>
                         </div>

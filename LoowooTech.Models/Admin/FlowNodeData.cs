@@ -43,10 +43,12 @@ namespace LoowooTech.Models.Admin
                 }
             }
         }
+        [NotMapped]
+        public List<User> Users { get; set; }
         /// <summary>
         /// 最终审核人员
         /// </summary>
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public virtual User User { get; set; }
         public VerificationState state { get; set; }
         public string Content { get; set; }

@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -648,6 +649,7 @@
     <Compile Include="Areas\Admin\Controllers\ProjectTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrafficController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Expense\Controllers\CityController.cs" />
     <Compile Include="Areas\Expense\Controllers\DailyController.cs" />
     <Compile Include="Areas\Expense\Controllers\EvectionController.cs" />
@@ -815,10 +817,19 @@
     <Content Include="Views\Flows\Detail.cshtml" />
     <Content Include="Views\Shared\_showFlow.cshtml" />
     <Content Include="Areas\Expense\Views\Home\Examination.cshtml" />
+    <Content Include="Areas\Expense\Views\Daily\Search.cshtml" />
+    <Content Include="Areas\Expense\Views\Evection\Search.cshtml" />
+    <Content Include="Areas\Expense\Views\Reception\Search.cshtml" />
+    <Content Include="Areas\Customer\Views\web.config" />
+    <Content Include="Areas\Project\Views\Home\Recent.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Detail.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Head.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\State.cshtml" />
     <None Include="Properties\PublishProfiles\lw.pubxml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
     <Content Include="Views\Personal\Edit.cshtml" />
+    <Content Include="Views\Shared\_pagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -832,6 +843,9 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Expense\" />
     <Folder Include="Areas\Admin\Views\Traffic\" />
+    <Folder Include="Areas\Customer\Controllers\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\Shared\" />
     <Folder Include="Areas\Expense\Models\" />
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />

@@ -6,6 +6,7 @@
 <table class="footable table table-striped toggle-arrow-tiny">
     <thead>
         <tr>
+            <th>单号</th>
             <th data-toggle="true">报销单位</th>
             <th>填报时间</th>
             <th>发票张数</th>
@@ -17,8 +18,9 @@
         {
             <tr>
                 <td>
-                    <a href="/Expense/Reception/Detail?SheetId=@(item.ID)">@(item.Company.Name)</a>
+                    <a href="/Expense/Reception/Detail?SheetId=@(item.ID)">@(item.SerialNumber)</a>
                 </td>
+                <td>@(item.Company.Name)</td>
                 <td>@(item.Time.ToLongDateString())</td>
                 <td>@(item.Count)</td>
                 <td>

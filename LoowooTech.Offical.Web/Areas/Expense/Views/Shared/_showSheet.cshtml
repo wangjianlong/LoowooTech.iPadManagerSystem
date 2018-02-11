@@ -24,8 +24,40 @@
     </div>
     <div class="ibox-content">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-6">
                 <dl class="dl-horizontal">
+                    <dt>审核状态：</dt>
+                    <dd>
+                        @if (Model.FlowData != null)
+                        {
+                            switch (Model.FlowData.State)
+                            {
+                                case FlowDataState.Checking:
+                                    <span class="badge badge-warning"><i class="fa fa-spinner fa-pulse"></i>审核中</span>
+                                    break;
+                                case FlowDataState.Done:
+                                    <span class="badge badge-success"><i class="fa fa-heart"></i>审核完成</span>
+                                    break;
+                                case FlowDataState.None:
+                                    <span class="badge badge-white"><i class="fa fa-pencil"></i>未提交</span>
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger"><i class="fa fa-ban"></i>未读取审核状态</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <dl class="dl-horizontal">
+                    <dt>报销单号：</dt>
+                    <dd>@(Model.SerialNumber)</dd>
+            
+
                     <dt>报销人：</dt>
                     <dd>@(Model.User.Name)</dd>
                     <dt>报销单位：</dt>
@@ -46,14 +78,55 @@
                     <dd>
                         &yen;@(Model.Money)元
                     </dd>
+    
+     
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <dl class="dl-horizontal">
+                    <dt>状态：</dt>
+                    <dd>
+                        @if (Model.Delete == false)
+                        {
+                            <span class="badge badge-info"><i class="fa fa-flag"></i>有效</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger"><i class="fa fa-ban"></i>无效</span>
+                        }
+
+                    </dd>
+               
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <dl class="dl-horizontal">
                     @if (Model.FlowData.State == FlowDataState.None)
-                    {
+                            {
                         <dt>操作：</dt>
                         <dd>
                             <a href="/Expense/Home/Create?id=@(Model.ID)" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i>编辑</a>
                         </dd>
                     }
                 </dl>
+            </div>
+            <div class="col-xs-12">
+                @if (Model.FlowData.State == FlowDataState.Done)
+                {
+                    <dl class="dl-horizontal">
+                        <dt>款项确认：</dt>
+                        <dd>
+                            @if (Model.IsCheck == false)
+                            {
+                                <label class="label label-warning"><i class="fa fa-question-circle"></i>未确认</label>
+                            }
+                            else
+                            {
+                                <label class="label label-primary"><i class="fa fa-check-circle"></i>@string.Format("{0}已确认",Model.CheckTime.Value.ToLongDateString())</label>
+                            }
+                        </dd>
+                    </dl>
+                }
             </div>
         </div>
     </div>

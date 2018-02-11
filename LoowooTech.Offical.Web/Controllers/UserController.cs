@@ -26,7 +26,13 @@ namespace LoowooTech.Offical.Web.Controllers
         [HttpPost]
         public ActionResult Login(string loginName,string password)
         {
-            var user = Core.UserManager.Get(loginName, password);
+            User user = null;
+#if DEBUG
+            user = Core.UserManager.Get(loginName);
+#else
+            user = Core.UserManager.Get(loginName, password);
+#endif
+
             if (user == null)
             {
                 user = Core.UserManager.Get(loginName);

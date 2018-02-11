@@ -9,6 +9,8 @@ namespace LoowooTech.Managers
         public static readonly ManagerCore Instance = new ManagerCore();
         private UserManager _userManager { get; set; }
         public UserManager UserManager { get { return _userManager == null ? _userManager = new UserManager() : _userManager; } }
+        private UserCompanyManager _userCompanyManager { get; set; }//用户可查看企业相关
+        public UserCompanyManager UserCompanyManager { get { return _userCompanyManager == null ? _userCompanyManager = new UserCompanyManager() : _userCompanyManager; } }
         private LWSystemManager _lwSystemManager { get; set; }
         public LWSystemManager LWSystemManager { get { return _lwSystemManager == null ? _lwSystemManager = new LWSystemManager() : _lwSystemManager; } }
 
@@ -52,6 +54,10 @@ namespace LoowooTech.Managers
         #region 报销
         private SheetManager _sheetManager { get; set; }
         public SheetManager SheetManager { get { return _sheetManager == null ? _sheetManager = new SheetManager() : _sheetManager; } }
+        private SheetViewManager _sheetViewManager { get; set; }
+        public SheetViewManager SheetViewManager { get { return _sheetViewManager == null ? _sheetViewManager = new SheetViewManager() : _sheetViewManager; } }
+        private SheetFlowDataViewManager _sheetFlowDataViewManager { get; set; }
+        public SheetFlowDataViewManager SheetFlowDataViewManager { get { return _sheetFlowDataViewManager == null ? _sheetFlowDataViewManager = new SheetFlowDataViewManager() : _sheetFlowDataViewManager; } }
         private EvectionManager _evectionManager { get; set; }
         public EvectionManager EvectionManager { get { return _evectionManager == null ? _evectionManager = new EvectionManager() : _evectionManager; } }
         private TrafficManager _trafficManager { get; set; }

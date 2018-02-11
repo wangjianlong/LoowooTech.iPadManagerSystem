@@ -7,6 +7,7 @@
 <table class="footable table table-striped toggle-arrow-tiny">
     <thead>
         <tr>
+            <th>单号</th>
             <th>报销单位</th>
             <th>填报时间</th>
             <th>发票张数</th>
@@ -17,9 +18,11 @@
         @foreach (var item in list)
         {
             <tr>
+                
                 <td>
-                    <a href="/Expense/Daily/Detail?sheetId=@(item.ID)">@(item.Company.Name)</a>
+                    <a href="/Expense/Daily/Detail?sheetId=@(item.ID)">@(item.SerialNumber)</a>
                 </td>
+                <td>@(item.Company.Name)</td>
                 <td>@(item.Time.ToLongDateString())</td>
                 <td>@(item.Count)</td>
                 <td>
@@ -29,3 +32,4 @@
         }
     </tbody>
 </table>
+

@@ -69,4 +69,47 @@
 
         return false;
     });
+
+    $("a[name='CheckSheet']").click(function () {
+        var href = $(this).attr("href");
+        var url = $(this).attr("Url");
+        var $btn = $(this);
+        $btn.attr("disabled", "disabled");
+        $.getJSON(href, function (data) {
+            if (data.result == 1) {
+                swal({
+                    title: "成功确认款项",
+                    text: "成功确认款项，点击确定完成提交！",
+                    type: "success"
+                }, function () {
+                    location.href = url;
+                });
+            } else {
+                swal("确认失败", json.content, "error");
+                $btn.removeAttr("disabled");
+            }
+        });
+        return false;
+    });
+    $("a[name='CancelSheet']").click(function () {
+        var href = $(this).attr("href");
+        var url = $(this).attr("Url");
+        var $btn = $(this);
+        $btn.attr("disabled", "disabled");
+        $.getJSON(href, function (data) {
+            if (data.result == 1) {
+                swal({
+                    title: "成功撤销确认款项",
+                    text: "成功撤销确认款项，点击确定完成提交！",
+                    type: "success"
+                }, function () {
+                    location.href = url;
+                });
+            } else {
+                swal("撤销失败", json.content, "error");
+                $btn.removeAttr("disabled");
+            }
+        });
+        return false;
+    });
 });

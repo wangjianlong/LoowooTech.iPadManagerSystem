@@ -36,6 +36,14 @@
         else if(sheet.FlowData.State==FlowDataState.Done)
         {
             <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
+            if (sheet.IsCheck == false)
+            {
+                <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=true" class="btn btn-warning" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CheckSheet"><i class="fa fa-check"></i>确认收到款项</a>
+            }
+            else
+            {
+                <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=false" class="btn btn-danger"Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CancelSheet"><i class="fa fa-times"></i>撤销确认款项</a>
+            }
         }
 
         <a href="/Expense/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>报销系统</a>

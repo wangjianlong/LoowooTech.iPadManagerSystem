@@ -102,6 +102,14 @@
                     <li class="@(ViewBag.Area.ToLower()=="Address".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Address/Home/Index"><i class="fa fa-address-book"></i><span class="nav-label">通讯录</span></a>
                     </li>
+                    <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+                        <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
+                    </li>
+                    @*<li>
+                        <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
+                    </li>*@
+                    @RenderSection("navigation", false)
+
                     @if (Identity.UserRole == UserRole.Admin)
                     {
                         <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()?"active":"")">
@@ -118,7 +126,7 @@
                             </ul>
                         </li>
                     }
-                    @RenderSection("navigation",false)
+                 
                 </ul>
             </div>
         </nav>

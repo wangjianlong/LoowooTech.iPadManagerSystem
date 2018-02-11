@@ -9,23 +9,6 @@
 
 <script>
     $(function () {
-        $("#wizard").steps();
-
-        $("#form-sheet").steps({
-            bodyTag: "fieldset",
-            onFinished: function (event, currentIndex) {
-                var form = $(this);
-                form.submit();
-
-            }
-        });
-
-        $(".i-checks").iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-
-        $(".chosen-select").chosen({ width: "100%" });
 
         $("#form-sheet").submit(function () {
             LWSubmit("#form-sheet");
@@ -35,140 +18,143 @@
 </script>
 
 <div class="row">
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>报销基础信息填报</h5>
-        </div>
-        <div class="ibox-content">
-            <div class="alert alert-warning alert-dismissable">
-                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                当前为报销第一步，确认本次报销的基础信息！根据报销类型，进行第二步填写操作！
+    <div class="col-xs-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>报销基础信息填写</h5>
             </div>
-
-            <form id="form-sheet" action="/Expense/Home/Save" class="wizard-big widget clearfix" method="post" Url="/Expense/Home/Navigation?id=">
-                <h1>报销基础信息</h1>
-                <fieldset>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <label class="control-label">报销单位：</label>
-                                <div class="col-sm-12">
-                                    @foreach(var item in companys)
-                                    {
-                                        <div class="radio-inline i-checks">
-                                            <label>
-                                                <input type="radio" name="CompanyId" value="@(item.ID)" @(sheet!=null&&sheet.CompanyId==item.ID?"checked=checked":"") /><i></i>@(item.Name)
-                                            </label>
-                                        </div>
-                                    }
+            <div class="ibox-content">
+    
+                <form id="form-sheet" action="/Expense/Home/Save" class="form-horizontal" method="post" Url="/Expense/Home/Navigation?id=">
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">报销单位：</label>
+                        <div class="col-xs-10">
+                            <input type="hidden" name="ID" value="@(sheet!=null?sheet.ID:0)" />
+                            <input type="hidden" name="Money" value="@(sheet!=null?sheet.Money:0)" />
+                            @foreach (var item in companys)
+                            {
+                                <div class="radio-inline i-checks">
+                                    <label>
+                                        <input type="radio" name="CompanyId" value="@(item.ID)" @(sheet != null && sheet.CompanyId == item.ID ? "checked=checked" : "") /><i></i>@(item.Name)
+                                    </label>
                                 </div>
-                            </div>
-                         <div class="form-group">
-                             <label class="control-label">发票张数：</label>
-                             <div class="col-sm-12">
-                                 <input type="number" name="Count" class="form-control" placeholder="发票张数" value="@(sheet!=null?sheet.Count:0)" />
-                             </div>
-                         </div>
-                            <div class="form-group">
-                                <label class="control-label">报销类型：</label>
-                                <div class="col-sm-12">
-                                    @foreach (SheetType type in Enum.GetValues(typeof(SheetType)))
-                                    {
-                                        <div class="radio-inline i-checks">
-                                            <label>
-                                                <input type="radio" name="SheetType" value="@(type)" @(sheet!=null&&sheet.SheetType==type?"checked=checked":"") /><i></i>@(type.GetDescription())
-                                            </label>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                           
-                            
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="text-center">
-                                <div style="margin-top:20px;">
-                                    <i class="fa fa-sign-in" style="font-size:180px;color:#e5e5e5"></i>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
-                </fieldset>
-                <h1>关联项目</h1>
-                <fieldset>
-                    <div class="row">
-                        <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">报销类型：</label>
+                        <div class="col-xs-10">
+                            @foreach (SheetType type in Enum.GetValues(typeof(SheetType)))
+                            {
+                                <div class="radio-inline i-checks">
+                                    <label>
+                                        <input type="radio" name="SheetType" value="@(type)" @(sheet != null && sheet.SheetType == type ? "checked=checked" : "") /><i></i>@(type.GetDescription())
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">发票张数：</label>
+                        <div class="col-xs-10">
+                            <input type="number" name="Count" class="form-control" placeholder="发票张数" value="@(sheet!=null?sheet.Count:0)" />
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <label class="control-label col-xs-2">电子发票：</label>
+                        <div class="col-xs-10">
+                            <button type="button" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>添加</button>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">更改</span><input type="file" name="..."></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">删除</a>
+                            </div>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">更改</span><input type="file" name="..."></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">删除</a>
+                            </div>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">更改</span><input type="file" name="..."></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">删除</a>
+                            </div>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">更改</span><input type="file" name="..."></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">删除</a>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
                             <div class="alert alert-warning alert-dismissable">
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                 <p class="lead">填写说明</p>
                                 <p>1、 如当前报销项目未录入系统，在其他输入框中输入项目名称！如需对项目信息进行完善，可进入项目系统进行管理！</p>
                                 <p>2、如本次报销参与多个项目，以主要项目作为报销项目；</p>
-                               
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">项目：</label>
-                                <div class="col-sm-12">
-                                    <select data-placeholder="请选择项目" name="ProjectId" class="chosen-select">
-                                        <option value="" @(sheet==null?"selected=selected":"")>请选择项目</option>
-                                        @foreach (var item in projects)
-                                        {
-                                            <option value="@(item.ID)" @(sheet!=null&&sheet.ProjectId==item.ID?"slected=selected":"")>@(item.Name)</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">其他：</label>
-                                <div class="col-sm-12">
-                                    <input type="text" name="ProjectName" class="form-control" placeholder="手动输入项目" />
-                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <div style="margin-top:20px;">
-                                    <i class="fa fa-briefcase" style="font-size:180px;color:#e5e5e5"></i>
-                                </div>
-                            </div>
+                      
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">项目：</label>
+                        <div class="col-xs-10">
+                            <select name="ProjectId" class="chosen-select form-control">
+                                <option value="" @(sheet == null ? "selected=selected" : "")>请选择项目</option>
+                                @foreach (var item in projects)
+                                {
+                                    <option value="@(item.ID)" @(sheet != null && sheet.ProjectId == item.ID ? "selected=selected" : "")>@(item.Name)</option>
+                                }
+                            </select>
                         </div>
                     </div>
-                </fieldset>
-                <h1>其他</h1>
-                <fieldset>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                <label class="control-label">备注：</label>
-                                <div class="col-sm-12">
-                                    <textarea class="form-control" rows="3" name="Remark">@(sheet==null?"":sheet.Remark)</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">报销时间：</label>
-                                <div class="col-sm-12">
-                                    <input type="text" name="Time" value="@(sheet==null? DateTime.Now.ToLongDateString():sheet.Time.ToLongDateString())" readonly class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">报销人：</label>
-                                <div class="col-sm-12">
-                                    <input type="hidden" name="UserId" value="@(sheet==null?Identity.UserId:sheet.UserId)" />
-                                    <input type="text" name="" value="@(sheet==null?Identity.Name:sheet.User.Name)" readonly class="form-control" />
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">其他(手动输入)：</label>
+                        <div class="col-xs-10">
+                            <input type="text" name="ProjectName" class="form-control" placeholder="手动输入项目" />
                         </div>
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <div style="margin-top:20px;">
-                                    <i class="fa fa-paper-plane" style="font-size:180px;color:#e5e5e5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    
                     </div>
-                </fieldset>
-            </form>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">备注：</label>
+                        <div class="col-xs-10">
+                            <textarea class="form-control" rows="3" name="Remark">@(sheet == null ? "" : sheet.Remark)</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">报销时间：</label>
+                        <div class="col-xs-10">
+                            <input type="text" name="Time" value="@(sheet==null? DateTime.Now.ToLongDateString():sheet.Time.ToLongDateString())" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">报销人：</label>
+                        <div class="col-xs-10">
+                            <input type="hidden" name="UserId" value="@(sheet==null?Identity.UserId:sheet.UserId)" />
+                            <input type="text" name="" value="@(sheet==null?Identity.Name:sheet.User.Name)" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-4 col-xs-offset-2">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+                            <button type="button" class="btn btn-white" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+                        </div>
+                    </div>
+                </form>
+
+                @*<form action="#" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>*@
+            </div>
         </div>
     </div>
 </div>
+
+
+
 

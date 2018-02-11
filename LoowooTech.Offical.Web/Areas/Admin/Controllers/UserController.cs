@@ -1,4 +1,5 @@
 ﻿using LoowooTech.Models;
+using LoowooTech.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,15 @@ namespace LoowooTech.Offical.Web.Areas.Admin.Controllers
             ViewBag.User = user;
             var groups = Core.GroupManager.GetList();
             ViewBag.Groups = groups;
+            var companys = Core.CompanyManager.GetList();
+            ViewBag.Companys = companys;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Save(User user)
+        public ActionResult Save(User user,int[] companyId)
         {
+            var userId = user.ID;
             if (user.ID > 0)
             {
                 if (!Core.UserManager.Edit(user))
@@ -38,11 +42,16 @@ namespace LoowooTech.Offical.Web.Areas.Admin.Controllers
             }
             else
             {
-                var id = Core.UserManager.Add(user);
-                if (id <= 0)
+                userId = Core.UserManager.Add(user);
+                if (userId <= 0)
                 {
                     return ErrorJsonResult("添加用户失败！");
                 }
+            }
+            if (companyId != null)
+            {
+                var userCompanys = companyId.Select(e => new UserCompany { UserId = userId, CompanyId = e }).ToList();
+                Core.UserCompanyManager.Update(userCompanys, userId);
             }
             return SuccessJsonResult();
         }

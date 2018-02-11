@@ -44,6 +44,7 @@ namespace LoowooTech.Models.Expense
         public string Other { get; set; }
         public double Fee { get; set; }
         public int SheetId { get; set; }
+        public virtual Sheet Sheet { get; set; }
         public virtual List<Errand> Errands { get; set; }
         public virtual List<Traffic> Traffics { get; set; }
         public double Sum

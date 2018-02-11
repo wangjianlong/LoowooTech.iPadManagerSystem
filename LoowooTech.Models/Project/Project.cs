@@ -16,6 +16,8 @@ namespace LoowooTech.Models.Project
         public int ID { get; set; }
         public string Name { get; set; }
         public DateTime CreateTime { get; set; } = DateTime.Now;
+        [NotMapped]
+        public string Serial { get { return string.Format("P{0}{1}{2}{3}",CreateTime.Year,CreateTime.Month.ToString("00"),CreateTime.Day.ToString("00"),ID.ToString("0000")); } }
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public string SerialNumber { get; set; }

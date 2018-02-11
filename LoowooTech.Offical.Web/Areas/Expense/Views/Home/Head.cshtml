@@ -1,0 +1,74 @@
+﻿@{ 
+    Layout = null;
+    List<SheetFlowView> list = ViewBag.List;
+    SheetViewParameter Parameter = ViewBag.Parameter;
+    string url = string.Empty;
+    if (Parameter.SheetType.HasValue)
+    {
+        switch (Parameter.SheetType.Value)
+        {
+            case SheetType.Daily:
+                url = "/Expense/Daily/Detail?sheetId=";
+                break;
+            case SheetType.Evection:
+                url = "/Expense/Evection/Detail?SheetId=";
+                break;
+            case SheetType.Reception:
+                url = "/Expense/Reception/Detail?SheetId=";
+                break;
+            default:
+                break;
+        }
+    }
+        }
+
+
+<table class="footable table table-striped toggle-arrow-tiny">
+    <thead>
+        <tr>
+            <th>单号</th>
+            <th data-toggle="true">报销单位</th>
+            <th>填报时间</th>
+            <th>发票张数</th>
+            <th>报销金额【元】</th>
+            <th>报销状态</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in list)
+        {
+            <tr>
+                <td>
+                    <a href="@(url+item.SheetId)">@(item.SerialNumber)</a>
+                </td>
+                <td>@(item.CompanyName)</td>
+                <td>@(item.SheetTime.ToLongDateString())</td>
+                <td>@(item.Count)</td>
+                <td>
+                    <span class="badge badge-primary">@(item.Money)</span>
+                </td>
+                <td>
+                    @switch (item.FlowDataState)
+                        {
+                            case FlowDataState.None:
+                                <label class="label label-warning"> <i class="fa fa-pencil"></i>草稿</label>
+                                break;
+                            case FlowDataState.Checking:
+                                <label class="label label-success"><i class="fa fa-spin fa-spinner"></i>审核中</label>
+                                break;
+                            case FlowDataState.Done:
+                            if (item.IsCheck)
+                            {
+                                <label class="label label-primary"><i class="fa fa-flag"></i>款项确认</label>
+                            }
+                            else
+                            {
+                                <label class="label label-info"><i class="fa fa-shield"></i>通过审核</label>
+                            }
+                            break;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

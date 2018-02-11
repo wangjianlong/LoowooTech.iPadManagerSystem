@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "项目查看";
+    Layout = "~/Areas/Project/Views/Shared/_Layout.cshtml";
+    Project project = ViewBag.Project;
+}
+
+<div class="row">
+    <div class="col-xs-9">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="m-t-md">
+                                    <h2>@(project.Name)</h2>
+                                </div>
+                                <dl class="dl-horizontal">
+                                    <dt>状态:</dt>
+                                    <dd>
+
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <dl class="dl-horizontal">
+                                    <dt>项目编号：</dt>
+                                    <dd>@(project.Serial)</dd>
+                                    <dt>创建时间：</dt>
+                                    <dd>@(project.CreateTime.ToLongDateString())</dd>
+                                    <dt>创建人：</dt>
+                                    <dd>@(project.User.Name)</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel blank-panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-options">
+                                            <ul class="nav nav-tabs">
+                                                <li class=""><a href="" data-toggle="tab">项目进度</a></li>
+                                                <li class=""><a href="" data-toggle="tab">相关报销</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

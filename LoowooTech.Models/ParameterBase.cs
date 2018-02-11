@@ -8,6 +8,7 @@ namespace LoowooTech.Models
 {
     public class ParameterBase
     {
+        public LWOrder Order { get; set; }
         public PageParameter Page { get; set; }
     }
 }

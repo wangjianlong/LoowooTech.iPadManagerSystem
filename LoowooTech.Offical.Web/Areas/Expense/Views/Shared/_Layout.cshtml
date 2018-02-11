@@ -14,20 +14,56 @@
     <link rel="stylesheet" href="~/Content/css/plugins/slick/slick.css" />
     <link rel="stylesheet" href="~/Content/css/plugins/slick/slick-theme.css" />
     <link rel="stylesheet" href="~/Content/css/plugins/datapicker/datepicker3.css" />
+    <link rel="stylesheet" href="~/Content/css/plugins/dropzone/basic.css" />
+    <link rel="stylesheet" href="~/Content/css/plugins/dropzone/dropzone.css" />
 
+    <link rel="stylesheet" href="~/Content/css/plugins/jasny/jasny-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/css/plugins/codemirror/codemirror.css" />
     }
 
 @section scripts{
     <script src="~/scripts/LW/Expense.js"></script>
     <script src="~/scripts/plugins/slick/slick.min.js"></script>
     <script src="~/scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
-
+    <script src="~/scripts/plugins/dropzone/dropzone.js"></script>
     }
 
+<script>
+    Dropzone.options.dropzoneForm = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+    };
+
+    $(function () {
+
+        $(".i-checks").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $('.chosen-select').chosen({ width: "100%" });
+    });
+</script>
+
 @section navigation{
-    <li>
-        <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
+
+    <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Examination".ToLower()?"active":"")">
         <a href="/Expense/Home/Examination"><i class="fa fa-balance-scale"></i><span class="nav-label">报销单审核</span></a>
+    </li>
+    <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
+        <a href="#"><i class="fa fa-bank"></i><span class="nav-label">我的报销单</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Daily".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
+                <a href="/Expense/Daily/Search">日常报销</a>
+            </li>
+            <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Evection".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
+                <a href="/Expense/Evection/Search">出差报销</a>
+            </li>
+            <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Reception".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
+                <a href="/Expense/Reception/Search">招待报销</a>
+            </li>
+        </ul>
     </li>
     }
 

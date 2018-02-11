@@ -31,4 +31,16 @@ namespace LoowooTech.Models
         [Description("管理员")]
         Admin,
     }
+
+    public enum LWOrder
+    {
+        [Description("ID升序")]
+        ID,
+        [Description("ID降序")]
+        DeID,
+        [Description("时间升序")]
+        Time,
+        [Description("时间降序")]
+        DeTime
+    }
 }

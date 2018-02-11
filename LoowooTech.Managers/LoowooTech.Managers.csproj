@@ -58,13 +58,16 @@
     <Compile Include="Admin\FlowNodeDataManager.cs" />
     <Compile Include="Admin\FlowNodeManager.cs" />
     <Compile Include="Admin\GroupManager.cs" />
+    <Compile Include="Admin\UserCompanyManager.cs" />
     <Compile Include="Adress\ContactManager.cs" />
     <Compile Include="Expense\DailyManager.cs" />
     <Compile Include="Expense\ErrandManager.cs" />
     <Compile Include="Expense\EvectionManager.cs" />
     <Compile Include="Expense\ReceptionItemManager.cs" />
     <Compile Include="Expense\ReceptionManager.cs" />
+    <Compile Include="Expense\SheetFlowDataViewManager.cs" />
     <Compile Include="Expense\SheetManager.cs" />
+    <Compile Include="Expense\SheetViewManager.cs" />
     <Compile Include="Expense\SubstanceManager.cs" />
     <Compile Include="Expense\TrafficManager.cs" />
     <Compile Include="LWDbContext.cs" />

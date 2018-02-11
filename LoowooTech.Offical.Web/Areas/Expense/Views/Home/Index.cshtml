@@ -6,28 +6,118 @@
 
 @section Description{
     欢迎登录报销系统！
-    }
+}
 
 @section ButtonHead{
     <div class="title-action">
         <a href="/Expense/Home/Create" class="btn btn-primary"><i class="fa fa-plus-square"></i>报销</a>
     </div>
-    }
+}
 
+<h4>状态查看</h4>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>草稿箱</h5>
+                    <span class="label label-info"><i class="fa fa-pencil"></i></span>
+                    <div class="ibox-tools">
+                       
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @{ 
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.None });
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>审核中</h5>
+                    <span class="label label-primary"><i class="fa fa-spin fa-spinner"></i></span>
+                    <div class="ibox-tools">
 
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @{
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Checking });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>审核完成</h5>
+                    <span class="label label-success"><i class="fa fa-flag"></i></span>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @{
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=false });
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>款项确认</h5>
+                    <span class="label label-danger"><i class="fa fa-bank"></i></span>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @{
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=true,page=1 });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="hr-line-dashed"></div>
+<h4>类别查看</h4>
 <div class="row">
     <div class="col-sm-6">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>日常报销</h5>
+                <h5>
+                    日常报销
+                </h5>
                 <div class="ibox-tools">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="/Expense/Daily/Search"><i class="fa fa-external-link-square"></i> 查看更多</a>
+                        </li>
+                    </ul>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
                 </div>
             </div>
             <div class="ibox-content">
-                @{ 
+                @{
                     Html.RenderAction("Index", "Daily");
                 }
             </div>
@@ -38,13 +128,21 @@
             <div class="ibox-title">
                 <h5>出差报销</h5>
                 <div class="ibox-tools">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="/Expense/Evection/Search"><i class="fa fa-external-link-square"></i> 查看更多</a>
+                        </li>
+                    </ul>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
                 </div>
             </div>
             <div class="ibox-content">
-                @{ 
+                @{
                     Html.RenderAction("Index", "Evection");
                 }
             </div>
@@ -57,6 +155,14 @@
             <div class="ibox-title">
                 <h5>招待报销</h5>
                 <div class="ibox-tools">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="/Expense/Reception/Search"><i class="fa fa-external-link-square"></i> 查看更多</a>
+                        </li>
+                    </ul>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>

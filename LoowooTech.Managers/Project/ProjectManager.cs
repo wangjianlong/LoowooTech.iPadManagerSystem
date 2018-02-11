@@ -48,6 +48,10 @@ namespace LoowooTech.Managers.Project
         public List<Models.Project.Project> Search(ProjectParameter parameter)
         {
             var query = DB.Projects.AsQueryable();
+            if (parameter.UserId.HasValue)
+            {
+                query = query.Where(e => e.UserId == parameter.UserId.Value);
+            }
             if (parameter.Delete.HasValue)
             {
                 query = query.Where(e => e.Delete == parameter.Delete.Value);
@@ -61,10 +65,31 @@ namespace LoowooTech.Managers.Project
             {
                 query = query.Where(e => e.IsDone == parameter.IsDone.Value);
             }
-            query = query.OrderBy(e => e.ID).SetPage(parameter.Page);
+
+            switch (parameter.Order)
+            {
+                case Models.LWOrder.DeID:
+                    query = query.OrderByDescending(e => e.ID);
+                    break;
+                case Models.LWOrder.DeTime:
+                    query = query.OrderByDescending(e => e.CreateTime);
+                    break;
+                case Models.LWOrder.ID:
+                    query = query.OrderBy(e => e.ID);
+                    break;
+                case Models.LWOrder.Time:
+                    query = query.OrderBy(e => e.CreateTime);
+                    break;
+            }
+            query = query.SetPage(parameter.Page);
             return query.ToList();
         }
 
+
+        public Models.Project.Project Get(int id)
+        {
+            return DB.Projects.Find(id);
+        }
 
     }
 }

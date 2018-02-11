@@ -1,4 +1,5 @@
 ﻿using LoowooTech.Models;
+using LoowooTech.Models.Admin;
 using LoowooTech.Models.Expense;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         public ActionResult Create(int id=0)
         {
             ViewBag.Sheet = Core.SheetManager.GetSingle(id);
-            var companys = Core.CompanyManager.GetList();
+
+            var companys = Core.UserCompanyManager.GetCompanys(Identity.UserId);
             ViewBag.Companys = companys;
             ViewBag.Projects = Core.ProjectManager.Search(new Models.Project.ProjectParameter { IsDone = false, Delete = false });
             return View();
@@ -100,18 +102,74 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View("Empty");
         }
 
-        public ActionResult Examination(Models.Admin.VerificationState? state=null, int page=1,int rows=20)
+        public ActionResult Examination(
+            int? companyId=null,int? sheetUserId=null,int? flowNodeId=null,
+            Models.Admin.VerificationState? state=null, int page=1,int rows=20)
         {
-            var parameter = new FlowDataParameter
+
+
+            var parameter = new SheetViewParameter
             {
-                UserId = Identity.UserId,
-                FlowId = Flow.ID,
-                State=state,
+                CheckUserId = Identity.UserId,
+                CompanyId=companyId,
+                SheetUserId=sheetUserId,
+                FLowNodeId=flowNodeId,
+                State = state,
                 Page = new PageParameter(page, rows)
             };
-            var flowData = Core.FlowDataManager.Search(parameter);
-            var sheets = Core.SheetManager.Search(flowData);
+            var sheets = Core.SheetViewManager.Search(parameter);
             ViewBag.Sheets = sheets;
+            ViewBag.Parameter = parameter;
+            var companys = Core.CompanyManager.GetList();
+            ViewBag.Companys = companys;
+            var users = Core.UserManager.GetList();
+            ViewBag.Users = users;
+            ViewBag.FlowNodes = Core.FlowNodeManager.GetList2(Flow.ID);
+            return View();
+        }
+
+        /// <summary>
+        /// 报销确认款项
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Check(int id,bool flag)
+        {
+            if (!Core.SheetManager.IsCheck(id, flag))
+            {
+                return ErrorJsonResult("确认款项失败！");
+            }
+            return SuccessJsonResult();
+        }
+
+        public ActionResult Head(SheetType type)
+        {
+            var parameter = new SheetViewParameter
+            {
+                SheetUserId = Identity.UserId,
+                SheetType=type,
+                Page = new PageParameter(1, 20)
+            };
+            var list = Core.SheetViewManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+            return View();
+        }
+
+        public ActionResult State(int userId,FlowDataState state,bool? isCheck, int? page = null,int rows=20)
+        {
+            var parameter = new SheetFlowDataParameter
+            {
+                UserId = userId,
+                State = state,
+                IsCheck = isCheck
+            };
+            if (page.HasValue)
+            {
+                parameter.Page = new PageParameter(page.Value, rows);
+            }
+            var list = Core.SheetFlowDataViewManager.Search(parameter);
+            ViewBag.List = list;
             return View();
         }
 

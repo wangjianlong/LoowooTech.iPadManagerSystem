@@ -12,34 +12,42 @@
     }
 
 @section buttonHead{
-    <div class="title-action">
-        @if (sheet.FlowData.State == FlowDataState.None)
+<div class="title-action">
+    @if (sheet.FlowData.State == FlowDataState.None)
+    {
+        if (sheet.UserId == Identity.UserId)
         {
-            if (sheet.UserId == Identity.UserId)
+            <a href="/Flows/Commit?flowDataId=@(sheet.FlowData.ID)" class="btn btn-success" Url="@(currentUrl)" name="Commit"><i class="fa fa-arrow-up"></i>提交审核</a>
+            <a href="/Expense/Evection/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑出差详情</a>
+            <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+        }
+    }
+    else if (sheet.FlowData.State == FlowDataState.Checking)
+    {
+        if (sheet.FlowData.CanCancel(Identity.UserId, sheet.UserId))
+        {
+            if (sheet.FlowData.Current.UserId != Identity.UserId)
             {
-                <a href="/Flows/Commit?flowDataId=@(sheet.FlowData.ID)" class="btn btn-success" Url="@(currentUrl)" name="Commit"><i class="fa fa-arrow-up"></i>提交审核</a>
-                <a href="/Expense/Evection/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑出差详情</a>
-                <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
+                <a href="/Flows/Cancel?flowDataId=@(sheet.FlowData.ID)&&OwnId=@(sheet.UserId)" class="btn btn-danger" name="Cancel" Url="@(currentUrl)"><i class="fa fa-arrow-left"></i>撤回</a>
             }
         }
-        else if (sheet.FlowData.State == FlowDataState.Checking)
+    }
+    else if (sheet.FlowData.State == FlowDataState.Done)
+    {
+        <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
+        if (sheet.IsCheck == false)
         {
-            if (sheet.FlowData.CanCancel(Identity.UserId, sheet.UserId))
-            {
-                if (sheet.FlowData.Current.UserId != Identity.UserId)
-                {
-                    <a href="/Flows/Cancel?flowDataId=@(sheet.FlowData.ID)&&OwnId=@(sheet.UserId)" class="btn btn-danger" name="Cancel" Url="@(currentUrl)"><i class="fa fa-arrow-left"></i>撤回</a>
-                }
-            }
+            <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=true" class="btn btn-warning" Url="@(currentUrl)" name="CheckSheet"><i class="fa fa-check"></i>确认收到款项</a>
         }
-        else if (sheet.FlowData.State == FlowDataState.Done)
+        else
         {
-            <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
+            <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=false" class="btn btn-danger" Url="@(currentUrl)" name="CancelSheet"><i class="fa fa-times"></i>撤销确认款项</a>
         }
+    }
 
-        <a href="/Expense/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>报销系统</a>
-        <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
-    </div>
+    <a href="/Expense/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>报销系统</a>
+    <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+</div>
     }
 
 
@@ -62,9 +70,9 @@
             }
         </div>
         <div class="col-sm-4">
-           @{ 
-               Html.RenderAction("Detail", "Flows", new { area = "", flowId = ViewBag.Flow.ID, infoId = sheet.ID });
-           }
+            @{
+                Html.RenderPartial("_showFlow", sheet.FlowData as object);
+            }
         </div>
     </div>
 </div>

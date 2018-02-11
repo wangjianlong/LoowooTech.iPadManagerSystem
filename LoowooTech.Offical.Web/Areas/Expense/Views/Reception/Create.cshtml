@@ -3,7 +3,8 @@
     ViewBag.Title = "录入招待报销详情";
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
     Sheet sheet = ViewBag.Sheet;
-    List<Company> projects = ViewBag.Projects;
+    Reception reception = sheet.Reception;
+    List<Company> companys = ViewBag.Projects;
 }
 <link rel="stylesheet" href="~/Content/css/plugins/datapicker/datepicker3.css" />
 <script src="~/scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
@@ -50,7 +51,7 @@
 }
 
 <form class="form-horizontal" method="post" action="/Expense/Reception/Save" Url="/Expense/Reception/Detail?sheetId=@(sheet.ID)" name="form-Reception" >
-    <input type="hidden" name="SheetId" value="@(sheet.Reception!=null?sheet.Reception.SheetId: sheet.ID)" />
+    <input type="hidden" name="SheetId" value="@(reception!=null?reception.SheetId: sheet.ID)" />
     <div class="row">
         <div class="col-md-8 col-xs-12 col-sm-12">
             <div class="ibox">
@@ -73,17 +74,19 @@
                        <div class="col-sm-8">
                            <div class="input-group date">
                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                               <input type="text" class="form-control" name="Time"placeholder="招待日期" value="@(sheet.Reception!=null?sheet.Reception.Time.ToString("/dd/MM/yyyy"):"")" />
+                               <input type="text" class="form-control" name="Time"placeholder="招待日期" value="@(reception!=null?reception.Time.ToString("/dd/MM/yyyy"):"")" />
                            </div>
                        </div>
                    </div>
                    <div class="form-group">
                        <label class="control-label col-sm-3">招待单位：</label>
                        <div class="col-sm-8">
+
                            <select class="select2-Company form-control" multiple="multiple" name="CompanyIds">
-                               @foreach(var item in projects)
+                     
+                               @foreach(var item in companys)
                                {
-                                   <option value="@(item.ID)" @(sheet.Reception!=null&&sheet.Reception.CompanyIds.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)</option>
+                                   <option value="@(item.ID)" @(reception!=null&&reception.CompanyIds!=null&&reception.CompanyIds.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)</option>
                                }
                            </select>
                        </div>
@@ -92,7 +95,7 @@
                        <label class="control-label col-sm-3">招待人数：</label>
                        <div class="col-sm-8">
                            <div class="input-group">
-                               <input type="number" name="Number" class="form-control" placeholder="招待人数"  value="@(sheet.Reception!=null?sheet.Reception.Number:0)"/>
+                               <input type="number" name="Number" class="form-control" placeholder="招待人数"  value="@(reception!=null?reception.Number:0)"/>
                                <span class="input-group-addon">人</span>
                            </div>
                        </div>
@@ -101,8 +104,9 @@
                        <label class="control-label col-sm-3">公司人员：</label>
                        <div class="col-sm-8">
                            <div class="input-group">
-                               <input type="hidden" name="UserIdValues" value="@(sheet.Reception!=null?sheet.Reception.UserIdValues:"")" />
-                               <input type="text" name="Persons" class="form-control" placeholder="公司人员" readonly value="@(sheet.Reception!=null&sheet.Reception.Users!=null?string.Join(",",sheet.Reception.Users.Select(e=>e.Name).ToArray()):"")" />
+                               <input type="hidden" name="UserIdValues" value="@(reception!=null?reception.UserIdValues:"")" />
+                           
+                               <input type="text" name="Persons" class="form-control" placeholder="公司人员" readonly value="@(reception!=null&&reception.Users!=null&&reception.Users.Count>0?string.Join(",",reception.Users.Select(e=>e.Name).ToArray()):"")" />
                                <div class="input-group-btn">
                                    <a href="/Expense/User/Select" goal="UserIdValues" action="/Expense/User/Select?" data-toggle="modal" data-target="#Modal" class="btn btn-primary" name="Select2"><i class="fa fa-mouse-pointer"></i></a>
                                </div>
@@ -112,7 +116,7 @@
                    <div class="form-group">
                        <label class="control-label col-sm-3">备注：</label>
                        <div class="col-sm-8">
-                           <textarea class="form-control" rows="3" name="Remark">@(sheet.Reception!=null?sheet.Reception.Remark:"")</textarea>
+                           <textarea class="form-control" rows="3" name="Remark">@(reception!=null?reception.Remark:"")</textarea>
                        </div>
                    </div>
                </div>
@@ -164,9 +168,9 @@
                                     </tr>
                                 </thead>
                                 <tbody name="Reception">
-                                    @if (sheet.Reception != null && sheet.Reception.Items != null)
+                                    @if (reception != null && reception.Items != null)
                                     {
-                                        foreach (var item in sheet.Reception.Items)
+                                        foreach (var item in reception.Items)
                                         {
                                             <tr>
                                                 <td>
@@ -230,7 +234,7 @@
             <div class="hr-line-dashed"></div>
             <div class="wrapper wrapper-content project-manager">
                 <div class="text-center m-t-md">
-                    <a href="" class="btn btn-primary"><i class="fa fa-arrow-up"></i>提交</a>
+             
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
                     <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
                 </div>

@@ -53,6 +53,7 @@
     <Compile Include="Admin\FlowNodeData.cs" />
     <Compile Include="Admin\Parameters\FlowDataParameter.cs" />
     <Compile Include="Admin\ProjectType.cs" />
+    <Compile Include="Admin\UserCompany.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Evaluate.cs" />
     <Compile Include="Expense\BillNumber.cs" />
@@ -61,12 +62,19 @@
     <Compile Include="Expense\DailyParameter.cs" />
     <Compile Include="Expense\Errand.cs" />
     <Compile Include="Expense\Evection.cs" />
+    <Compile Include="Expense\EvectionParameter.cs" />
     <Compile Include="Expense\Reception.cs" />
+    <Compile Include="Expense\ReceptionParameter.cs" />
     <Compile Include="Expense\Sheet.cs" />
+    <Compile Include="Expense\SheetFlowDataParameter.cs" />
+    <Compile Include="Expense\SheetFlowDataView.cs" />
     <Compile Include="Expense\SheetParameter.cs" />
+    <Compile Include="Expense\SheetFlowView.cs" />
     <Compile Include="Expense\Substance.cs" />
     <Compile Include="Expense\Traffic.cs" />
+    <Compile Include="FileInfo.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="LWFileInfo.cs" />
     <Compile Include="LWSystem.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="PageParameter.cs" />
@@ -75,6 +83,7 @@
     <Compile Include="PowerItem.cs" />
     <Compile Include="Project\Project.cs" />
     <Compile Include="Project\ProjectParameter.cs" />
+    <Compile Include="Project\ProjectProgress.cs" />
     <Compile Include="Project\ProjectUser.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />

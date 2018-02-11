@@ -69,7 +69,24 @@
                             
                                 <div class="vertical-timeline-content">
                                     <h2>@(node.FlowNode.Name)</h2>
-                                    <p>审核人：@(node.User.Name)</p>
+                                    <p>
+                                        可审核人：
+                                        
+                                        @if (node.Users != null)
+                                        {
+                                            foreach(var user in node.Users)
+                                            {
+                                                <span class="label label-default">@(user.Name)</span>
+                                            }
+                                        }
+                                    </p>
+                                    <p>实际审核人：
+
+                                        @if(node.User!=null)
+                                        {
+                                            <span class="label label-primary">@(node.User.Name)</span>
+                                        }
+                                    </p>
                                     <p>审核状态：
                                     <span class="badge @(node.state==VerificationState.Success?"badge-primary":node.state==VerificationState.Fail?"badge-danger":node.state==VerificationState.Cancel?"badge-warning":"")">
                                         @(node.state.GetDescription())
@@ -105,7 +122,7 @@
                 <div class="hr-line-dashed"></div>
                 @if (Model.State == FlowDataState.Checking)
                                 {
-                                    if (Model.Current != null && Model.Current.state == VerificationState.None && Model.Current.UserId == Identity.UserId)
+                                    if (Model.Current != null && Model.Current.state == VerificationState.None && Model.Current.UserIds.Contains(Identity.UserId))
                                     {
                         <form class="" method="post" action="/Flows/Save" Url="@(url)" name="form-flow">
                             <input type="hidden" name="ID" value="@(Model.Current.ID)" />

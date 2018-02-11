@@ -40,6 +40,18 @@
                     </div>
                     <div class="clearfix"></div>
                 </a>
+                <div class="ibox-content">
+                    <h5>加入企业</h5>
+                    <ul>
+                        @if (item.Companys != null)
+                        {
+                            foreach (var company in item.Companys)
+                            {
+                                <li>@(company.Company.Name)</li>
+                            }
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
         

@@ -125,5 +125,10 @@ namespace LoowooTech.Managers.Admin
             return result;
         }
 
+        public List<FlowNode> GetList2(int flowId)
+        {
+            return DB.FlowNodes.Where(e => e.FlowId == flowId).ToList();
+        }
+
     }
 }

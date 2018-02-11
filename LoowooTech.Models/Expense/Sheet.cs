@@ -17,6 +17,8 @@ namespace LoowooTech.Models.Expense
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
+        [NotMapped]
+        public string SerialNumber { get { return string.Format("E{0}{1}{2}{3}", Time.Year, Time.Month.ToString("00"), Time.Day.ToString("00"), ID.ToString("0000")); } }
         /// <summary>
         /// 发票张数
         /// </summary>
@@ -41,24 +43,13 @@ namespace LoowooTech.Models.Expense
         [NotMapped]
         public Reception Reception { get; set; }
         public double Money { get; set; }
-        //public double Money
-        //{
-        //    get
-        //    {
-        //        switch (SheetType)
-        //        {
-        //            case SheetType.Daily:
-        //                return Daily==null?.0: Daily.Sum;
-        //            case SheetType.Evection:
-        //                return Evection==null?.0: Evection.Sum;
-        //            case SheetType.Reception:
-        //                return Reception==null?.0: Reception.Sum;
-        //        }
 
-        //        return .0;
-        //    }
-        //}
         public bool Delete { get; set; }
+        /// <summary>
+        /// 确认完成
+        /// </summary>
+        public bool IsCheck { get; set; }
+        public DateTime? CheckTime { get; set; }
 
     }
 

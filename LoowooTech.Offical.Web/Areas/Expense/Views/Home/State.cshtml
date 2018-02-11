@@ -1,0 +1,52 @@
+﻿@{ 
+    Layout = null;
+    List<SheetFlowDataView> list = ViewBag.List;
+}
+
+
+<div class="well">
+    <h5>合计金额：&yen;@(list.Sum(e => e.Money))元;共@(list.Count)条记录</h5>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>单号</th>
+            <th>报销单位</th>
+            <th>填报时间</th>
+            <th>发票张数</th>
+            <th>报销金额【元】</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            string url = string.Empty;
+            switch (item.SheetType)
+            {
+                case SheetType.Daily:
+                    url = "/Expense/Daily/Detail?sheetId=";
+                    break;
+                case SheetType.Evection:
+                    url = "/Expense/Evection/Detail?sheetId=";
+                    break;
+                case SheetType.Reception:
+                    url = "/Expense/Reception/Detail?sheetId=";
+                    break;
+                default:
+                    break;
+            }
+        <tr>
+            <td>
+                <a href="@(url+item.ID)">@(item.SerialNumber)</a>
+            </td>
+            <td>@(item.CompanyName)</td>
+            <td>@(item.Time.ToLongDateString())</td>
+            <td>@(item.Count)</td>
+            <td>
+                <span class="badge badge-primary">@(item.Money)</span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

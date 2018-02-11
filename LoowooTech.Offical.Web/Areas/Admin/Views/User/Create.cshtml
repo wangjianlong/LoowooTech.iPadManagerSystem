@@ -2,6 +2,7 @@
     Layout = null;
     User user = ViewBag.User;
     List<Group> groups = ViewBag.Groups;
+    List<Company> Companys = ViewBag.Companys;
 }
 
 <script>
@@ -67,6 +68,19 @@
                         <option value="@(item.ID)" @(user==null?"":user.GroupId==item.ID?"selected=selected":"")>@(item.Name)</option>
                     }
                 </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">可查看单位：</label>
+            <div class="col-xs-7">
+                @foreach(var company in Companys)
+                {
+                    <div class="i-checks">
+                        <label>
+                            <input type="checkbox"  value="@(company.ID)" name="CompanyId" @(user.Companys!=null&&user.Companys.Any(e=>e.CompanyId==company.ID)?"checked=checked":"")/><i></i>@(company.Name)
+                        </label>
+                    </div>
+                }
             </div>
         </div>
     </div>

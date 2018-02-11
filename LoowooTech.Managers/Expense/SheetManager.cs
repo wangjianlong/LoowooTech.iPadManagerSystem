@@ -118,5 +118,19 @@ namespace LoowooTech.Managers.Expense
             return true;
         }
 
+        public bool IsCheck(int id,bool flag)
+        {
+            var model = DB.Sheets.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+
+            model.IsCheck = flag;
+            model.CheckTime = DateTime.Now;
+            DB.SaveChanges();
+            return true;
+        }
+
     }
 }

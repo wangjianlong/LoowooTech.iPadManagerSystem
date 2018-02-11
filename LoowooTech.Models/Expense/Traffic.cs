@@ -142,6 +142,8 @@ namespace LoowooTech.Models.Expense
         PublicBus,
         [Description("地铁")]
         Metro,
+        [Description("船")]
+        Ship,
         [Description("互联网用车（企业支付）")]
         InternetCar,
         [Description("互联网用车（个人支付）")]
