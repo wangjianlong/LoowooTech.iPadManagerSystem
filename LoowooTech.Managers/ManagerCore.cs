@@ -49,6 +49,11 @@ namespace LoowooTech.Managers
         #region 项目
         private ProjectManager _projectManager { get; set; }
         public ProjectManager ProjectManager { get { return _projectManager == null ? _projectManager = new ProjectManager() : _projectManager; } }
+        private WorkScheduleManager _workScheduleManager { get; set; }
+        public WorkScheduleManager WorkScheduleManager { get { return _workScheduleManager == null ? _workScheduleManager = new WorkScheduleManager() : _workScheduleManager; } }
+        private InvoiceManager _invoiceManager { get; set; }
+        public InvoiceManager InvoiceManager { get { return _invoiceManager == null ? _invoiceManager = new InvoiceManager() : _invoiceManager; } }
+
         #endregion
 
         #region 报销

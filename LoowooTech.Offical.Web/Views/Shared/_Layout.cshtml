@@ -105,9 +105,9 @@
                     <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
                     </li>
-                    @*<li>
+                    <li>
                         <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
-                    </li>*@
+                    </li>
                     @RenderSection("navigation", false)
 
                     @if (Identity.UserRole == UserRole.Admin)

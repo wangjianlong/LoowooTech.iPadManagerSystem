@@ -48,6 +48,8 @@ namespace LoowooTech.Managers
         #region  项目
 
         public DbSet<Models.Project.Project> Projects { get; set; }
+        public DbSet<Models.Project.WorkSchedule> Schedules { get; set; }
+        public DbSet<Models.Project.Invoice> Invoices { get; set; }
         #endregion
 
         #region  报销

@@ -5,6 +5,22 @@
     Project project = ViewBag.Project;
 }
 
+@section Description{
+    项目详细信息
+    }
+
+@section buttonHead{
+<div class="title-action">
+
+    <a href="" class="btn btn-success"><i class="fa fa-edit"></i>编辑</a>
+    <a href="" class="btn btn-danger"><i class="fa fa-remove"></i>删除</a>
+    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus"></i>工作进度</a>
+    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>发票信息</a>
+    <a href="" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-file"></i>上传合同</a>
+    <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+</div>
+    }
+
 <div class="row">
     <div class="col-xs-9">
         <div class="wrapper wrapper-content animated fadeInUp">
@@ -33,6 +49,14 @@
                                     <dd>@(project.CreateTime.ToLongDateString())</dd>
                                     <dt>创建人：</dt>
                                     <dd>@(project.User.Name)</dd>
+                                    <dt>项目参与人员：</dt>
+                                    <dd class="project-people">
+
+                                    </dd>
+                                    <dt>甲方：</dt>
+                                    <dd></dd>
+                                    <dt>合同金额【元】：</dt>
+                                    <dd></dd>
                                 </dl>
                             </div>
                         </div>
@@ -44,6 +68,8 @@
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
                                                 <li class=""><a href="" data-toggle="tab">项目进度</a></li>
+                                                <li class=""><a href="" data-toggle="tab">开票信息</a></li>
+                                                <li class=""><a href="" data-toggle="tab">合同信息</a></li>
                                                 <li class=""><a href="" data-toggle="tab">相关报销</a></li>
                                             </ul>
                                         </div>

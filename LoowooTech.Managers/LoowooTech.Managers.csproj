@@ -77,8 +77,10 @@
     <Compile Include="NoteManager.cs" />
     <Compile Include="OneContext.cs" />
     <Compile Include="PowerManager.cs" />
+    <Compile Include="Project\InvoiceManager.cs" />
     <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\ProjectTypeManager.cs" />
+    <Compile Include="Project\WorkScheduleManager.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
