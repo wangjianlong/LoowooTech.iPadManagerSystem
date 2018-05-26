@@ -21,6 +21,20 @@ namespace LoowooTech.Models.Project
         public virtual Project Project { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
         public bool Delete { get; set; }
+        public virtual List<WorkScheduleFiles> Files { get; set; }
 
+    }
+
+    [Table("WorkSchedule_file")]
+    public class WorkScheduleFiles
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public int WorkScheduleId { get; set; }
+        public virtual WorkSchedule WorkSchedule { get; set; }
+        public int FileId { get; set; }
+        public virtual FileInfo FileInfo { get; set; }
+        public bool Delete { get; set; }
     }
 }

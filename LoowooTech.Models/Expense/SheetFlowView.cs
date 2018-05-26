@@ -13,6 +13,9 @@ namespace LoowooTech.Models.Expense
     [Table("sheet_flow_view")]
     public class SheetFlowView
     {
+        /// <summary>
+        /// flowNodeData 对应的ID
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -29,6 +32,9 @@ namespace LoowooTech.Models.Expense
                 return UserIdValues.ToIntArray();
             }
         }
+        /// <summary>
+        /// 最终 实际审核人员
+        /// </summary>
         public int? UserId { get; set; }
         public VerificationState State { get; set; }
         public string Content { get; set; }
@@ -49,18 +55,43 @@ namespace LoowooTech.Models.Expense
         public int ProjectId { get; set; }
         public bool Delete { get; set; }
         public double Money { get; set; }
+
+        [NotMapped]
+        public string Address
+        {
+            get
+            {
+                var path = string.Empty;
+                switch (SheetType)
+                {
+                    case SheetType.Daily:
+                        path = "/Expense/Daily/Detail?sheetId=" + SheetId;
+                        break;
+                    case SheetType.Evection:
+                        path = "/Expense/Evection/Detail?sheetId=" + SheetId;
+                        break;
+                    case SheetType.Reception:
+                        path = "/expense/Reception/Detail?sheetId=" + SheetId;
+                        break;
+                }
+                return path;
+            }
+        }
     }
 
     public class SheetViewParameter:ParameterBase
     {
         /// <summary>
-        /// 审核人员
+        /// 可以审核人员
         /// </summary>
         public int? CheckUserId { get; set; }
         /// <summary>
         /// 报销单报销人员
         /// </summary>
         public int? SheetUserId { get; set; }
+        /// <summary>
+        /// 最终谁审核的
+        /// </summary>
         public int? FinialUserId { get; set; }
         /// <summary>
         /// 报销单位
@@ -70,10 +101,18 @@ namespace LoowooTech.Models.Expense
         /// 审核状态
         /// </summary>
         public VerificationState? State { get; set; }
+
+        /// <summary>
+        /// 报销单审核状态  未审核 审核中  审核完成
+        /// </summary>
+        public FlowDataState? FlowDataState { get; set; }
         /// <summary>
         /// 审核环节
         /// </summary>
         public int? FLowNodeId { get; set; }
         public SheetType? SheetType { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
+        public int? Day { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace LoowooTech.Offical.Web.Common
         private const string _cookieName = "loowooTech.user";
         public static string GenerateToken(this HttpContextBase context,User user)
         {
-            var ticket = new FormsAuthenticationTicket(1, user.ID + "|" + user.LoginName + "|" + user.Name + "|" + user.GroupId + "|" + user.RoleId+"|"+user.UserRole,DateTime.Now,DateTime.MaxValue,true,"LoowooTech.Office_user_token");
+            var ticket = new FormsAuthenticationTicket(1, user.ID + "|" + user.LoginName + "|" + user.Name + "|" + user.GroupId + "|" + user.RoleId+"|"+user.UserRole+"|"+user.LogoPath,DateTime.Now,DateTime.MaxValue,true,"LoowooTech.Office_user_token");
             var token = FormsAuthentication.Encrypt(ticket);
             return token;
         }
@@ -50,7 +50,7 @@ namespace LoowooTech.Offical.Web.Common
                 {
                     var values = ticket.Name.Split('|');
                     var role = UserRole.Guest;
-                    if (values.Length == 6)
+                    if (values.Length == 7)
                     {
                         var user = new UserIdentity
                         {
@@ -59,7 +59,8 @@ namespace LoowooTech.Offical.Web.Common
                             Name = values[2],
                             //GroupId =  int.Parse(values[3]),
                             RoleId = int.Parse(values[4]),
-                            UserRole = Enum.TryParse(values[5], out role) ? role : role
+                            UserRole = Enum.TryParse(values[5], out role) ? role : role,
+                            LogoPath=values[6]
                         };
                         if (!string.IsNullOrEmpty(values[3]))
                         {

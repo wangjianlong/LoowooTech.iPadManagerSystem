@@ -77,7 +77,7 @@
                 {
                     <div class="i-checks">
                         <label>
-                            <input type="checkbox"  value="@(company.ID)" name="CompanyId" @(user.Companys!=null&&user.Companys.Any(e=>e.CompanyId==company.ID)?"checked=checked":"")/><i></i>@(company.Name)
+                            <input type="checkbox"  value="@(company.ID)" name="CompanyId" @(user!=null&&user.Companys!=null&&user.Companys.Any(e=>e.CompanyId==company.ID)?"checked=checked":"")/><i></i>@(company.Name)
                         </label>
                     </div>
                 }

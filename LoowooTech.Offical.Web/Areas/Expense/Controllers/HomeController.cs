@@ -1,6 +1,7 @@
 ﻿using LoowooTech.Models;
 using LoowooTech.Models.Admin;
 using LoowooTech.Models.Expense;
+using LoowooTech.Offical.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,10 +102,26 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             }
             return View("Empty");
         }
+        public ActionResult NavigationDetial(int id)
+        {
+            var sheet = Core.SheetManager.Get(id);
+            if (sheet != null)
+            {
+                switch (sheet.SheetType)
+                {
+                    case SheetType.Evection:
+                        return Redirect("/Expense/Evection/Detail?sheetId=" + id);
+                    case SheetType.Daily:
+                        return Redirect("/Expense/Daily/Detail?sheetId=" + id);
+                    case SheetType.Reception:
+                        return Redirect("/Expense/Reception/Detail?sheetId=" + id);
+                }
+            }
+            return View("Empty");
+        }
 
         public ActionResult Examination(
-            int? companyId=null,int? sheetUserId=null,int? flowNodeId=null,
-            Models.Admin.VerificationState? state=null, int page=1,int rows=20)
+            int? companyId=null,int? sheetUserId=null,int? flowNodeId=null, int page=1,int rows=20)
         {
 
 
@@ -114,7 +131,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                 CompanyId=companyId,
                 SheetUserId=sheetUserId,
                 FLowNodeId=flowNodeId,
-                State = state,
+                State = VerificationState.None,
                 Page = new PageParameter(page, rows)
             };
             var sheets = Core.SheetViewManager.Search(parameter);
@@ -127,6 +144,9 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             ViewBag.FlowNodes = Core.FlowNodeManager.GetList2(Flow.ID);
             return View();
         }
+
+
+
 
         /// <summary>
         /// 报销确认款项
@@ -156,13 +176,14 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
-        public ActionResult State(int userId,FlowDataState state,bool? isCheck, int? page = null,int rows=20)
+        public ActionResult State(int userId,FlowDataState state,bool? isCheck,bool? Delete, int? page = null,int rows=20)
         {
             var parameter = new SheetFlowDataParameter
             {
                 UserId = userId,
                 State = state,
-                IsCheck = isCheck
+                IsCheck = isCheck,
+                Delete=Delete
             };
             if (page.HasValue)
             {
@@ -172,6 +193,98 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             ViewBag.List = list;
             return View();
         }
+
+
+        public ActionResult Files(int sheetId)
+        {
+            var sheet = Core.SheetManager.Get(sheetId);
+            ViewBag.Sheet = sheet;
+            var files = Core.SheetManager.GetFiles(sheetId);
+            ViewBag.List = files;
+            return View();
+        }
+
+        public ActionResult Upload(int sheetId)
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(int sheetId)
+        {
+            if (Request.Files.Count == 0)
+            {
+                throw new ArgumentException("请选择上传电子发票文件");
+            }
+            var file = HttpContext.Request.Files[0];
+            var fileName = file.FileName;
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("请选择上传电子发票文件");
+            }
+            var info = FilePost.Upload(file, "Invoice", Identity.UserId);
+            if (info == null)
+            {
+                throw new ArgumentException("上传文件失败！");
+            }
+            var fileId = Core.FileInfoManager.Add(info);
+            if (fileId <= 0)
+            {
+                throw new ArgumentException("保存文件信息失败！");
+            }
+            Core.SheetManager.Add(new SheetFile
+            {
+                SheetId = sheetId,
+                FileId = fileId
+            });
+            return RedirectToAction("NavigationDetial",new { Id=sheetId});
+        }
+
+        public ActionResult DeleteFile(int id)
+        {
+            if (!Core.SheetManager.DeleteFile(id))
+            {
+                return ErrorJsonResult("删除失败！");
+            }
+            return SuccessJsonResult();
+        }
+
+
+        public ActionResult StatisticHead()
+        {
+            var lwtimes = Core.SheetViewManager.GetTimes();
+            ViewBag.Times = lwtimes;
+            return View();
+        }
+
+        public ActionResult StatisticDay()
+        {
+            var dict = Core.SheetViewManager.GetTimeDict();
+            ViewBag.Dict = dict;
+            return View();
+        }
+
+
+        public ActionResult Statistic(int year,int month,int ?userId=null,int? day=null)
+        {
+
+            var parameter = new SheetViewParameter
+            {
+                Year = year,
+                Month = month,
+                Day = day,
+                FinialUserId = userId,
+                State = VerificationState.Success,
+                FlowDataState = FlowDataState.Done
+            };
+            var list = Core.SheetViewManager.Search(parameter);
+            list = list.GroupBy(e => e.SheetId).Select(e=>e.FirstOrDefault()).ToList();
+            ViewBag.List = list;
+
+            return View();
+        }
+
 
     }
 }

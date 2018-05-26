@@ -283,6 +283,7 @@
     <Content Include="scripts\LoowooTech.js" />
     <Content Include="scripts\LW\Common.js" />
     <Content Include="scripts\LW\Expense.js" />
+    <Content Include="scripts\LW\LWChart.js" />
     <Content Include="scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\bootstrap-markdown.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\markdown.js" />
@@ -661,14 +662,17 @@
     <Compile Include="Areas\Memo\Controllers\HomeController.cs" />
     <Compile Include="Areas\Memo\MemoAreaRegistration.cs" />
     <Compile Include="Areas\Memo\MemoControllerBase.cs" />
+    <Compile Include="Areas\Project\Controllers\ContractController.cs" />
     <Compile Include="Areas\Project\Controllers\HomeController.cs" />
     <Compile Include="Areas\Project\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Project\Controllers\ScheduleController.cs" />
+    <Compile Include="Areas\Project\Controllers\WorkScheduleController.cs" />
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Project\ProjectControllerBase.cs" />
     <Compile Include="Common\AuthenticateModule.cs" />
     <Compile Include="Common\AuthUtils.cs" />
     <Compile Include="Common\BaseView.cs" />
+    <Compile Include="Common\FilePost.cs" />
     <Compile Include="Common\UserAuthorizeAttribute.cs" />
     <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Common\UserRoleAttribute.cs" />
@@ -828,11 +832,19 @@
     <Content Include="Areas\Expense\Views\Home\Head.cshtml" />
     <Content Include="Areas\Expense\Views\Home\State.cshtml" />
     <Content Include="Areas\Project\Views\Schedule\Create.cshtml" />
+    <Content Include="Areas\Project\Views\Contract\Create.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Files.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Upload.cshtml" />
+    <Content Include="Areas\Project\Views\WorkSchedule\DetialList.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\Statistic.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\StatisticHead.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\StatisticDay.cshtml" />
     <None Include="Properties\PublishProfiles\lw.pubxml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
     <Content Include="Views\Personal\Edit.cshtml" />
     <Content Include="Views\Shared\_pagination.cshtml" />
+    <Content Include="Views\User\ChangeHead.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

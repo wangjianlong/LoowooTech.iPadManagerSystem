@@ -111,5 +111,48 @@ namespace LoowooTech.Offical.Web.Controllers
         {
             return SuccessJsonResult();
         }
+
+
+        public ActionResult ChangeHead(int id)
+        {
+            var user = Core.UserManager.Get(id);
+            return View();
+        }
+
+
+        public ActionResult SaveHead()
+        {
+            if (Request.Files.Count == 0)
+            {
+                throw new ArgumentException("请选择上传文件！");
+            }
+            var file = HttpContext.Request.Files[0];
+            var fileName = file.FileName;
+            var ext = System.IO.Path.GetExtension(fileName);
+            if (!FilePost.IsPictures(ext))
+            {
+                throw new ArgumentException(string.Format("当前格式{0}不支持", ext));
+            }
+            var info = FilePost.Upload(file, "Head", Identity.UserId);
+            if (info == null)
+            {
+                throw new ArgumentException("上传文件失败！");
+            }
+            var fileId = Core.FileInfoManager.Add(info);
+            if (fileId < 0)
+            {
+                throw new ArgumentException("保存文件信息失败！");
+            }
+            if (!Core.UserManager.ChangeHead(Identity.UserId, info.Path))
+            {
+                throw new ArgumentException("更改头像信息失败！");
+            }
+            var user = Core.UserManager.Get(Identity.UserId);
+            if (user != null)
+            {
+                HttpContext.SaveAuth(user);
+            }
+            return Redirect("/Home/Index");
+        }
     }
 }

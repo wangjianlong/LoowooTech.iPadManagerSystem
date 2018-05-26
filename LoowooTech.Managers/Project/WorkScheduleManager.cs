@@ -46,5 +46,15 @@ namespace LoowooTech.Managers.Project
             DB.SaveChanges();
             return true;
         }
+
+        public List<WorkSchedule> GetList(int projectId,int userId)
+        {
+            var query = DB.Schedules.Where(e => e.Delete == false && e.ProjectId == projectId);
+            if (userId > 0)
+            {
+                query = query.Where(e => e.UserId == userId);
+            }
+            return query.ToList();
+        }
     }
 }

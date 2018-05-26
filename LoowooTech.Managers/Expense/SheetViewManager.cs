@@ -1,4 +1,5 @@
-﻿using LoowooTech.Models.Expense;
+﻿using LoowooTech.Models;
+using LoowooTech.Models.Expense;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,26 @@ namespace LoowooTech.Managers.Expense
             {
                 query = query.Where(e => e.FLowNodeId == parameter.FLowNodeId.Value);
             }
+            if (parameter.FinialUserId.HasValue)
+            {
+                query = query.Where(e => e.UserId.Value == parameter.FinialUserId.Value);
+            }
+            if (parameter.FlowDataState.HasValue)
+            {
+                query = query.Where(e => e.FlowDataState == parameter.FlowDataState.Value);
+            }
+            if (parameter.Year.HasValue)
+            {
+                query = query.Where(e => e.CheckTime.Value.Year == parameter.Year.Value);
+            }
+            if (parameter.Month.HasValue)
+            {
+                query = query.Where(e => e.CheckTime.Value.Month == parameter.Month.Value);
+            }
+            if (parameter.Day.HasValue)
+            {
+                query = query.Where(e => e.CheckTime.Value.Day == parameter.Day.Value);
+            }
             query = query.ToList().AsQueryable();
             if (parameter.CheckUserId.HasValue)
             {
@@ -40,6 +61,16 @@ namespace LoowooTech.Managers.Expense
             }
             query = query.OrderByDescending(e => e.ID).SetPage(parameter.Page);
             return query.ToList();
+        }
+
+        public List<LWTime> GetTimes()
+        {
+            return DB.SheetViews.Where(e => e.State == Models.Admin.VerificationState.Success && e.FlowDataState == Models.Admin.FlowDataState.Done).GroupBy(e => new LWTime { Year = e.CheckTime.Value.Year, Month = e.CheckTime.Value.Month, Days = e.CheckTime.Value.Day }).Select(e => e.Key).OrderByDescending(e=>e.Year).ThenByDescending(e=>e.Month).ThenByDescending(e=>e.Days).ToList();
+        }
+
+        public Dictionary<LWTime,double> GetTimeDict()
+        {
+            return DB.SheetViews.Where(e => e.State == Models.Admin.VerificationState.Success && e.FlowDataState == Models.Admin.FlowDataState.Done).GroupBy(e => new LWTime { Year = e.CheckTime.Value.Year, Month = e.CheckTime.Value.Month, Days = e.CheckTime.Value.Day }).OrderByDescending(e => e.Key).ToDictionary(e => e.Key, e => Math.Round(e.Sum(i => i.Money), 2));
         }
     }
 }

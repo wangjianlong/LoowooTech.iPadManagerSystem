@@ -33,6 +33,7 @@ namespace LoowooTech.Offical.Web.Areas.Admin.Controllers
         public ActionResult Save(User user,int[] companyId)
         {
             var userId = user.ID;
+            user.LogoPath = "Images/loowootech -head.png";
             if (user.ID > 0)
             {
                 if (!Core.UserManager.Edit(user))

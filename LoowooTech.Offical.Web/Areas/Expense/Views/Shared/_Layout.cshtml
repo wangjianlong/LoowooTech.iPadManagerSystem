@@ -1,5 +1,7 @@
 ﻿
 @{
+    /**/
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,14 +21,14 @@
 
     <link rel="stylesheet" href="~/Content/css/plugins/jasny/jasny-bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/css/plugins/codemirror/codemirror.css" />
-    }
+}
 
 @section scripts{
     <script src="~/scripts/LW/Expense.js"></script>
     <script src="~/scripts/plugins/slick/slick.min.js"></script>
     <script src="~/scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="~/scripts/plugins/dropzone/dropzone.js"></script>
-    }
+}
 
 <script>
     Dropzone.options.dropzoneForm = {
@@ -48,9 +50,18 @@
 
 @section navigation{
 
-    <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Examination".ToLower()?"active":"")">
-        <a href="/Expense/Home/Examination"><i class="fa fa-balance-scale"></i><span class="nav-label">报销单审核</span></a>
-    </li>
+    @if (Identity.UserRole >= UserRole.Advance)
+    {
+        <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Examination".ToLower()?"active":"")">
+            <a href="/Expense/Home/Examination"><i class="fa fa-balance-scale"></i><span class="nav-label">报销单审核</span></a>
+        </li>
+
+
+        <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="StatisticHead".ToLower()?"active":"")">
+            <a href="/Expense/Home/StatisticHead"><i class="fa fa-tasks"></i><span class="nav-label">报销统计</span></a>
+        </li>
+    }
+
     <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
         <a href="#"><i class="fa fa-bank"></i><span class="nav-label">我的报销单</span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
@@ -65,7 +76,7 @@
             </li>
         </ul>
     </li>
-    }
+}
 
 @RenderBody()
 

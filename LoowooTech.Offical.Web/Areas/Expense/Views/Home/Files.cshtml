@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = null;
+    List<SheetFile> files = ViewBag.List;
+    Sheet sheet = ViewBag.Sheet;
+    var serial = 1;
+}
+
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>电子发票详情</h5>
+        @if (sheet.UserId == Identity.UserId)
+        {
+            <a href="/Expense/Home/Upload?sheetId=@(Request.QueryString["SheetId"])" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#Modal"><i class="fa fa-upload"></i>上传电子发票</a>
+        }
+
+    </div>
+    <div class="ibox-content">
+       <table class="table">
+           <thead>
+               <tr>
+                   <th>序号</th>
+                   <th>文件名</th>
+                   <th>文件大小</th>
+                   <th>操作</th>
+               </tr>
+           </thead>
+           <tbody>
+               @foreach(var item in files)
+               {
+                   <tr>
+                       <td>@(serial++)</td>
+                       <td>@(item.FileInfo.FileName)</td>
+                       <td>@(item.FileInfo.Size)</td>
+                       <td>
+                           <a href="/@(item.FileInfo.Path)" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-download"></i>下载文件</a>
+                           @if (item.FileInfo.UserId == Identity.UserId)
+                           {
+                               <a href="/Expense/Home/DeleteFile?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Expense/Home/NavigationDetial?id=@(item.SheetId)"><i class="fa fa-remove"></i>删除</a>
+                           }
+                       </td>
+                   </tr>
+               }
+           </tbody>
+       </table>
+    </div>
+</div>
+

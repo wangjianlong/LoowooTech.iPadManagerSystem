@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+    //Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Dictionary<LWTime, double> dict = ViewBag.Dict;
+    var temp = dict.Select(e => new ChartData { label = e.Key.LabelString, value = e.Value }).ToList();
+}
+
+
+
+<script>
+    $(function () {
+        var datas =@Html.Raw(temp.ToJson())|| [];
+
+        //Morris.Line({
+        //    element: 'days-donut-chart',
+        //    data: datas,
+        //    xkey: 'label',
+        //    ykeys: ['value'],
+        //    resize: true,
+        //    lineWidth: 4,
+        //    labels: ['Value'],
+        //    lineColors: ['#1ab394'],
+        //    pointSize: 5,
+        //});
+
+        Morris.Bar({
+            element: 'days-donut-chart',
+            data: datas,
+            xkey: 'label',
+            ykeys: ['value'],
+            labels: ['金额'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#1ab394'],
+        });
+
+    });
+</script>
+
+
+
+<div class="page-header">
+    <h3 class="text-center">每日报销情况</h3>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>报销单位统计信息</h5>
+                <div class="ibox-tools">
+                    <span class="label label-warning">单位：元</span>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div id="days-donut-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

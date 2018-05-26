@@ -1,0 +1,133 @@
+﻿@{ 
+    Layout = null;
+    List<Company> companys = ViewBag.Companys;
+}
+
+<script>
+    $(function () {
+        var addhtml = $("#PayHtml").html();
+        $("button[name='AddPay']").click(function () {
+            $("#Pay").append(addhtml);
+            $("button[name='RemovePay']").unbind("click").bind("click", function () {
+                $(this).parent().parent().remove();
+            });
+
+        });
+    });
+</script>
+
+<div class="hidden">
+    <table>
+        <tbody id="PayHtml">
+            <tr>
+                <td>
+                    <textarea name="content" rows="3" class="form-control"></textarea>
+                </td>
+                <td>
+                    <input type="text" name="Money2" class="form-control" />
+                </td>
+                <td>
+                    <button type="button" name="RemovePay" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></button>
+                </td>
+            </tr>
+        </tbody>
+      
+    </table>
+</div>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">录入合同信息</h4>
+</div>
+
+<form class="form-horizontal" method="post" id="form-contract">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-xs-3">甲方：</label>
+            <div class="col-xs-9">
+                <select name="CompanyAId" class="chosen-select form-control">
+                    <option value="" >请选择甲方</option>
+                    @foreach(var item in companys)
+                    {
+                        <option value="@(item.ID)">@(item.Name)</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">乙方：</label>
+            <div class="col-xs-9">
+                <select name="CompanyBId" class="chosen-select form-control">
+                    <option class="">请选择乙方</option>
+                    @foreach(var item in companys)
+                    {
+                        <option class="@(item.ID)">@(item.Name)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">项目名称：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Name" class="form-control" placeholder="合同项目名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">总金额：</label>
+            <div class="col-xs-9">
+                <div class="input-group">
+                    <input type="text" name="Money" class="form-control" placeholder="合同总金额" />
+                    <span class="input-group-addon">元</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">签订地点：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Place" class="form-control" placeholder="签订地点" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">合同登记编号：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Number" class="form-control" placeholder="合同登记编号" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-3">付款信息：</label>
+            <div class="col-xs-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>付款说明</th>
+                            <th>金额【元】</th>
+                            <th>
+                                <button type="button" class="btn btn-primary btn-xs" name="AddPay"><i class="fa fa-plus"></i></button>
+                            </th>
+                        </tr>
+                    </thead>
+                  
+                    <tbody id="Pay">
+                        <tr>
+                            <td>
+                              <textarea name="content" rows="3" class="form-control"></textarea>
+                            </td>
+                            <td>
+                                <input type="text" name="Money2" class="form-control" />
+                            </td>
+                            <td>
+                                <button type="button" name="RemovePay" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+        <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+    </div>
+</form>

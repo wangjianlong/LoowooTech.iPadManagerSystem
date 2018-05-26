@@ -17,9 +17,20 @@ namespace LoowooTech.Models
         public DateTime Time { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         public virtual User User { get; set; }
+        /// <summary>
+        /// 文件名
+        /// </summary>
         public string FileName { get; set; }
+        /// <summary>
+        /// 服务器上存放的路径
+        /// </summary>
         public string Path { get; set; }
-        public int Size { get; set; }
+        /// <summary>
+        /// 文件大小
+        /// </summary>
+        public long Size { get; set; }
+        [NotMapped]
+        public double SizeKB { get { return Size / 1024.0; } }
 
     }
 }

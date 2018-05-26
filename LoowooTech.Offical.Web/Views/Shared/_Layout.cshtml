@@ -73,7 +73,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <span>
-                                <img alt="image" class="img-circle" src="~/Images/loowootech -head.png" />
+                                <img alt="image" class="img-circle" src="/@(Identity.LogoPath)" />
                             </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
@@ -85,6 +85,7 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="/User">修改基本信息</a></li>
                                 <li><a href="/User/Password?id=@(Identity.UserId)">修改密码</a></li>
+                                <li><a href="/User/ChangeHead?id=@(Identity.UserId)" data-toggle="modal" data-target="#Modal">更改头像</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/User/LogOut">Logout</a></li>
                             </ul>
@@ -105,7 +106,7 @@
                     <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
                     </li>
-                    <li>
+                    <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()?"active":"")">
                         <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
                     </li>
                     @RenderSection("navigation", false)

@@ -92,5 +92,16 @@ namespace LoowooTech.Managers
             DB.SaveChanges();
             return true;
         }
+        public bool ChangeHead(int id, string logoPath)
+        {
+            var model = DB.Users.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.LogoPath = logoPath;
+            DB.SaveChanges();
+            return true;
+        }
     }
 }

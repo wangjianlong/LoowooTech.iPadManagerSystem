@@ -91,5 +91,28 @@ namespace LoowooTech.Managers.Project
             return DB.Projects.Find(id);
         }
 
+        public void SaveProjectUser(List<ProjectUser> projectUsers,int projectId)
+        {
+            var old = DB.ProjectUsers.Where(e => e.ProjectId == projectId).ToList();
+            foreach(var item in old)
+            {
+                var entry = projectUsers.FirstOrDefault(e => e.UserId == item.ID);
+                if (entry == null)
+                {
+                    DB.ProjectUsers.Remove(item);
+                }
+            }
+            DB.SaveChanges();
+            foreach(var item in projectUsers)
+            {
+                var entry = DB.ProjectUsers.FirstOrDefault(e => e.ProjectId == projectId && e.UserId == item.UserId);
+                if (entry == null)
+                {
+                    DB.ProjectUsers.Add(item);
+                }
+            }
+            DB.SaveChanges();
+        }
+
     }
 }

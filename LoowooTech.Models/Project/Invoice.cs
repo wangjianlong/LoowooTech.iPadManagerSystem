@@ -18,11 +18,10 @@ namespace LoowooTech.Models.Project
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
-        public int ProjectId { get; set; }
-        public virtual Project Project { get; set; }
         public string Img { get; set; }
         public bool Delete { get; set; }
         public InvoiceState State { get; set; }
+        public InvoiceType Type { get; set; }
     }
 
     public enum InvoiceState
@@ -33,5 +32,13 @@ namespace LoowooTech.Models.Project
         TUI,
         [Description("红票")]
         HONG
+    }
+
+    public enum InvoiceType
+    {
+        [Description("报销发票")]
+        Expense,
+        [Description("合同发票")]
+        Contract
     }
 }

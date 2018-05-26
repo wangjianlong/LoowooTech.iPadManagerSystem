@@ -17,7 +17,8 @@ namespace LoowooTech.Managers
         public DbSet<UserCompany> UserCompanys { get; set; }
         public DbSet<LWSystem> LWSystems { get; set; }
         public DbSet<Power> Powers { get; set; }
-        public DbSet<PowerItem> Items { get; set; }
+        public DbSet<PowerItem> Items { get; set; } 
+        public DbSet<FileInfo> Files { get; set; }
 
         #region 便签
         public DbSet<Note> Notes { get; set; }
@@ -48,12 +49,15 @@ namespace LoowooTech.Managers
         #region  项目
 
         public DbSet<Models.Project.Project> Projects { get; set; }
+        public DbSet<Models.Project.ProjectUser> ProjectUsers { get; set; }
         public DbSet<Models.Project.WorkSchedule> Schedules { get; set; }
         public DbSet<Models.Project.Invoice> Invoices { get; set; }
+        public DbSet<Models.Project.Contract> Contracts { get; set; }
         #endregion
 
         #region  报销
         public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<SheetFile> SheetFiles { get; set; }
         public DbSet<SheetFlowView> SheetViews { get; set; }
         public DbSet<SheetFlowDataView> SheetFlowDataViews { get; set; }
         public DbSet<Evection> Evections { get; set; }

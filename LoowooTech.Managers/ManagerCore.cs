@@ -13,6 +13,8 @@ namespace LoowooTech.Managers
         public UserCompanyManager UserCompanyManager { get { return _userCompanyManager == null ? _userCompanyManager = new UserCompanyManager() : _userCompanyManager; } }
         private LWSystemManager _lwSystemManager { get; set; }
         public LWSystemManager LWSystemManager { get { return _lwSystemManager == null ? _lwSystemManager = new LWSystemManager() : _lwSystemManager; } }
+        private FileInfoManager _fileInfoManager { get; set; }
+        public FileInfoManager FileInfoManager { get { return _fileInfoManager == null ? _fileInfoManager = new FileInfoManager() : _fileInfoManager; } }
 
         #region  便签
         private NoteManager _noteManager { get; set; }

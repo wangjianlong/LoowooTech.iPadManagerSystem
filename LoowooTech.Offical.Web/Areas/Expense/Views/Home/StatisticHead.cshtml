@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "报销统计";
+    Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    List<LWTime> list = ViewBag.Times;
+}
+
+<link href="~/Content/css/plugins/morris/morris-0.4.3.min.css" />
+<script src="~/scripts/plugins/morris/raphael-2.1.0.min.js"></script>
+<script src="~/scripts/plugins/morris/morris.js"></script>
+<script src="~/scripts/LW/LWChart.js"></script>
+
+<script>
+    $(function () {
+
+        $("a[name='TimeSelect']").click(function () {
+            $("a[name='TimeSelect']").each(function () {
+                $(this).removeClass("btn-primary").addClass("btn-white");
+            });
+
+            $(this).removeClass("btn-white").addClass("btn-primary");
+
+            var href = $(this).attr("href");
+            $("#Panel").load(href, null, function () {
+
+            });
+            return false;
+        });
+
+
+    });
+</script>
+
+<div class="row">
+    <div class="col-xs-2">
+
+        <a href="/Expense/Home/StatisticDay" class="btn btn-white btn-block" name="TimeSelect">每日报销情况</a>
+
+        <h3 class="text-center">日期选择</h3>
+        @foreach (var time in list)
+        {
+            <a href="/Expense/Home/Statistic?year=@(time.Year)&&month=@(time.Month)&&day=@(time.Days)" class="btn btn-white btn-block" name="TimeSelect">@string.Format("{0}年{1}月{2}日", time.Year, time.Month, time.Days)</a>
+        }
+    </div>
+    <div class="col-xs-10">
+        
+        <div id="Panel">
+
+        </div>
+    </div>
+</div>
+

@@ -37,6 +37,9 @@ namespace LoowooTech.Models.Admin
         public string Account { get; set; }
         public WidgetClass? Widget { get; set; }
         public bool Delete { get; set; }
+        /// <summary>
+        /// 判断是否为乙方 单位  陆吾科技和天启为null
+        /// </summary>
         public bool? IsProject { get; set; }
     }
 }

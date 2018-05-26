@@ -61,7 +61,7 @@ namespace LoowooTech.Models.Expense
         Evection,
         [Description("招待报销")]
         Reception,
-        [Description("其他")]
-        Other
+        //[Description("其他")]
+        //Other
     }
 }

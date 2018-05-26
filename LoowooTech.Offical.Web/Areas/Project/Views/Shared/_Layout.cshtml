@@ -17,6 +17,11 @@
         <a href=""><i class="fa fa-briefcase"></i><span class="nav-label">项目系统</span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li><a href="/Project/Home/Index">欢迎页</a></li>
+
+            @if (Identity.UserRole == UserRole.Admin)
+            {
+                <li><a href="/Project/System/Index"><i class="fa fa-cog"></i>设置</a></li>
+            }
         </ul>
     </li>
     

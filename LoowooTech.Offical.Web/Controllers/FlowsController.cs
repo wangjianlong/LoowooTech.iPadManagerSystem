@@ -39,6 +39,11 @@ namespace LoowooTech.Offical.Web.Controllers
             {
                 return ErrorJsonResult("当前表单流程未配置！无法进行审核！");
             }
+            var current = data.Current;
+            if (current != null && current.state == VerificationState.None)
+            {
+                return ErrorJsonResult("您已经做了提交，请返回首页进入报销单查看！");
+            }
             var id = Core.FlowNodeDataManager.Add(new Models.Admin.FlowNodeData { FlowNodeId = node.ID, FlowDataId = data.ID, UserIdValues=node.UserIdValues });
             if (id <= 0)
             {
@@ -82,6 +87,75 @@ namespace LoowooTech.Offical.Web.Controllers
                 }
             }
 
+            return SuccessJsonResult();
+        }
+
+        [HttpPost]
+        public ActionResult MutliSave(int[] ID,VerificationState state)
+        {
+            if (ID == null || ID.Count() == 0)
+            {
+                return ErrorJsonResult("请选择选择审核的信息");
+            }
+            var messages = new List<string>();
+            foreach(var item in ID)
+            {
+                var data = Core.FlowNodeDataManager.Get(item);
+                if (data != null)
+                {
+                    if (data.state == VerificationState.None)
+                    {
+                        if (data.UserIds != null && data.UserIds.Contains(Identity.UserId) == true)
+                        {
+                            data.state = state;
+                            data.CheckTime = DateTime.Now;
+                            data.UserId = Identity.UserId;
+                            if (Core.FlowNodeDataManager.Edit(data))
+                            {
+                                var next = data.state == VerificationState.Success ?
+                                    Core.FlowNodeManager.GetNext(data.FlowNodeId) :
+                                    Core.FlowNodeManager.GetPrev(data.FlowNodeId);
+                                if (next == null)
+                                {
+                                    if (!Core.FlowDataManager.Change(data.FlowDataId, data.state == VerificationState.Success ? FlowDataState.Done : FlowDataState.None))
+                                    {
+                                        messages.Add(string.Format("设置ID为【{0}】的审批流程完成失败，请重试！", item));
+                                    }
+                                }
+                                else
+                                {
+                                    var newid = Core.FlowNodeDataManager.Add(new FlowNodeData { FlowNodeId = next.ID, FlowDataId = data.FlowDataId, UserIdValues = next.UserIdValues });
+                                    if (newid <= 0)
+                                    {
+                                        messages.Add(string.Format("创建ID为【{0}】的下一个审批环节信息失败", item));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                messages.Add(string.Format("更新ID为【{0}】审核信息失败", item));
+                            }
+                        }
+                        else
+                        {
+                            messages.Add(string.Format("您当前无权审核ID为【{0}】的审核", item));
+                        }
+                    }
+                    else
+                    {
+                        messages.Add(string.Format("ID为【{0}】已经审核，请勿重复提交", item));
+                    }
+                }
+                else
+                {
+                    messages.Add(string.Format("未找到ID为【{0}】的审核信息", item));
+                }
+            }
+
+            if (messages.Count > 0)
+            {
+                return ErrorJsonResult(string.Join(";", messages.ToArray()));
+            }
             return SuccessJsonResult();
         }
         /// <summary>

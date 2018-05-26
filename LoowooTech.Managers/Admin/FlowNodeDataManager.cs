@@ -10,6 +10,11 @@ namespace LoowooTech.Managers.Admin
 {
     public class FlowNodeDataManager:ManagerBase
     {
+        public FlowNodeData Get(int id)
+        {
+            return DB.FlowNodeDatas.Find(id);
+        }
+
         public int Add(FlowNodeData data)
         {
             DB.FlowNodeDatas.Add(data);
@@ -33,6 +38,10 @@ namespace LoowooTech.Managers.Admin
         {
             var model = DB.FlowNodeDatas.Find(data.ID);
             if (model == null)
+            {
+                return false;
+            }
+            if (model.state != VerificationState.None)
             {
                 return false;
             }

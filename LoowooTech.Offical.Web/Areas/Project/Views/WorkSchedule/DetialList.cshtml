@@ -1,0 +1,16 @@
+﻿@{ 
+    Layout = null;
+    List<WorkSchedule> list = ViewBag.List;
+}
+
+
+<div class="feed-activity-list">
+    @foreach(var item in list)
+    {
+        <div class="feed-element">
+            <a href="" class="pull-left">
+                <img alt="image" class="img-circle" src="" />
+            </a>
+        </div>
+    }
+</div>

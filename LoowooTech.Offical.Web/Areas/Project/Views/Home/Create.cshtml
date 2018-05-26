@@ -6,6 +6,7 @@
     List<Company> projects = ViewBag.Projects;
     List<City> citys = ViewBag.Citys;
     List<ProjectType> ProjectTyps = ViewBag.ProjectTypes;
+    List<User> users = ViewBag.Users;
 }
 
 <script>
@@ -30,7 +31,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">年份：</label>
                     <div class="col-sm-7">
-                        <input type="text" name="Year" class="form-control" placeholder="年份" />
+                        <input type="text" name="Year" class="form-control" placeholder="年份" value="@(DateTime.Now.Year)" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -93,9 +94,29 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3">项目负责人：</label>
+                    <label class="control-label col-sm-3">项目创建人：</label>
                     <div class="col-sm-7">
                         <input type="text" name="" class="form-control"  readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3">项目参与人员：</label>
+                    <div class="col-xs-7">
+
+                        @foreach(var user in users)
+                        {
+                            <label class="checkbox i-checks">
+                                <input type="checkbox" name="UserId" value="@(user.ID)" />@(user.Name)
+                            </label>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-7 col-xs-offset-3">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+                        <a href="/Project/Home/Index" class="btn btn-danger"><i class="fa fa-desktop"></i>项目系统首页</a>
                     </div>
                 </div>
             </form>

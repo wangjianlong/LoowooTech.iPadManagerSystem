@@ -70,6 +70,7 @@
     <Compile Include="Expense\SheetViewManager.cs" />
     <Compile Include="Expense\SubstanceManager.cs" />
     <Compile Include="Expense\TrafficManager.cs" />
+    <Compile Include="FileInfoManager.cs" />
     <Compile Include="LWDbContext.cs" />
     <Compile Include="LWSystemManager.cs" />
     <Compile Include="ManagerBase.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="NoteManager.cs" />
     <Compile Include="OneContext.cs" />
     <Compile Include="PowerManager.cs" />
+    <Compile Include="Project\ContractManager.cs" />
     <Compile Include="Project\InvoiceManager.cs" />
     <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\ProjectTypeManager.cs" />

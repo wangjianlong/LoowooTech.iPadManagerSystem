@@ -30,7 +30,7 @@
                 </div>
                 <div class="ibox-content">
                     @{ 
-                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.None });
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.None,Delete=false });
                     }
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="ibox-content">
                     @{
-                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Checking });
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Checking,Delete=false });
                     }
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="ibox-content">
                     @{
-                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=false });
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=false,Delete=false });
                     }
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="ibox-content">
                     @{
-                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=true,page=1 });
+                        Html.RenderAction("State", "Home", new { UserId = Identity.UserId, State = FlowDataState.Done,isCheck=true,Delete=false,page=1 });
                     }
                 </div>
             </div>

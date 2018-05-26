@@ -51,7 +51,7 @@
                     location.href = url;
                 });
             } else {
-                swal("删除失败", json.content, "error");
+                swal("删除失败", data.content, "error");
                 $btn.removeAttr("disabled");
             }
         });

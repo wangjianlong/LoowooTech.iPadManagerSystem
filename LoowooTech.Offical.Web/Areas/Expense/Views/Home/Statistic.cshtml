@@ -1,0 +1,171 @@
+﻿@{ 
+    //ViewBag.Title = "报销单统计信息";
+    //Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    List<SheetFlowView> list = ViewBag.List;
+    var dict = list.GroupBy(e => e.CompanyName).ToDictionary(e => e.Key, e => e.ToList());
+    var companydatas = list.GroupBy(e => e.CompanyName).Select(e=>new ChartData { label=e.Key,value=Math.Round(e.Sum(i=>i.Money),2)}).ToList();
+    var userdatas = list.GroupBy(e => e.UserName).Select(e => new ChartData { label = e.Key, value =Math.Round(e.Sum(i=>i.Money),2)}).ToList();
+    var sheetypes = list.GroupBy(e => e.SheetType).Select(e => new ChartData { label = e.Key.GetDescription(), value = Math.Round(e.Sum(i => i.Money), 2) }).ToList();
+    var serial = 1;
+}
+
+
+
+<script>
+    $(function () {
+
+        var datas = @Html.Raw(companydatas.ToJson())|| [];
+
+        var userdatas =@Html.Raw(userdatas.ToJson())|| [];
+
+        var typesdatas =@Html.Raw(sheetypes.ToJson())|| [];
+
+        Morris.Donut({
+            element: 'company-donut-chart',
+            data: datas,
+            resize: true,
+            colors: getChartColors2(datas.length),
+        });
+
+        Morris.Donut({
+            element: 'user-donut-chart',
+            data: userdatas,
+            resize:true,
+            colors: getChartColors2(userdatas.length)
+        });
+
+        Morris.Donut({
+            element: 'SheetType-donut-chart',
+            data: typesdatas,
+            resize: true,
+            colors: getChartColors2(typesdatas.length)
+        });
+    });
+</script>
+
+<div class="page-header">
+    <h3 class="text-center">@string.Format("{0}年{1}月{2}日报销统计情况",Request.QueryString["Year"],Request.QueryString["Month"],Request.QueryString["Day"])</h3>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>报销单位统计信息</h5>
+                <div class="ibox-tools">
+                    <span class="label label-warning">单位：元</span>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div id="company-donut-chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>报销人统计信息</h5>
+                <div class="ibox-tools">
+                    <span class="label label-warning">单位：元</span>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div id="user-donut-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>报销类型统计详情</h5>
+                <div class="ibox-tools">
+                    <span class="label label-warning">单位：元</span>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div id="SheetType-donut-chart"></div>
+            </div>
+        </div>
+    </div>
+    @foreach(var entry in dict)
+    {
+        var dd = entry.Value.GroupBy(e => e.UserName).Select(e => new ChartData { label = e.Key, value = Math.Round(e.Sum(i => i.Money), 2) });
+        var id = entry.Value.FirstOrDefault().CompanyId;
+        <div class="col-xs-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>@(entry.Key)-报销人员统计详情</h5>
+                    <div class="ibox-tools">
+                        <span class="label label-warning">单位：元</span>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="@(id)-donut-chart"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                var dds =@Html.Raw(dd.ToJson())|| [];
+                Morris.Donut({
+                    element: '@(id)-donut-chart',
+                    data: dds,
+                    resize: true,
+                    colors: getChartColors2(dds.length),
+                })
+            });
+        </script>
+    }
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>报销单详情列表</h5>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>报销单号</th>
+                            <th>报销单位</th>
+                            <th>报销人</th>
+                            <th>报销类型</th>
+                            <th>报销时间</th>
+                            <th>发票张数</th>
+                            <th>报销金额【元】</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in list)
+                        {
+                            <tr>
+                                <td>@(serial++)</td>
+                                <td>
+                                    <a href="@(item.Address)">@(item.SerialNumber)</a>
+                                </td>
+                                <td>@(item.CompanyName)</td>
+                                <td>@(item.UserName)</td>
+                                <td>
+                                    <span class="badge @(item.SheetType==SheetType.Daily?"badge-primary":item.SheetType==SheetType.Evection?"badge-success":"badge-warning")">
+                                        @(item.SheetType.GetDescription())
+                                    </span>
+                                </td>
+                                <td>@(item.Time.ToString("yyyy-MM-dd"))</td>
+                                <td>@(item.Count)</td>
+                                <td>
+                                    <span class="badge badge-primary">@(item.Money)</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

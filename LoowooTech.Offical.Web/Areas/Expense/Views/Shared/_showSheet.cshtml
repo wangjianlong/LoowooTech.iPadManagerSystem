@@ -77,6 +77,11 @@
                     <dt>报销金额:</dt>
                     <dd>
                         &yen;@(Model.Money)元
+                        @if (Model.SheetType == SheetType.Evection && Model.Evection != null && Model.Evection.Errands != null)
+                        {
+                            <text>@string.Format("(其中差补金额：{0}元)", Math.Round(Model.Evection.Errands.Sum(e => e.Fee), 2))</text>
+                        }
+
                     </dd>
     
      

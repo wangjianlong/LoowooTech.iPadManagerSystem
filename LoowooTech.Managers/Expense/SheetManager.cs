@@ -132,5 +132,29 @@ namespace LoowooTech.Managers.Expense
             return true;
         }
 
+        public List<SheetFile> GetFiles(int sheetId)
+        {
+            return DB.SheetFiles.Where(e => e.Delete == false && e.SheetId == sheetId).ToList();
+        }
+
+        public int Add(SheetFile file)
+        {
+            DB.SheetFiles.Add(file);
+            DB.SaveChanges();
+            return file.ID;
+        }
+
+        public bool DeleteFile(int id)
+        {
+            var model = DB.SheetFiles.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.Delete = true;
+            DB.SaveChanges();
+
+            return true;
+        }
     }
 }

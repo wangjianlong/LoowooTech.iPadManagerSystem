@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoowooTech.Models.Admin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,5 +27,24 @@ namespace LoowooTech.Models.Project
         public bool Delete { get; set; }
         public bool IsDone { get; set; }
         public string ReplyFile { get; set; }
+
+
+        /// <summary>
+        /// 项目类型
+        /// </summary>
+        public int? ProjectTypeId { get; set; }
+        public virtual ProjectType ProjectType { get; set; }
+
+        /// <summary>
+        /// 甲方
+        /// </summary>
+        public int? CompanyAId { get; set; }
+
+        public virtual Company CompanyA { get; set; }
+        /// <summary>
+        /// 乙方
+        /// </summary>
+        public int? CompanyBId { get; set; }
+        public virtual Company CompanyB { get; set; }
     }
 }
