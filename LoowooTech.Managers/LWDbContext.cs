@@ -51,8 +51,10 @@ namespace LoowooTech.Managers
         public DbSet<Models.Project.Project> Projects { get; set; }
         public DbSet<Models.Project.ProjectUser> ProjectUsers { get; set; }
         public DbSet<Models.Project.WorkSchedule> Schedules { get; set; }
+        public DbSet<Models.Project.WorkScheduleFiles> ScheduleFiles { get; set; }
         public DbSet<Models.Project.Invoice> Invoices { get; set; }
         public DbSet<Models.Project.Contract> Contracts { get; set; }
+        public DbSet<Models.Project.PayInfo> PayInfos { get; set; }
         #endregion
 
         #region  报销

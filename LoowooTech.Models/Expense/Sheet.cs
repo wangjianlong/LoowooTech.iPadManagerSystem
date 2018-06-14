@@ -51,6 +51,28 @@ namespace LoowooTech.Models.Expense
         public bool IsCheck { get; set; }
         public DateTime? CheckTime { get; set; }
 
+        [NotMapped]
+        public string Address
+        {
+            get
+            {
+                var path = string.Empty;
+                switch (SheetType)
+                {
+                    case SheetType.Daily:
+                        path = "/Expense/Daily/Detail?sheetId=" + ID;
+                        break;
+                    case SheetType.Evection:
+                        path = "/Expense/Evection/Detail?sheetId=" + ID;
+                        break;
+                    case SheetType.Reception:
+                        path = "/expense/Reception/Detail?sheetId=" + ID;
+                        break;
+                }
+                return path;
+            }
+        }
+
     }
 
     public enum SheetType

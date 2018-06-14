@@ -286,5 +286,20 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         }
 
 
+        public ActionResult DetailList(int projectId)
+        {
+            List<Sheet> list = null;
+            if (Identity.UserRole >= UserRole.Advance)
+            {
+                list = Core.SheetManager.Getlist(projectId, null);
+            }
+            else
+            {
+                list = Core.SheetManager.Getlist(projectId, Identity.UserId);
+            }
+            ViewBag.List = list;                                                                                                                                                                  
+            return View();
+        }
+
     }
 }

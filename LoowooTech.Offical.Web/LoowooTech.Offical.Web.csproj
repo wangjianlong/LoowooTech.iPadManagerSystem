@@ -666,7 +666,6 @@
     <Compile Include="Areas\Project\Controllers\HomeController.cs" />
     <Compile Include="Areas\Project\Controllers\InvoiceController.cs" />
     <Compile Include="Areas\Project\Controllers\ScheduleController.cs" />
-    <Compile Include="Areas\Project\Controllers\WorkScheduleController.cs" />
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Project\ProjectControllerBase.cs" />
     <Compile Include="Common\AuthenticateModule.cs" />
@@ -839,6 +838,11 @@
     <Content Include="Areas\Expense\Views\Home\Statistic.cshtml" />
     <Content Include="Areas\Expense\Views\Home\StatisticHead.cshtml" />
     <Content Include="Areas\Expense\Views\Home\StatisticDay.cshtml" />
+    <Content Include="Areas\Project\Views\Schedule\Detail.cshtml" />
+    <Content Include="Areas\Project\Views\Contract\DetailList.cshtml" />
+    <Content Include="Areas\Project\Views\Invoice\Create.cshtml" />
+    <Content Include="Areas\Project\Views\Invoice\DetailList.cshtml" />
+    <Content Include="Areas\Expense\Views\Home\DetailList.cshtml" />
     <None Include="Properties\PublishProfiles\lw.pubxml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
@@ -864,7 +868,6 @@
     <Folder Include="Areas\Expense\Models\" />
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />
-    <Folder Include="Areas\Project\Views\Invoice\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

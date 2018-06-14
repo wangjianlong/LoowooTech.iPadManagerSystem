@@ -101,6 +101,18 @@ namespace LoowooTech.Managers.Expense
             return query.ToList();
         }
 
+        public List<Sheet> Getlist(int projectId,int? userId = null)
+        {
+            var query = DB.Sheets.Where(e => e.Delete == false && e.ProjectId == projectId).AsQueryable();
+            if (userId.HasValue)
+            {
+                query = query.Where(e => e.UserId == userId.Value);
+            }
+
+            return query.OrderBy(e => e.ID).ToList();
+        }
+   
+
         public List<Sheet> Search(List<FlowData> flowDatas)
         {
             return flowDatas.Select(e => Get(e.InfoId)).ToList();

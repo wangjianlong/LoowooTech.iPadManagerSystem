@@ -72,5 +72,6 @@ namespace LoowooTech.Managers.Expense
         {
             return DB.SheetViews.Where(e => e.State == Models.Admin.VerificationState.Success && e.FlowDataState == Models.Admin.FlowDataState.Done).GroupBy(e => new LWTime { Year = e.CheckTime.Value.Year, Month = e.CheckTime.Value.Month, Days = e.CheckTime.Value.Day }).OrderByDescending(e => e.Key).ToDictionary(e => e.Key, e => Math.Round(e.Sum(i => i.Money), 2));
         }
+
     }
 }

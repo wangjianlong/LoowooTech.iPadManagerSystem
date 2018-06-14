@@ -20,5 +20,22 @@ namespace LoowooTech.Managers.Project
             DB.SaveChanges();
             return invoice.ID;
         }
+
+        public bool Edit(Invoice invoice)
+        {
+            var model = DB.Invoices.Find(invoice.ID);
+            if (model == null)
+            {
+                return false;
+            }
+            DB.Entry(model).CurrentValues.SetValues(invoice);
+            DB.SaveChanges();
+            return true;
+        }
+
+        public List<Invoice> GetList(int projectId)
+        {
+            return DB.Invoices.Where(e => e.Delete == false && e.ProjectId == projectId).ToList();
+        }
     }
 }

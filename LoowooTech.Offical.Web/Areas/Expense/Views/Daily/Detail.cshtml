@@ -13,38 +13,42 @@
 
 @section buttonHead{
 <div class="title-action">
-    @if (sheet.FlowData.State == FlowDataState.None)
+    @if (sheet.Delete == false)
     {
-        if (sheet.UserId == Identity.UserId)
+        if (sheet.FlowData.State == FlowDataState.None)
         {
-            <a href="/Flows/Commit?flowDataId=@(sheet.FlowData.ID)" class="btn btn-success" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="Commit"><i class="fa fa-arrow-up"></i>提交审核</a>
-            <a href="/Expense/Daily/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑日常</a>
-            <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
-        }
-    }
-    else if (sheet.FlowData.State == FlowDataState.Checking)//正在审核
-    {
-        if (sheet.FlowData.CanCancel(Identity.UserId, sheet.UserId))//当前用户可以点击撤销
-        {
-            if (sheet.FlowData.Current.UserId != Identity.UserId)
+            if (sheet.UserId == Identity.UserId)
             {
-                <a href="/Flows/Cancel?flowDataId=@(sheet.FlowData.ID)&&OwnId=@(sheet.UserId)" class="btn btn-danger" name="Cancel" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)"><i class="fa fa-arrow-left"></i>撤回</a>
+                <a href="/Flows/Commit?flowDataId=@(sheet.FlowData.ID)" class="btn btn-success" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="Commit"><i class="fa fa-arrow-up"></i>提交审核</a>
+                <a href="/Expense/Daily/Create?sheetId=@(sheet.ID)" class="btn btn-primary"><i class="fa fa-edit"></i>编辑日常</a>
+                <a href="/Expense/Home/Delete?id=@(sheet.ID)" class="btn btn-danger" name="Delete" Url="/Expense/Home/Index"><i class="fa fa-times"></i>删除</a>
             }
+        }
+        else if (sheet.FlowData.State == FlowDataState.Checking)//正在审核
+        {
+            if (sheet.FlowData.CanCancel(Identity.UserId, sheet.UserId))//当前用户可以点击撤销
+            {
+                if (sheet.FlowData.Current.UserId != Identity.UserId)
+                {
+                    <a href="/Flows/Cancel?flowDataId=@(sheet.FlowData.ID)&&OwnId=@(sheet.UserId)" class="btn btn-danger" name="Cancel" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)"><i class="fa fa-arrow-left"></i>撤回</a>
+                }
 
+            }
+        }
+        else if (sheet.FlowData.State == FlowDataState.Done)
+        {
+            <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
+            if (sheet.IsCheck == false)
+            {
+                <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=true" class="btn btn-warning" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CheckSheet"><i class="fa fa-check"></i>确认收到款项</a>
+            }
+            else
+            {
+                <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=false" class="btn btn-danger" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CancelSheet"><i class="fa fa-times"></i>撤销确认款项</a>
+            }
         }
     }
-    else if (sheet.FlowData.State == FlowDataState.Done)
-    {
-        <a href="javascript:void()" class="btn btn-primary"><i class="fa fa-flag"></i>报销成功</a>
-        if (sheet.IsCheck == false)
-        {
-            <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=true" class="btn btn-warning" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CheckSheet"><i class="fa fa-check"></i>确认收到款项</a>
-        }
-        else
-        {
-            <a href="/Expense/Home/Check?id=@(sheet.ID)&&flag=false" class="btn btn-danger" Url="/Expense/Daily/Detail?sheetId=@(sheet.ID)" name="CancelSheet"><i class="fa fa-times"></i>撤销确认款项</a>
-        }
-    }
+
 
     <a href="/Expense/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>报销系统</a>
     <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
@@ -54,22 +58,27 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="col-sm-8">
-            @{ 
+            @{
                 Html.RenderPartial("_showSheet", sheet as object);
             }
 
-            @if (sheet.Daily == null)
+            @if (sheet.Delete == false)
             {
-                <div class="alert alert-danger" role="alert">
-                    <p>当前报销单未输入相关日常报销信息，点击右上角"<strong>编辑日常详情</strong>"进行输入！</p>
-                </div>
-            }else
-            {
-                Html.RenderPartial("_DetailDaily", sheet.Daily as object);
+                if (sheet.Daily == null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <p>当前报销单未输入相关日常报销信息，点击右上角"<strong>编辑日常详情</strong>"进行输入！</p>
+                    </div>
+                }
+                else
+                {
+                    Html.RenderPartial("_DetailDaily", sheet.Daily as object);
+                }
             }
 
-            @{ 
-                Html.RenderAction("Files","Home", new { SheetId = sheet.ID });
+
+            @{
+                Html.RenderAction("Files", "Home", new { SheetId = sheet.ID });
             }
         </div>
         <div class="col-sm-4">

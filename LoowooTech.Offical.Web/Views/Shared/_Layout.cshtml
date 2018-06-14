@@ -61,6 +61,13 @@
             $("#Modal").on("hidden.bs.modal", function () {
                 $(this).removeData("bs.modal");
             });
+
+            $(".i-checks").iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('.chosen-select').chosen({ width: "100%" });
         });
     </script>
 
@@ -106,9 +113,13 @@
                     <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
                     </li>
-                    <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()?"active":"")">
-                        <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
-                    </li>
+                    @if (Identity.UserRole >= UserRole.Advance)
+                    {
+                        <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()?"active":"")">
+                            <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
+                        </li>
+                    }
+
                     @RenderSection("navigation", false)
 
                     @if (Identity.UserRole == UserRole.Admin)
@@ -116,7 +127,7 @@
                         <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()?"active":"")">
                             <a href="#"><i class="fa fa-gears"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()&&ViewBag.Controller.ToLower()=="user".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")" ><a href="/Admin/User/Index">人员管理</a></li>
+                                <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()&&ViewBag.Controller.ToLower()=="user".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")"><a href="/Admin/User/Index">人员管理</a></li>
                                 <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()&&ViewBag.Controller.ToLower()=="Group".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")"><a href="/Admin/Group/Index">部门管理</a></li>
                                 <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()&&ViewBag.Controller.ToLower()=="City".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")"><a href="/Admin/City/Index">城市管理</a></li>
                                 <li class="@(ViewBag.Area.ToLower()=="Admin".ToLower()&&ViewBag.Controller.ToLower()=="Company".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")"><a href="/Admin/Company/Index">单位管理</a></li>
@@ -127,7 +138,7 @@
                             </ul>
                         </li>
                     }
-                 
+
                 </ul>
             </div>
         </nav>

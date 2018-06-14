@@ -26,12 +26,13 @@ namespace LoowooTech.Models.Project
         /// 甲方
         /// </summary>
         public int CompanyAId { get; set; }
-        
+        [ForeignKey("CompanyAId")]
         public virtual Company CompanyA { get; set; }
         /// <summary>
         /// 乙方
         /// </summary>
         public int CompanyBId { get; set; }
+        [ForeignKey("CompanyBId")]
         public virtual Company CompanyB { get; set; }
         /// <summary>
         /// 合同金额 单位：元
@@ -40,6 +41,7 @@ namespace LoowooTech.Models.Project
         public string Name { get; set; }
         public string Place { get; set; }
         public string Number { get; set; }
+        public string TimeRange { get; set; }
         public string Remark { get; set; }
         public bool Delete { get; set; }
 
@@ -49,6 +51,9 @@ namespace LoowooTech.Models.Project
         public int ProjectId { get; set; }
 
         public int UserId { get; set; }
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
+
+        public virtual List<PayInfo> PayInfos { get; set; }
     }
 }

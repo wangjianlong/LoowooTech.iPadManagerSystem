@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LoowooTech.Models.Project
 {
+    /// <summary>
+    /// 工作记录
+    /// </summary>
     [Table("workschedule")]
     public class WorkSchedule
     {

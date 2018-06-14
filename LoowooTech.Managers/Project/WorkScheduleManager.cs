@@ -21,6 +21,12 @@ namespace LoowooTech.Managers.Project
             return schedule.ID;
         }
 
+        public void AddFiles(List<WorkScheduleFiles> files)
+        {
+            DB.ScheduleFiles.AddRange(files);
+            DB.SaveChanges();
+        }
+
         public bool Edit(WorkSchedule schedule)
         {
             var model = DB.Schedules.Find(schedule.ID);
@@ -54,7 +60,7 @@ namespace LoowooTech.Managers.Project
             {
                 query = query.Where(e => e.UserId == userId);
             }
-            return query.ToList();
+            return query.OrderByDescending(e=>e.Time).ToList();
         }
     }
 }

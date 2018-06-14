@@ -1,0 +1,40 @@
+﻿@{ 
+    Layout = null;
+    List<Invoice> list = ViewBag.List;
+    int projectId = ViewBag.ProjectId;
+}
+
+
+
+<a href="/Project/Invoice/Create?projectId=@(projectId)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>录入发票信息</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>录入时间</th>
+            <th>录入人</th>
+            <th>发票代码</th>
+            <th>金额【元】</th>
+            <th>发票状态</th>
+            <th>合同</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.Time.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.User.Name)</td>
+                <td>@(item.Code)</td>
+                <td>@(item.Money)</td>
+                <td>@(item.State.GetDescription())</td>
+                <td>
+                    @if (item.Contract != null)
+                    {
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

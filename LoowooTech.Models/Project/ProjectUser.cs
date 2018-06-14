@@ -16,6 +16,7 @@ namespace LoowooTech.Models.Project
         public int ID { get; set; }
         public int ProjectId { get; set; }
         public int UserId { get; set; }
+        public virtual User User { get; set; }
         public ProjectRelation Relation { get; set; }
     }
 

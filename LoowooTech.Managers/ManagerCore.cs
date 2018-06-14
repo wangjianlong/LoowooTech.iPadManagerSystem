@@ -53,6 +53,8 @@ namespace LoowooTech.Managers
         public ProjectManager ProjectManager { get { return _projectManager == null ? _projectManager = new ProjectManager() : _projectManager; } }
         private WorkScheduleManager _workScheduleManager { get; set; }
         public WorkScheduleManager WorkScheduleManager { get { return _workScheduleManager == null ? _workScheduleManager = new WorkScheduleManager() : _workScheduleManager; } }
+        private ContractManager _contractManager { get; set; }
+        public ContractManager ContractManager { get { return _contractManager == null ? _contractManager = new ContractManager() : _contractManager; } }
         private InvoiceManager _invoiceManager { get; set; }
         public InvoiceManager InvoiceManager { get { return _invoiceManager == null ? _invoiceManager = new InvoiceManager() : _invoiceManager; } }
 

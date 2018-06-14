@@ -91,6 +91,11 @@ namespace LoowooTech.Managers.Project
             return DB.Projects.Find(id);
         }
 
+        public List<ProjectUser> GetUsers(int projectId)
+        {
+            return DB.ProjectUsers.Where(e => e.ProjectId == projectId).ToList();
+        }
+
         public void SaveProjectUser(List<ProjectUser> projectUsers,int projectId)
         {
             var old = DB.ProjectUsers.Where(e => e.ProjectId == projectId).ToList();

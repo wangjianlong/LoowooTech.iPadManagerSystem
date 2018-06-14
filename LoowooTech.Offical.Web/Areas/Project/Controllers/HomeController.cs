@@ -26,7 +26,7 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Models.Project.Project project,int[] userId)
+        public ActionResult Save(Models.Project.Project project,int[] usersId)
         {
             if (string.IsNullOrEmpty(project.Name))
             {
@@ -44,11 +44,11 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
                 var id = Core.ProjectManager.Add(project);
             }
 
-            if (userId != null && userId.Count() > 0)
+            if (usersId != null && usersId.Count() > 0)
             {
-                Core.ProjectManager.SaveProjectUser(userId.Select(e => new ProjectUser { ProjectId = project.ID, UserId = e, Relation = ProjectRelation.Participation }).ToList(), project.ID);
+                Core.ProjectManager.SaveProjectUser(usersId.Select(e => new ProjectUser { ProjectId = project.ID, UserId = e, Relation = ProjectRelation.Participation }).ToList(), project.ID);
             }
-            return SuccessJsonResult();
+            return SuccessJsonResult(project.ID);
         }
 
         public ActionResult Recent(int? userId = null)
@@ -63,10 +63,12 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
             ViewBag.List = list;
             return View();
         }
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id,string activeLabel=null)
         {
             var project = Core.ProjectManager.Get(id);
             ViewBag.Project = project;
+            ViewBag.ProjectUsers = Core.ProjectManager.GetUsers(id);
+            ViewBag.ActiveLabel = activeLabel;
             return View();
         }
     }

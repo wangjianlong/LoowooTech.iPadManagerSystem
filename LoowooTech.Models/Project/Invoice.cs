@@ -18,10 +18,24 @@ namespace LoowooTech.Models.Project
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
-        public string Img { get; set; }
+        public int FileInfoId { get; set; }
+        public virtual FileInfo FileInfo { get; set; }
+        public string Code { get; set; }
+        public double Money { get; set; }
         public bool Delete { get; set; }
         public InvoiceState State { get; set; }
         public InvoiceType Type { get; set; }
+        /// <summary>
+        /// 发票关联的项目Id
+        /// </summary>
+        public int ProjectId { get; set; }
+        /// <summary>
+        /// 发票关联的合同ID  可空
+        /// </summary>
+        public int? ContractId { get; set; }
+        public virtual Contract Contract { get; set; }
+        public string Remark { get; set; }
+
     }
 
     public enum InvoiceState

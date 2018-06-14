@@ -30,7 +30,26 @@ namespace LoowooTech.Models.Project
         /// 合同ID
         /// </summary>
         public int ContractId { get; set; }
-        public bool Delete { get; set; }
+
+
+        public static List<PayInfo> Tranlate(int contractId,string[] contents,double[] moneys)
+        {
+            var list = new List<PayInfo>();
+            for(var i = 0; i < contents.Length; i++)
+            {
+                if (moneys.Length > i)
+                {
+                    list.Add(new PayInfo
+                    {
+                        Content = contents[i],
+                        ContractId = contractId,
+                        Money = moneys[i]
+                    });
+                }
+            }
+
+            return list;
+        }
 
     }
 }

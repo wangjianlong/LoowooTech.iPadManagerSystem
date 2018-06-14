@@ -3,6 +3,8 @@
     ViewBag.Title = "项目查看";
     Layout = "~/Areas/Project/Views/Shared/_Layout.cshtml";
     Project project = ViewBag.Project;
+    List<ProjectUser> Users = ViewBag.ProjectUsers;
+    string activeLabel = ViewBag.ActiveLabel;
 }
 
 @section Description{
@@ -12,11 +14,15 @@
 @section buttonHead{
 <div class="title-action">
 
-    <a href="" class="btn btn-success"><i class="fa fa-edit"></i>编辑</a>
+    @*<a href="" class="btn btn-success"><i class="fa fa-edit"></i>编辑</a>
     <a href="" class="btn btn-danger"><i class="fa fa-remove"></i>删除</a>
     <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus"></i>工作进度</a>
     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus-circle"></i>发票信息</a>
-    <a href="/Project/Contract/Create?projectId=@(project.ID)" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-file"></i>上传合同</a>
+    <a href="/Project/Contract/Create?projectId=@(project.ID)" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-file"></i>上传合同</a>*@
+
+
+    <a href="/Project/Contract/Create?projectId=@(project.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus"></i>录入合同信息</a>
+
     <a href="/Project/Home/Index" class="btn btn-info"><i class="fa fa-desktop"></i>项目系统</a>
     <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
 </div>
@@ -67,6 +73,8 @@
                                 <dd>@(project.CompanyA!=null?project.CompanyA.Name:"XXXX")</dd>
                                 <dt>乙方单位：</dt>
                                 <dd>@(project.CompanyB!=null?project.CompanyB.Name:"XXXX")</dd>
+                                <dt>创建时间：</dt>
+                                <dd>@(project.CreateTime.ToLongDateString()+" "+project.CreateTime.ToLongTimeString())</dd>
                             </dl>
                         </div>
                     </div>
@@ -74,42 +82,68 @@
                         <div class="col-xs-12">
                             <dl class="dl-horizontal">
                                 <dt>项目参与人员：</dt>
-                                <dd></dd>
+                                <dd class="project-people">
+                                    @if (Users != null)
+                                    {
+                                        foreach(var user in Users)
+                                        {
+                                            <a href="#">
+                                                <img alt="image" class="img-circle" src="/@(user.User.LogoPath)" />@(user.User.Name)
+                                            </a>
+                                        }
+                                    }
+                                </dd>
                                 <dt>项目备注：</dt>
                                 <dd>@(project.Remark)</dd>
                             </dl>
                         </div>
                     </div>
+
+                    @if (Identity.UserRole >= UserRole.Advance)
+                    {
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3>合同列表</h3>
+                                @{
+
+                                    Html.RenderAction("DetailList", "Contract", new { ProjectId = project.ID });
+                                }
+                            </div>
+                        </div>
+                    }
+
                     <div class="row m-t-sm">
                         <div class="col-xs-12">
                             <div class="panel blank-panel">
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#Workschedule" data-toggle="tab">工作记录</a></li>
-                                            <li class=""><a href="" data-toggle="tab">开票信息</a></li>
-                                            <li class=""><a href="" data-toggle="tab">合同信息</a></li>
-                                            <li class=""><a href="" data-toggle="tab">相关报销</a></li>
+                                            <li class="@(string.IsNullOrEmpty(activeLabel)||activeLabel.ToLower()=="workschedule".ToLower()?"active":"")"><a href="#Workschedule" data-toggle="tab">工作记录</a></li>
+                                            <li class="@(!string.IsNullOrEmpty(activeLabel)&&activeLabel.ToLower()=="Invoice".ToLower()?"active":"")"><a href="#Invoice" data-toggle="tab">开票信息</a></li>
+                           
+                                            <li class="@(!string.IsNullOrEmpty(activeLabel)&&activeLabel.ToLower()=="Expense".ToLower()?"active":"")"><a href="#Expense" data-toggle="tab">相关报销</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="panel-body">
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="Workschedule">
+                                        <div class="tab-pane @(string.IsNullOrEmpty(activeLabel)||activeLabel.ToLower()=="workschedule".ToLower()?"active":"")" id="Workschedule">
                                             @{ 
-                                                if (Identity.UserRole >= UserRole.Advance)
-                                                {
-                                                    Html.RenderAction("DetialList", "WorkSchedule", new { ProjectId = project.ID });
-                                                }
-                                                else
-                                                {
-                                                    Html.RenderAction("DetialList", "WorkSchedule", new { ProjectId = project.ID,UserId=Identity.UserId });
-                                                }
+                                                Html.RenderAction("Detail", "Schedule", new { ProjectId = project.ID });
 
                                             }
                                         </div>
-                                        <div class="tab-pane">
+                                        <div class="tab-pane @(!string.IsNullOrEmpty(activeLabel)&&activeLabel.ToLower()=="Invoice".ToLower()?"active":"")" id="Invoice">
+                                            @{ 
+                                                Html.RenderAction("DetailList", "Invoice", new { ProjectId = project.ID });
+                                            }
+                                        </div>
 
+                                        <div class="tab-pane @(!string.IsNullOrEmpty(activeLabel)&&activeLabel.ToLower()=="Expense".ToLower()?"active":"")" id="Expense">
+                                            @{ 
+                                                Html.RenderAction("DetailList", "Home", new { Area = "Expense", ProjectId = project.ID });
+                                            }
                                         </div>
                                     </div>
                                 </div>
