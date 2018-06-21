@@ -36,6 +36,7 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
         [HttpPost]
         public ActionResult Save(WorkSchedule schedule)
         {
+            var scheduleId = schedule.ID;
            
             if (schedule.ID > 0)
             {
@@ -47,8 +48,8 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
             }
             else
             {
-                var id = Core.WorkScheduleManager.Add(schedule);
-                if (id <= 0)
+                scheduleId = Core.WorkScheduleManager.Add(schedule);
+                if (scheduleId <= 0)
                 {
                     throw new ArgumentException("录入工作记录失败");
                     //return ErrorJsonResult("录入工作记录失败");
@@ -80,7 +81,7 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
             }
             if (fileIdList.Count > 0)
             {
-                Core.WorkScheduleManager.AddFiles(fileIdList.Select(e => new WorkScheduleFiles { WorkScheduleId = schedule.ID, FileId = e }).ToList());
+                Core.WorkScheduleManager.AddFiles(fileIdList.Select(e => new WorkScheduleFiles { WorkScheduleId = scheduleId, FileId = e }).ToList());
             }
             #endregion
             return RedirectToAction("Detail", "Home", new { Id = schedule.ProjectId, activeLabel = "WorkSchedule" });

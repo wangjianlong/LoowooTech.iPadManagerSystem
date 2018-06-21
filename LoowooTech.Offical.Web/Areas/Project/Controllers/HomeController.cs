@@ -71,5 +71,32 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
             ViewBag.ActiveLabel = activeLabel;
             return View();
         }
+
+
+        public ActionResult Search(int? year=null,int? companyaId=null,int? companybId=null,int? projectTypeId=null,int? cityId=null, string name=null,int? userId=null, int page=1,int rows=20)
+        {
+            var parameter = new ProjectParameter
+            {
+                Year=year,
+                CompanyAId=companyaId,
+                CompanyBId=companybId,
+                ProjectTypeId=projectTypeId,
+                CityId=cityId,
+                Name = name,
+                UserId = userId,
+                Page = new Models.PageParameter(page, rows)
+            };
+            var list = Core.ProjectManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+
+            ViewBag.Companys = Core.CompanyManager.GetList();
+            ViewBag.Projects = Core.CompanyManager.GetProjects();
+            ViewBag.Citys = Core.CityManager.GetTree();
+            ViewBag.ProjectTypes = Core.ProjectTypeManager.GetTree();
+            ViewBag.Users = Core.UserManager.GetList();
+            return View();
+
+        }
     }
 }

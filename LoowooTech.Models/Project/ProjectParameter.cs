@@ -14,5 +14,11 @@ namespace LoowooTech.Models.Project
         public DateTime? EndTime { get; set; }
         public int? UserId { get; set; }
         public bool? Delete { get; set; }
+
+        public int? CompanyAId { get; set; }
+        public int? CompanyBId { get; set; }
+        public int? ProjectTypeId { get; set; }
+        public int? CityId { get; set; }
+        public int? Year { get; set; }
     }
 }

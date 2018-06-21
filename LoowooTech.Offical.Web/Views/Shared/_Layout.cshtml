@@ -115,7 +115,7 @@
                     </li>
                     @if (Identity.UserRole >= UserRole.Advance)
                     {
-                        <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()?"active":"")">
+                        <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                             <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
                         </li>
                     }

@@ -65,6 +65,30 @@ namespace LoowooTech.Managers.Project
             {
                 query = query.Where(e => e.IsDone == parameter.IsDone.Value);
             }
+            if (parameter.CompanyAId.HasValue)
+            {
+                query = query.Where(e => e.CompanyAId == parameter.CompanyAId.Value);
+            }
+
+            if (parameter.CompanyBId.HasValue)
+            {
+                query = query.Where(e => e.CompanyBId == parameter.CompanyBId.Value);
+            }
+
+            if (parameter.ProjectTypeId.HasValue)
+            {
+                query = query.Where(e => e.ProjectTypeId == parameter.ProjectTypeId.Value);
+            }
+
+
+            if (parameter.CityId.HasValue)
+            {
+                query = query.Where(e => e.CityId == parameter.CityId.Value);
+            }
+            if (parameter.Year.HasValue)
+            {
+                query = query.Where(e => e.Year == parameter.Year.Value);
+            }
 
             switch (parameter.Order)
             {

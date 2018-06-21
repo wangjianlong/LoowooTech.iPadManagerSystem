@@ -843,6 +843,7 @@
     <Content Include="Areas\Project\Views\Invoice\Create.cshtml" />
     <Content Include="Areas\Project\Views\Invoice\DetailList.cshtml" />
     <Content Include="Areas\Expense\Views\Home\DetailList.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Search.cshtml" />
     <None Include="Properties\PublishProfiles\lw.pubxml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\User\Password.cshtml" />

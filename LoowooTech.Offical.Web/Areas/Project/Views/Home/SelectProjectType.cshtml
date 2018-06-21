@@ -10,11 +10,12 @@
     {
         return;
     }
+    int[] selected = ViewBag.ProjectTypeIds;
 }
 
 @foreach(var item in Model.Children)
 {
-    <option value="@(item.ID)">@(item.Name)-@(Model.ParentName)</option>
+    <option value="@(item.ID)" @(selected!=null&&selected.Any(e=>e==item.ID)?"selected=selected":"")>@(item.Name)-@(Model.ParentName)</option>
     if (item.Children != null)
     {
         item.ParentName = item.Name + "-" + Model.ParentName;

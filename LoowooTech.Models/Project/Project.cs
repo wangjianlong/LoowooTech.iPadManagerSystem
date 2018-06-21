@@ -46,5 +46,15 @@ namespace LoowooTech.Models.Project
         /// </summary>
         public int? CompanyBId { get; set; }
         public virtual Company CompanyB { get; set; }
+        /// <summary>
+        /// 项目城市
+        /// </summary>
+
+        public int? CityId { get; set; }
+        public virtual City City { get; set; }
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public int? Year { get; set; }
     }
 }

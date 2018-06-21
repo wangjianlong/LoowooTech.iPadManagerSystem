@@ -38,7 +38,11 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="m-b-md">
-                                <a href="" class="btn btn-xs pull-right btn-primary"><i class="fa fa-edit"></i>编辑项目</a>
+                                @if (Identity.UserRole >= UserRole.Advance || Identity.UserId == project.UserId)
+                                {
+                                    <a href="" class="btn btn-xs pull-right btn-primary"><i class="fa fa-edit"></i>编辑项目</a>
+                                }
+
                                 <h2>@(project.Name)</h2>
                             </div>
                             <dl class="dl-horizontal">

@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "项目查询";
+    Layout = "~/Areas/Project/Views/Shared/_Layout.cshtml";
+    List<Company> companys = ViewBag.Companys;
+    List<Company> projects = ViewBag.Projects;
+    List<City> citys = ViewBag.Citys;
+    List<ProjectType> projectTypes = ViewBag.ProjectTypes;
+    List<Project> list = ViewBag.List;
+    ProjectParameter parameter = ViewBag.Parameter;
+    if (parameter.CityId.HasValue)
+    {
+        ViewBag.CityIds = new int[] { parameter.CityId.Value };
+    }
+    if (parameter.ProjectTypeId.HasValue)
+    {
+        ViewBag.ProjectTypeIds = new int[] { parameter.ProjectTypeId.Value };
+    }
+
+}
+
+@section Description{
+
+}
+
+@section ButtonHead{
+    <div class="title-action">
+
+    </div>
+}
+
+
+
+<div class="row">
+    <div class="col-xs-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content mailbox-content">
+                <h2>查询设置</h2>
+                <form method="get" action="">
+                    <div class="form-group">
+                        <label class="control-label ">项目名称：</label>
+                        <input type="text" name="Name" class="form-control" placeholder="项目名称关键字" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">年份：</label>
+                        <select class="form-control chosen-select" name="Year">
+                            <option value="" @(parameter.Year.HasValue?"":"selected=selected")>全部</option>
+                            @for (var i = DateTime.Now.Year; i > 2010; i--)
+                            {
+                                <option value="@(i)" @(parameter.Year.HasValue&&parameter.Year.Value==i?"selected=selected":"")>@(i)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">甲方：</label>
+                        <select class="form-control chosen-select" name="CompanyAId">
+                            <option value="" @(parameter.CompanyAId.HasValue?"":"selected=selected")>全部</option>
+                            @foreach(var item in projects)
+                            {
+                                <option value="@(item.ID)" @(parameter.CompanyAId.HasValue&&parameter.CompanyAId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">乙方：</label>
+                        <select class="form-control chosen-select" name="CompanyBId">
+                            <option value="" @(parameter.CompanyBId.HasValue?"":"selected=selected")>全部</option>
+                            @foreach(var item in companys)
+                            {
+                                <option value="@(item.ID)" @(parameter.CompanyBId.HasValue&&parameter.CompanyBId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">项目类型：</label>
+                        <select class="form-control chosen-select" name="ProjectTypeId">
+                            <option value="" @(parameter.ProjectTypeId.HasValue?"":"selected=selected")>全部</option>
+                            @foreach(var item in projectTypes)
+                            {
+                                <option value="@(item.ID)" @(parameter.ProjectTypeId.HasValue&&parameter.ProjectTypeId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
+                                if (item.Children != null)
+                                {
+                                    item.ParentName = item.Name;
+                                    Html.RenderPartial("SelectProjectType", item as object);
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">项目城市：</label>
+                        <select class="form-control chosen-select" name="CityId">
+                            <option value="" @(parameter.CityId.HasValue?"":"selected=selected")>全部</option>
+                            @foreach(var item in citys)
+                            {
+                                <option value="@(item.ID)" @(parameter.CityId.HasValue&&parameter.CityId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
+                                if (item.Children != null)
+                                {
+                                    item.ParentName = item.Name;
+                                    Html.RenderPartial("SelectCity", item as object);
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+                        <button type="button" class="btn btn-white" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-9 animated fadeInRight">
+        <div class="ibox">
+            <div class="ibox-content">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>项目类型</th>
+                            <th>年份</th>
+                            <th>甲方</th>
+                            <th>乙方</th>
+                            <th>城市</th>
+                            <th>创建时间</th>
+                            <th>创建人</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in list)
+                        {
+                        <tr>
+                            <td>
+                                <a href="/Project/Home/Detail?id=@(item.ID)">@(item.Serial)</a>
+                            </td>
+                            <td>@(item.Name)</td>
+                            <td>
+                                @if (item.ProjectType == null)
+                                {
+                                    <label class="label label-default">未归类</label>
+                                }
+                                else
+                                {
+                                    <text>@(item.ProjectType.Name)</text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Year.HasValue)
+                                {
+                                    <text>@(item.Year.Value)</text>
+                                }
+                                else
+                                {
+                                    <label class="label label-default">未归类</label>
+                                }
+                            </td>
+                            <td>
+                                @if (item.CompanyA == null)
+                                {
+                                    <label class="label label-default">未指定</label>
+                                }else
+                                {
+                                    <text>@(item.CompanyA.Name)</text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.CompanyB == null)
+                                {
+                                    <label class="label label-default">未指定</label>
+                                }
+                                else
+                                {
+                                    <text>@(item.CompanyB.Name)</text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.City == null)
+                                {
+                                    <label class="label label-default">未指定</label>
+                                }
+                                else
+                                {
+                                    <text>@(item.City.Name)</text>
+                                }
+                            </td>
+                            <td>@(item.CreateTime.ToLongDateString())</td>
+                            <td>@(item.User.Name)</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                @{ 
+                    Html.RenderPartial("_pagination", parameter.Page as object);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

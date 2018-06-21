@@ -37,6 +37,10 @@
                     
                 </td>
                 <td>
+                    @if (Identity.UserRole >= UserRole.Advance || Identity.UserId == item.UserId)
+                    {
+                        <a href="/Project/Schedule/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Project/Home/Detail?id=@(projectId)"><i class="fa fa-remove"></i>删除</a>
+                    }
 
                 </td>
             </tr>
