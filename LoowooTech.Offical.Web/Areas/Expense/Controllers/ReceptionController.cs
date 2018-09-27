@@ -16,6 +16,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 UserId = Identity.UserId,
                 Type = SheetType.Reception,
+                Delete=false,
                 Page = new LoowooTech.Models.PageParameter(1, 20)
             };
             var list = Core.SheetManager.Search(parameter);

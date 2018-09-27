@@ -94,9 +94,13 @@ namespace LoowooTech.Models.Expense
         /// </summary>
         public int? FinialUserId { get; set; }
         /// <summary>
-        /// 报销单位
+        /// 指定报销单位
         /// </summary>
         public int? CompanyId { get; set; }
+        /// <summary>
+        /// 指定范围的公司单位 ID
+        /// </summary>
+        public int[] CompanyIds { get; set; }
         /// <summary>
         /// 审核状态
         /// </summary>

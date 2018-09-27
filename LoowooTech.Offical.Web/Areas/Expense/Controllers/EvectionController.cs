@@ -16,6 +16,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             {
                 UserId = Identity.UserId,
                 Type = SheetType.Evection,
+                Delete=false,
                 Page = new Models.PageParameter(1, 20)
             };
             var list = Core.SheetManager.Search(parameter);
@@ -31,7 +32,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Save(Evection evection,int[] userId,DateTime[] startTime,DateTime[] endTime,Vehicles[] vehicles,double[] cost,double[] kiloMeter,double[] carPetty,string[] plate,string[] driver,double[] petrol,double[] toll)
+        public ActionResult Save(Evection evection,int[] userId,DateTime[] startTime,DateTime[] endTime,ErrandType errandType, Vehicles[] vehicles,double[] cost,double[] kiloMeter,double[] carPetty,string[] plate,string[] driver,double[] petrol,double[] toll)
         {
             if (evection.ID > 0)
             {
@@ -49,7 +50,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                 }
             }
             var traffics = Traffic.Generate(evection.ID, vehicles, cost, kiloMeter, carPetty, plate, driver, petrol, toll);
-            var errands = Errand.Generate(evection.ID, userId, startTime, endTime);
+            var errands = Errand.Generate(evection.ID, userId, startTime, endTime,errandType);
             var message = string.Empty;
             if (traffics != null && traffics.Count > 0)
             {

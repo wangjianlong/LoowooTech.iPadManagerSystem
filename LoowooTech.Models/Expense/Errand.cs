@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LoowooTech.Common;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,6 +20,7 @@ namespace LoowooTech.Models.Expense
         public virtual User User { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public ErrandType ErrandType { get; set; }
         public int EvectionId { get; set; }
         [NotMapped]
         public double Fee
@@ -25,20 +28,33 @@ namespace LoowooTech.Models.Expense
             get
             {
 
-                return ((EndTime - StartTime).Days + 1) * 80;
+                return ((EndTime - StartTime).Days + 1) * Price;
             }
 
+        }
+
+        [NotMapped]
+        public double Price
+        {
+            get
+            {
+                if (ErrandType == ErrandType.Locale)
+                {
+                    return 100;
+                }
+                return 80;
+            }
         }
         public string Description
         {
             get
             {
                 var sb = new StringBuilder();
-                sb.AppendFormat("时间：{0}-{1}；差补金额：{2}元", StartTime.ToLongDateString(), EndTime.ToLongDateString(), Fee);
+                sb.AppendFormat("出差类型：{0}；时间：{1}-{2}；差补金额：{3}元",ErrandType.GetDescription(), StartTime.ToLongDateString(), EndTime.ToLongDateString(), Fee);
                 return sb.ToString();
             }
         }
-        public static List<Errand> Generate(int evectionId, int[] userId,DateTime[] startTime,DateTime[] endTime)
+        public static List<Errand> Generate(int evectionId, int[] userId,DateTime[] startTime,DateTime[] endTime,ErrandType errandType)
         {
             if (userId == null || startTime == null || endTime == null || userId.Length != startTime.Length || startTime.Length != endTime.Length)
             {
@@ -54,7 +70,8 @@ namespace LoowooTech.Models.Expense
                         UserId = userId[i],
                         StartTime = startTime[i],
                         EndTime = endTime[i],
-                        EvectionId=evectionId
+                        EvectionId = evectionId,
+                        ErrandType = errandType
                     };
                     list.Add(entry);
                 }
@@ -62,5 +79,14 @@ namespace LoowooTech.Models.Expense
             }
             return list;
         }
+    }
+
+
+    public enum ErrandType
+    {
+        [Description("普通出差")]
+        Common,
+        [Description("驻场出差")]
+        Locale
     }
 }

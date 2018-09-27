@@ -42,6 +42,8 @@ namespace LoowooTech.Offical.Web.Controllers
                 }
                 else
                 {
+
+       
                     if (string.IsNullOrEmpty(user.Password))
                     {
                         return WarningJsonResult(user.ID);
@@ -51,7 +53,23 @@ namespace LoowooTech.Offical.Web.Controllers
                 }
               
             }
-            HttpContext.SaveAuth(user);
+            if (user.Delete == true)
+            {
+                return ErrorJsonResult("您当前无法登录系统，您的账号已经被管理员删除！");
+            }
+            if (user.UserRole != UserRole.Admin)
+            {
+                if (user.Companys == null || user.Companys.Count == 0)
+                {
+                    return ErrorJsonResult("管理员尚未给您设置团队，暂时无法登录系统！");
+                }
+            }
+            var first = user.Companys.FirstOrDefault();
+            if (first == null || first.Company == null)
+            {
+                return ErrorJsonResult("当前管理员给您指定的团队有误，请联系管理员！");
+            }
+            HttpContext.SaveAuth(user,first.Company);
             return SuccessJsonResult();
         }
 
@@ -107,8 +125,36 @@ namespace LoowooTech.Offical.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(User user,string Password2,bool? IsRead)
         {
+            if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.LoginName))
+            {
+                return ErrorJsonResult("上传注册参数错误");
+            }
+            if (user.Password != Password2)
+            {
+                return ErrorJsonResult("两次输入密码不一致！请核对！");
+            }
+            if (IsRead == null || IsRead.Value == false)
+            {
+                return ErrorJsonResult("请务必勾选条例！");
+            }
+            if (Core.UserManager.ExistName(user.Name))
+            {
+                return ErrorJsonResult("系统中已经存在相同的真实名，请勿重复注册！");
+            }
+            if (Core.UserManager.ExistLoginName(user.LoginName))
+            {
+                return ErrorJsonResult("系统中已经存在相同的登录名，请更改！");
+            }
+            user.Password = user.Password.MD5();
+            user.LogoPath = "Images/loowootech -head.png";
+            var id = Core.UserManager.Add(user);
+            if (id <= 0)
+            {
+                return ErrorJsonResult("注册用户失败！");
+            }
+
             return SuccessJsonResult();
         }
 
@@ -150,7 +196,12 @@ namespace LoowooTech.Offical.Web.Controllers
             var user = Core.UserManager.Get(Identity.UserId);
             if (user != null)
             {
-                HttpContext.SaveAuth(user);
+                var first = user.Companys.FirstOrDefault();
+                if (first != null && first.Company != null)
+                {
+                    HttpContext.SaveAuth(user, first.Company);
+                }
+              
             }
             return Redirect("/Home/Index");
         }

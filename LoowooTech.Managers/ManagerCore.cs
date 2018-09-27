@@ -1,6 +1,7 @@
 ﻿using LoowooTech.Managers.Admin;
 using LoowooTech.Managers.Expense;
 using LoowooTech.Managers.Project;
+using LoowooTech.Managers.Voucher;
 
 namespace LoowooTech.Managers
 {
@@ -81,6 +82,11 @@ namespace LoowooTech.Managers
         public ReceptionManager ReceptionManager { get { return _receptionManager == null ? _receptionManager = new ReceptionManager() : _receptionManager; } }
         private ReceptionItemManager _receptionItemManager { get; set; }
         public ReceptionItemManager ReceptionItemManager { get { return _receptionItemManager == null ? _receptionItemManager = new ReceptionItemManager() : _receptionItemManager; } }
+        #endregion
+
+        #region 发票
+        private EInvoiceManager _eInvoiceManager { get; set; }
+        public EInvoiceManager EInvoiceManager { get { return _eInvoiceManager == null ? _eInvoiceManager = new EInvoiceManager() : _eInvoiceManager; } }
         #endregion
     }
 }

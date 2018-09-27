@@ -33,7 +33,19 @@
                 <input type="text" name="Name" class="form-control" placeholder="名称" required value="@(company==null?"":company.Name)" />
             </div>
         </div>
-     
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">英文名：</label>
+            <div class="col-xs-7">
+                <input type="text" name="EnglishName" class="form-control" placeholder="英文名" value="@(company==null?"":company.EnglishName)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">缩写：</label>
+            <div class="col-xs-7">
+                <input type="text" name="Abbreviation" class="form-control" placeholder="缩写" value="@(company==null?"":company.Abbreviation)" />
+            </div>
+        </div>
         <div class="form-group">
             <label class="control-label col-sm-3">统一社会信用代码：</label>
             <div class="col-sm-7">

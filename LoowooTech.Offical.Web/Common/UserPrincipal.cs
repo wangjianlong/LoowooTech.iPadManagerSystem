@@ -32,6 +32,18 @@ namespace LoowooTech.Offical.Web.Common
         public int? GroupId { get; set; }
         public int RoleId { get; set; }
         public string LogoPath { get; set; }
+        /// <summary>
+        /// 公司名字
+        /// </summary>
+        public string Company { get; set; }
+        /// <summary>
+        /// 英文名
+        /// </summary>
+        public string EnglishName { get; set; }
+        /// <summary>
+        /// 缩写
+        /// </summary>
+        public string Abbreviation { get; set; }
         public string AuthenticationType { get { return "Web.Session"; } }
         public bool IsAuthenticated { get { return UserId > 0; } }
     }

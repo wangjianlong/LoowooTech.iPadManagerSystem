@@ -18,7 +18,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
-        public ActionResult Create(int id=0)
+        public ActionResult Create(int id = 0)
         {
             ViewBag.Sheet = Core.SheetManager.GetSingle(id);
 
@@ -29,9 +29,9 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Sheet sheet,string projectName)
+        public ActionResult Save(Sheet sheet, string projectName)
         {
-            if (sheet.UserId == 0||sheet.CompanyId==0)
+            if (sheet.UserId == 0 || sheet.CompanyId == 0)
             {
                 return ErrorJsonResult("未获取报销人信息或者报销单位信息");
             }
@@ -67,6 +67,12 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             }
             else
             {
+                var flowDataId = Core.FlowDataManager.Add(new FlowData { FlowId = Flow.ID });
+                if (flowDataId <= 0)
+                {
+                    return ErrorJsonResult("创建审批流程记录失败！");
+                }
+                sheet.FlowDataId = flowDataId;
                 var id = Core.SheetManager.Add(sheet);
                 if (id <= 0)
                 {
@@ -121,23 +127,33 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         }
 
         public ActionResult Examination(
-            int? companyId=null,int? sheetUserId=null,int? flowNodeId=null, int page=1,int rows=20)
+            int? companyId = null, int? sheetUserId = null, int? flowNodeId = null, int page = 1, int rows = 20)
         {
 
-
+            var companys = Core.UserCompanyManager.GetCompanys(Identity.UserId);
             var parameter = new SheetViewParameter
             {
                 CheckUserId = Identity.UserId,
-                CompanyId=companyId,
-                SheetUserId=sheetUserId,
-                FLowNodeId=flowNodeId,
+                CompanyId = companyId,
+                SheetUserId = sheetUserId,
+                FLowNodeId = flowNodeId,
                 State = VerificationState.None,
                 Page = new PageParameter(page, rows)
             };
-            var sheets = Core.SheetViewManager.Search(parameter);
+            if (companys != null)
+            {
+                parameter.CompanyIds = companys.Select(e => e.ID).ToArray();
+            }
+            #region 历史
+            //var sheets = Core.SheetViewManager.Search(parameter);
+            //ViewBag.Sheets = sheets;
+            #endregion
+
+            var sheets = Core.SheetViewManager.Search2(parameter);
             ViewBag.Sheets = sheets;
+
             ViewBag.Parameter = parameter;
-            var companys = Core.CompanyManager.GetList();
+            
             ViewBag.Companys = companys;
             var users = Core.UserManager.GetList();
             ViewBag.Users = users;
@@ -153,7 +169,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Check(int id,bool flag)
+        public ActionResult Check(int id, bool flag)
         {
             if (!Core.SheetManager.IsCheck(id, flag))
             {
@@ -167,7 +183,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             var parameter = new SheetViewParameter
             {
                 SheetUserId = Identity.UserId,
-                SheetType=type,
+                SheetType = type,
                 Page = new PageParameter(1, 20)
             };
             var list = Core.SheetViewManager.Search(parameter);
@@ -176,20 +192,36 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
             return View();
         }
 
-        public ActionResult State(int userId,FlowDataState state,bool? isCheck,bool? Delete, int? page = null,int rows=20)
+        public ActionResult State(int userId, FlowDataState state, bool? isCheck, bool? Delete, int? page = null, int rows = 20)
         {
-            var parameter = new SheetFlowDataParameter
+            #region 历史
+            //var parameter = new SheetFlowDataParameter
+            //{
+            //    UserId = userId,
+            //    State = state,
+            //    IsCheck = isCheck,
+            //    Delete=Delete
+            //};
+            //if (page.HasValue)
+            //{
+            //    parameter.Page = new PageParameter(page.Value, rows);
+            //}
+            //var list = Core.SheetFlowDataViewManager.Search(parameter);
+            #endregion
+
+            var parameter = new SheetParameter
             {
                 UserId = userId,
                 State = state,
                 IsCheck = isCheck,
-                Delete=Delete
+                Delete = Delete
             };
             if (page.HasValue)
             {
                 parameter.Page = new PageParameter(page.Value, rows);
             }
-            var list = Core.SheetFlowDataViewManager.Search(parameter);
+            var list = Core.SheetManager.Search(parameter);
+
             ViewBag.List = list;
             return View();
         }
@@ -238,7 +270,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                 SheetId = sheetId,
                 FileId = fileId
             });
-            return RedirectToAction("NavigationDetial",new { Id=sheetId});
+            return RedirectToAction("NavigationDetial", new { Id = sheetId });
         }
 
         public ActionResult DeleteFile(int id)
@@ -253,8 +285,16 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
 
         public ActionResult StatisticHead()
         {
+            var times = Core.SheetViewManager.GetTimes2();
+            ViewBag.Times2 = times;
             var lwtimes = Core.SheetViewManager.GetTimes();
             ViewBag.Times = lwtimes;
+            return View();
+        }
+
+        public ActionResult MySelfStatistic()
+        {
+
             return View();
         }
 
@@ -266,7 +306,7 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
         }
 
 
-        public ActionResult Statistic(int year,int month,int ?userId=null,int? day=null)
+        public ActionResult Statistic(int year, int month, int? userId = null, int? day = null)
         {
 
             var parameter = new SheetViewParameter
@@ -279,9 +319,27 @@ namespace LoowooTech.Offical.Web.Areas.Expense.Controllers
                 FlowDataState = FlowDataState.Done
             };
             var list = Core.SheetViewManager.Search(parameter);
-            list = list.GroupBy(e => e.SheetId).Select(e=>e.FirstOrDefault()).ToList();
+            list = list.GroupBy(e => e.SheetId).Select(e => e.FirstOrDefault()).ToList();
             ViewBag.List = list;
 
+            return View();
+        }
+
+        public ActionResult Statistic2(int year, int month, int? userId, int? day = null)
+        {
+            var parameter = new SheetViewParameter
+            {
+                Year = year,
+                Month = month,
+                Day = day,
+                FinialUserId = userId,
+                State = VerificationState.Success,
+                FlowDataState = FlowDataState.Done
+            };
+
+            var list = Core.SheetViewManager.Search2(parameter);
+            list = list.GroupBy(e => e.SheetId).Select(e => e.FirstOrDefault()).ToList();
+            ViewBag.List = list;
             return View();
         }
 

@@ -25,7 +25,8 @@
                 <a href="/Admin/User/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal">
                     <div class="col-sm-4">
                         <div class="text-center">
-                            <img alt="image" class="img-circle m-t-xs img-responsive" src="~/Images/loowootech -logo.png" />
+                            @*<img alt="image" class="img-circle m-t-xs img-responsive" src="~/Images/loowootech -logo.png" />*@
+                            <img alt="image" class="img-circle m-t-xs img-responsive" src="/@(item.LogoPath)" />
                             <div class="m-t font-bold">@(item.UserRole.GetDescription())</div>
                         </div>
                     </div>

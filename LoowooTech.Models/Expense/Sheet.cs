@@ -34,8 +34,19 @@ namespace LoowooTech.Models.Expense
         public SheetType SheetType { get; set; }
         public int ProjectId { get; set; }
         public virtual Project.Project Project { get; set; }
+        public int? FlowDataId { get; set; }
+        [ForeignKey("FlowDataId")]
+        public virtual FlowData FlowData2 { get; set; }
         [NotMapped]
-        public FlowData FlowData { get; set; }
+        public FlowData FlowData1 { get; set; }
+        [NotMapped]
+        public FlowData FlowData
+        {
+            get
+            {
+                return FlowData2 != null ? FlowData2 : FlowData1;
+            }
+        }
         [NotMapped]
         public Evection Evection { get; set; }
         [NotMapped]
@@ -72,6 +83,9 @@ namespace LoowooTech.Models.Expense
                 return path;
             }
         }
+
+
+        
 
     }
 

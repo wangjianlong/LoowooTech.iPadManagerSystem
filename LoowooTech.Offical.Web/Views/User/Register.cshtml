@@ -1,63 +1,75 @@
 ﻿
 @{
-    Layout = null;
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Register-hangzhou Loowoo Tech co.,Ltd</title>
-
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/Content/css/plugins/iCheck/custom.css" />
-    <link rel="stylesheet" href="~/Content/css/animate.css" />
-    <link rel="stylesheet" href="~/Content/css/style.css" />
-
-
-    <script src="~/scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/scripts/bootstrap.min.js"></script>
-    <script src="~/scripts/plugins/iCheck/icheck.min.js"></script>
-
-    <script >
-        $(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass:'iradio_square-green',
-            });
+<script>
+    $(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
         });
-    </script>
-</head>
-<body class="gray-bg">
-    <div class="middle-box text-center loginscreen animated fadeInDown">
-         <div>
-             <div>
-                 <h1 class="logo-name">LW</h1>
-             </div>
-             <h3>Register to LW</h3>
-             <p>Create account to see it in action.</p>
-             <form class="m-t" role="form" action="/User/Register" method="post">
-                 <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Name" required="">
-                 </div>
-                 <div class="form-group">
-                     <input type="text" class="form-control" placeholder="LoginName" required="">
-                 </div>
-                 <div class="form-group">
-                     <input type="password" class="form-control" placeholder="Password" required="">
-                 </div>
-                 <div class="form-group">
-                     <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
-                 </div>
-                 <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
-                 <p class="text-muted text-center"><small>Already have an account?</small></p>
-                 <a class="btn btn-sm btn-white btn-block" href="/User/Login">Login</a>
-             </form>
-             <p class="m-t"> <small>Hangzhou Loowoo Tech Co.,Ltd &copy; @(DateTime.Now.Year)</small> </p>
-         </div>
+        $("#form-register").submit(function () {
+            var $btn = $("#form-register button[type='submit']");
+            $btn.attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/user/register", data, function (json) {
+                if (json.result === 1) {
+                    swal({
+                        title: "注册成功",
+                        text: "注册成功，等待管理员对您的团队设置完成！",
+                        type: "warning"
+                    }, function () {
+                        location.href = "/Home/Index";
+                    });
+                
+                } 
+                else {
+                    swal("注册失败", json.content, "error");
+                    $btn.removeAttr("disabled");
+                }
+            });
+
+
+    
+            return false;
+        });
+    });
+</script>
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">OA</h1>
+        </div>
+        <h3>Register to Office Automation</h3>
+        <p>Create account to see it in action.</p>
+        <form class="m-t" role="form" action="/User/Register" method="post" id="form-register" Url="/Home/Index">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="真实名" name="Name" required="">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="系统登录名" name="LoginName" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码" name="Password" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="确认密码" name="Password2" required />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="手机号码" name="iPhone" required />
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks"><label> <input type="checkbox" name="IsRead" value="true"><i></i> Agree the terms and policy </label></div>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+
+            <p class="text-muted text-center"><small>Already have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="/User/Login">Login</a>
+        </form>
+        <p class="m-t"> <small>Hangzhou Loowoo Tech Co.,Ltd &copy; @(DateTime.Now.Year)</small> </p>
     </div>
-</body>
-</html>
+</div>

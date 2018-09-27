@@ -103,5 +103,13 @@ namespace LoowooTech.Managers
             DB.SaveChanges();
             return true;
         }
+        public bool ExistName(string name)
+        {
+            return DB.Users.Any(e => e.Name.ToLower() == name.ToLower());
+        }
+        public bool ExistLoginName(string loginName)
+        {
+            return DB.Users.Any(e => e.LoginName.ToLower() == loginName.ToLower());
+        }
     }
 }

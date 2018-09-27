@@ -55,5 +55,6 @@ namespace LoowooTech.Models.Project
         public virtual User User { get; set; }
 
         public virtual List<PayInfo> PayInfos { get; set; }
+        public virtual List<ContractFile> ContractFiles { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace LoowooTech.Models.Admin
         public int LWSystemId { get; set; }
         public virtual LWSystem LWSystem { get; set; }
         public virtual List<FlowNode> FlowNodes { get; set; }
+        //public int? CompanyId { get; set; }
+        //public virtual Company Company { get; set; }
         [NotMapped]
         public List<FlowNode> FlowNodes2 { get; set; }
         public FlowNode GetFirstNode()

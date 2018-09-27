@@ -7,6 +7,20 @@
     List<City> citys = ViewBag.Citys;
     List<ProjectType> ProjectTyps = ViewBag.ProjectTypes;
     List<User> users = ViewBag.Users;
+    Project project = ViewBag.Project;
+    if (project != null)
+    {
+        if (project.CityId.HasValue)
+        {
+            ViewBag.CityIds = new int[] { project.CityId.Value };
+        }
+        if (project.ProjectTypeId.HasValue)
+        {
+            ViewBag.ProjectTypeIds = new int[] { project.ProjectTypeId.Value };
+        }
+    }
+    List<ProjectUser> projectUsers = ViewBag.ProjectUsers;
+
 }
 
 <script>
@@ -59,23 +73,24 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">项目名称：</label>
                     <div class="col-sm-7">
-                        <input type="text" name="Name" class="form-control" placeholder="项目名称"  required/>
+                        <input type="hidden" name="ID" value="@(project==null?0:project.ID)" />
+                        <input type="text" name="Name" class="form-control" placeholder="项目名称" value="@(project==null?"":project.Name)"  required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">年份：</label>
                     <div class="col-sm-7">
-                        <input type="text" name="Year" class="form-control" placeholder="年份" value="@(DateTime.Now.Year)" />
+                        <input type="text" name="Year" class="form-control" placeholder="年份" value="@(project==null? DateTime.Now.Year:project.Year)"  />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">甲方：</label>
                     <div class="col-sm-7">
                         <select data-placeholder="选择项目单位" class="chosen-select form-control" name="CompanyAId">
-                            <option value="">请选择</option>
+                            <option value="" @(project==null?"selected=selected":"")>请选择</option>
                             @foreach(var item in projects)
                             {
-                                <option value="@(item.ID)">@(item.Name)</option>
+                                <option value="@(item.ID)" @(project!=null&&project.CompanyAId.HasValue&&project.CompanyAId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
                             }
                         </select>
                     </div>
@@ -84,10 +99,10 @@
                     <label class="control-label col-sm-3">乙方：</label>
                     <div class="col-sm-7">
                        <select data-placeholder="选择单位" class="chosen-select form-control" name="CompanyBId">
-                           <option value="">请选择</option>
+                           <option value="" @(project==null?"selected=selected":"")>请选择</option>
                            @foreach(var item in companys)
                            {
-                               <option value="@(item.ID)">@(item.Name)</option>
+                               <option value="@(item.ID)" @(project!=null&&project.CompanyBId.HasValue&&project.CompanyBId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
                            }
                        </select>
                     </div>
@@ -96,10 +111,10 @@
                     <label class="control-label col-sm-3">项目城市：</label>
                     <div class="col-sm-7">
                         <select data-placeholder="选择城市" class="chosen-select form-control" name="CityId">
-                            <option value="">请选择</option>
+                            <option value="" @(project==null?"selected=selected":"")>请选择</option>
                             @foreach(var item in citys)
                             {
-                                <option value="@(item.ID)">@(item.Name)</option>
+                                <option value="@(item.ID)" @(project!=null&&project.CityId.HasValue&&project.CityId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
                                 if (item.Children != null)
                                 {
                                     item.ParentName = item.Name;
@@ -114,10 +129,10 @@
                     <label class="control-label col-sm-3">项目类型：</label>
                     <div class="col-sm-7">
                         <select data-placeholder="选择项目类型" class="chosen-select form-control" name="ProjectTypeId">
-                            <option value="">请选择</option>
+                            <option value="" @(project==null?"selected=selected":"")>请选择</option>
                             @foreach(var item in ProjectTyps)
                             {
-                                <option value="@(item.ID)">@(item.Name)</option>
+                                <option value="@(item.ID)" @(project!=null&&project.ProjectTypeId.HasValue&&project.ProjectTypeId.Value==item.ID?"selected=selected":"")>@(item.Name)</option>
                                 if (item.Children != null)
                                 {
                                     item.ParentName = item.Name;
@@ -131,7 +146,7 @@
                     <label class="control-label col-sm-3">项目创建人：</label>
                     <div class="col-sm-7">
                         <input type="text" name="" class="form-control"  readonly value="@(Identity.Name)" />
-                        <input type="hidden" name="UserId" value="@(Identity.UserId)" />
+                        <input type="hidden" name="UserId" value="@(project==null? Identity.UserId:project.UserId)" />
                     </div>
                 </div>
 
@@ -145,7 +160,7 @@
                         @foreach(var user in users)
                         {
                             <label class="checkbox i-checks checkbox-inline">
-                                <input type="checkbox" name="UsersId" value="@(user.ID)" />@(user.Name)
+                                <input type="checkbox" name="UsersId" value="@(user.ID)" @(projectUsers!=null&&projectUsers.Any(e=>e.UserId==user.ID)?"checked=checked":"") />@(user.Name)
                             </label>
                         }
                     </div>
@@ -153,7 +168,7 @@
                 <div class="form-group">
                     <label class="control-label col-xs-3">备注：</label>
                     <div class="col-xs-7">
-                        <textarea class="form-control" rows="3" name="Remark"></textarea>
+                        <textarea class="form-control" rows="3" name="Remark">@(project==null?"":project.Remark)</textarea>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -161,6 +176,7 @@
                     <div class="col-xs-7 col-xs-offset-3">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
                         <a href="/Project/Home/Index" class="btn btn-danger"><i class="fa fa-desktop"></i>项目系统首页</a>
+                        <button type="button" class="btn btn-white" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
                     </div>
                 </div>
             </form>

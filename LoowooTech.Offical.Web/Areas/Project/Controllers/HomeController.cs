@@ -22,6 +22,10 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
             ViewBag.Citys = Core.CityManager.GetTree();
             ViewBag.ProjectTypes = Core.ProjectTypeManager.GetTree();
             ViewBag.Users = Core.UserManager.GetList();
+            var project = Core.ProjectManager.Get(id);
+            ViewBag.Project = project;
+            var users = Core.ProjectManager.GetUsers(id);
+            ViewBag.ProjectUsers = users;
             return View();
         }
 

@@ -43,16 +43,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/20/2017 14:13:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Company/Create.cshtml">
-      <publishTime>11/22/2017 10:29:53</publishTime>
+      <publishTime>08/14/2018 10:08:19</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Company/Index.cshtml">
       <publishTime>11/22/2017 10:42:47</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Flow/Create.cshtml">
-      <publishTime>11/22/2017 15:07:44</publishTime>
+      <publishTime>08/16/2018 11:29:54</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Flow/Index.cshtml">
-      <publishTime>12/29/2017 10:14:12</publishTime>
+      <publishTime>08/16/2018 11:29:17</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Flow/_showNode.cshtml">
       <publishTime>12/29/2017 10:15:42</publishTime>
@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2018 11:10:38</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/Index.cshtml">
-      <publishTime>01/02/2018 15:22:09</publishTime>
+      <publishTime>08/14/2018 10:12:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/web.config">
       <publishTime>11/22/2017 18:39:24</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2018 09:38:04</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Daily/Detail.cshtml">
-      <publishTime>06/01/2018 16:16:38</publishTime>
+      <publishTime>08/14/2018 16:35:26</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Daily/Index.cshtml">
       <publishTime>02/05/2018 09:39:56</publishTime>
@@ -154,7 +154,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/06/2018 14:35:27</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/Examination.cshtml">
-      <publishTime>05/26/2018 15:43:09</publishTime>
+      <publishTime>08/16/2018 15:32:52</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/Files.cshtml">
       <publishTime>05/16/2018 09:32:53</publishTime>
@@ -166,16 +166,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/17/2018 09:06:58</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/State.cshtml">
-      <publishTime>02/05/2018 11:04:38</publishTime>
+      <publishTime>08/16/2018 16:38:22</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/Statistic.cshtml">
-      <publishTime>05/24/2018 14:45:51</publishTime>
+      <publishTime>07/05/2018 14:51:11</publishTime>
+    </File>
+    <File Include="Areas/Expense/Views/Home/Statistic2.cshtml">
+      <publishTime>08/17/2018 14:02:41</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/StatisticDay.cshtml">
       <publishTime>05/24/2018 15:26:35</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/StatisticHead.cshtml">
-      <publishTime>05/24/2018 15:27:11</publishTime>
+      <publishTime>08/17/2018 10:03:34</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Home/Upload.cshtml">
       <publishTime>05/15/2018 17:07:26</publishTime>
@@ -196,7 +199,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2017 09:22:12</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Shared/_Layout.cshtml">
-      <publishTime>05/28/2018 10:50:10</publishTime>
+      <publishTime>08/17/2018 14:14:56</publishTime>
     </File>
     <File Include="Areas/Expense/Views/Shared/_showSheet.cshtml">
       <publishTime>05/26/2018 16:37:51</publishTime>
@@ -223,13 +226,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2018 17:11:27</publishTime>
     </File>
     <File Include="Areas/Project/Views/Contract/DetailList.cshtml">
-      <publishTime>06/01/2018 16:55:20</publishTime>
+      <publishTime>06/27/2018 15:07:39</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Create.cshtml">
-      <publishTime>06/21/2018 09:47:26</publishTime>
+      <publishTime>08/21/2018 15:41:44</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Detail.cshtml">
-      <publishTime>06/20/2018 17:39:10</publishTime>
+      <publishTime>06/21/2018 16:50:47</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Index.cshtml">
       <publishTime>01/10/2018 10:23:33</publishTime>
@@ -244,7 +247,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/21/2018 16:14:14</publishTime>
     </File>
     <File Include="Areas/Project/Views/Invoice/Create.cshtml">
-      <publishTime>06/05/2018 17:14:20</publishTime>
+      <publishTime>06/27/2018 15:20:53</publishTime>
     </File>
     <File Include="Areas/Project/Views/Invoice/DetailList.cshtml">
       <publishTime>06/05/2018 14:34:56</publishTime>
@@ -253,7 +256,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/29/2018 10:31:24</publishTime>
     </File>
     <File Include="Areas/Project/Views/Schedule/Detail.cshtml">
-      <publishTime>06/20/2018 17:37:09</publishTime>
+      <publishTime>06/27/2018 15:27:33</publishTime>
     </File>
     <File Include="Areas/Project/Views/Shared/_Layout.cshtml">
       <publishTime>06/21/2018 16:18:00</publishTime>
@@ -263,6 +266,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Areas/Project/Views/WorkSchedule/DetialList.cshtml">
       <publishTime>05/16/2018 10:01:11</publishTime>
+    </File>
+    <File Include="Areas/Voucher/Views/Home/Create.cshtml">
+      <publishTime>08/23/2018 09:47:16</publishTime>
+    </File>
+    <File Include="Areas/Voucher/Views/Home/Index.cshtml">
+      <publishTime>08/22/2018 09:01:56</publishTime>
+    </File>
+    <File Include="Areas/Voucher/Views/Shared/_Layout.cshtml">
+      <publishTime>08/20/2018 15:24:08</publishTime>
+    </File>
+    <File Include="Areas/Voucher/Views/web.config">
+      <publishTime>08/21/2018 16:53:29</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
       <publishTime>10/27/2017 10:56:55</publishTime>
@@ -274,43 +289,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/LoowooTech.Common.dll">
-      <publishTime>06/05/2018 18:54:32</publishTime>
+      <publishTime>08/28/2018 09:30:44</publishTime>
     </File>
     <File Include="bin/LoowooTech.Common.pdb">
-      <publishTime>06/05/2018 18:54:32</publishTime>
+      <publishTime>08/28/2018 09:30:44</publishTime>
     </File>
     <File Include="bin/LoowooTech.iPadManagerSystem.dll">
-      <publishTime>06/21/2018 16:22:57</publishTime>
+      <publishTime>08/28/2018 09:30:47</publishTime>
     </File>
     <File Include="bin/LoowooTech.iPadManagerSystem.dll.config">
       <publishTime>03/01/2017 13:42:00</publishTime>
     </File>
     <File Include="bin/LoowooTech.iPadManagerSystem.pdb">
-      <publishTime>06/21/2018 16:22:57</publishTime>
+      <publishTime>08/28/2018 09:30:47</publishTime>
     </File>
     <File Include="bin/LoowooTech.Managers.dll">
-      <publishTime>06/21/2018 16:22:56</publishTime>
+      <publishTime>08/28/2018 09:30:45</publishTime>
     </File>
     <File Include="bin/LoowooTech.Managers.dll.config">
       <publishTime>10/28/2017 16:02:02</publishTime>
     </File>
     <File Include="bin/LoowooTech.Managers.pdb">
-      <publishTime>06/21/2018 16:22:56</publishTime>
+      <publishTime>08/28/2018 09:30:45</publishTime>
     </File>
     <File Include="bin/LoowooTech.Models.dll">
-      <publishTime>06/21/2018 16:22:56</publishTime>
+      <publishTime>08/28/2018 09:30:45</publishTime>
     </File>
     <File Include="bin/LoowooTech.Models.dll.config">
       <publishTime>10/26/2017 09:05:05</publishTime>
     </File>
     <File Include="bin/LoowooTech.Models.pdb">
-      <publishTime>06/21/2018 16:22:56</publishTime>
+      <publishTime>08/28/2018 09:30:45</publishTime>
     </File>
     <File Include="bin/LoowooTech.Offical.Web.dll">
-      <publishTime>06/21/2018 16:23:01</publishTime>
+      <publishTime>08/28/2018 09:30:50</publishTime>
     </File>
     <File Include="bin/LoowooTech.Offical.Web.pdb">
-      <publishTime>06/21/2018 16:23:01</publishTime>
+      <publishTime>08/28/2018 09:30:50</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/07/2015 19:04:38</publishTime>
@@ -2080,10 +2095,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2017 09:30:57</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/21/2018 16:15:49</publishTime>
+      <publishTime>08/28/2018 09:15:37</publishTime>
     </File>
     <File Include="Views/Shared/_Layout2.cshtml">
-      <publishTime>12/28/2017 16:36:07</publishTime>
+      <publishTime>08/14/2018 10:22:45</publishTime>
     </File>
     <File Include="Views/Shared/_pagination.cshtml">
       <publishTime>01/02/2018 14:25:37</publishTime>
@@ -2095,19 +2110,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/16/2018 17:02:12</publishTime>
     </File>
     <File Include="Views/User/Login.cshtml">
-      <publishTime>12/28/2017 17:53:57</publishTime>
+      <publishTime>08/14/2018 10:19:32</publishTime>
     </File>
     <File Include="Views/User/Password.cshtml">
       <publishTime>12/29/2017 09:24:05</publishTime>
     </File>
     <File Include="Views/User/Register.cshtml">
-      <publishTime>10/28/2017 15:58:11</publishTime>
+      <publishTime>08/14/2018 11:14:13</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>12/01/2017 17:36:47</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/05/2018 18:54:39</publishTime>
+      <publishTime>08/28/2018 09:30:50</publishTime>
     </File>
   </ItemGroup>
 </Project>

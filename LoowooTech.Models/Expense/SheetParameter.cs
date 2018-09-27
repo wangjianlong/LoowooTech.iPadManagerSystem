@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoowooTech.Models.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,7 @@ namespace LoowooTech.Models.Expense
         public DateTime? EndTime { get; set; }
         public string Content { get; set; }
         public bool? Delete { get; set; }
+        public bool? IsCheck { get; set; }
+        public FlowDataState? State { get; set; }
     }
 }

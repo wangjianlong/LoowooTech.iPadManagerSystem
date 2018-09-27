@@ -1,6 +1,7 @@
 ﻿using LoowooTech.Models;
 using LoowooTech.Models.Admin;
 using LoowooTech.Models.Expense;
+using LoowooTech.Models.Voucher;
 using System.Data.Entity;
 
 namespace LoowooTech.Managers
@@ -54,12 +55,15 @@ namespace LoowooTech.Managers
         public DbSet<Models.Project.WorkScheduleFiles> ScheduleFiles { get; set; }
         public DbSet<Models.Project.Invoice> Invoices { get; set; }
         public DbSet<Models.Project.Contract> Contracts { get; set; }
+        public DbSet<Models.Project.ContractFile> Contract_Files { get; set; }
         public DbSet<Models.Project.PayInfo> PayInfos { get; set; }
         #endregion
 
         #region  报销
         public DbSet<Sheet> Sheets { get; set; }
         public DbSet<SheetFile> SheetFiles { get; set; }
+        public DbSet<FlowSheetView> FlowSheetViews { get; set; }
+
         public DbSet<SheetFlowView> SheetViews { get; set; }
         public DbSet<SheetFlowDataView> SheetFlowDataViews { get; set; }
         public DbSet<Evection> Evections { get; set; }
@@ -69,6 +73,10 @@ namespace LoowooTech.Managers
         public DbSet<Substance> Substances { get; set; }
         public DbSet<Reception> Receptions { get; set; }
         public DbSet<ReceptionItem> ReceptionItems { get; set; }
+        #endregion
+
+        #region  发票
+        public DbSet<EInvoice> EInvoices { get; set; }
         #endregion
     }
 }

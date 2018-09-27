@@ -34,7 +34,19 @@
                     </p>
                 </td>
                 <td>
-                    
+                   @if (item.Files != null)
+                   {
+                       <table class="table">
+                           @foreach(var file in item.Files)
+                           {
+                               <tr>
+                                   <td>
+                                       <a href="/@(file.FileInfo.Path)">@(file.FileInfo.FileName)</a>
+                                   </td>
+                               </tr>
+                           }
+                       </table>
+                   }
                 </td>
                 <td>
                     @if (Identity.UserRole >= UserRole.Advance || Identity.UserId == item.UserId)

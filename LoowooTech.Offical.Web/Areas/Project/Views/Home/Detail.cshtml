@@ -40,7 +40,7 @@
                             <div class="m-b-md">
                                 @if (Identity.UserRole >= UserRole.Advance || Identity.UserId == project.UserId)
                                 {
-                                    <a href="" class="btn btn-xs pull-right btn-primary"><i class="fa fa-edit"></i>编辑项目</a>
+                                    <a href="/Project/Home/Create?id=@(project.ID)" class="btn btn-xs pull-right btn-primary"><i class="fa fa-edit"></i>编辑项目</a>
                                 }
 
                                 <h2>@(project.Name)</h2>

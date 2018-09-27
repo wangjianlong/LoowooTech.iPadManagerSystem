@@ -16,6 +16,15 @@ namespace LoowooTech.Models.Admin
         public int ID { get; set; }
         public string Name { get; set; }
         /// <summary>
+        /// 英文名
+        /// </summary>
+        public string EnglishName { get; set; }
+        /// <summary>
+        /// 缩写
+        /// </summary>
+        public string Abbreviation { get; set; }
+
+        /// <summary>
         /// 统一社会信用代码
         /// </summary>
         public string USCI { get; set; }

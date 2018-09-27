@@ -28,6 +28,17 @@
 
     //计算出差人员差补详情
     function CalculatorErrand() {
+        var price = 0;
+        var errandType = $("input[name='ErrandType']:checked").val();
+        if (errandType === "" || errandType === undefined) {
+            price = 0;
+        } else {
+            if (errandType === "Locale") {
+                price = 100;
+            } else {
+                price = 80;
+            }
+        }
         var start = [];
         var end = [];
         $("input[type='text'][name='startTime']").each(function () {
@@ -38,12 +49,12 @@
             end.push($(this).val());
         });
         var sum = .0;
-        if (start.length == 0 || end.length == 0 || start.length != end.length) {
+        if (start.length === 0 || end.length === 0 || start.length !== end.length) {
            // swal("计算差补失败", "未获取出差人员时间详情", "error");
             return;
         } else {
             $.each(start, function (i, value) {
-                if (value != "") {
+                if (value !== "") {
                     var d1 = new Date(value);
                     var d2 = new Date(end[i]);
                     if (d1 === undefined || d2 === undefined) {
@@ -53,7 +64,7 @@
                     var day_d1 = d1.getTime() / 1000 / 3600 / 24;
                     var day_d2 = d2.getTime() / 1000 / 3600 / 24;
                     var days = day_d2 - day_d1 + 1;
-                    sum += days * 80;
+                    sum += days * price;
                 }
 
             });
@@ -128,6 +139,10 @@
         CalculatorErrand();
     });
 
+    $("input[type='radio'][name='ErrandType']").change(function () {
+        CalculatorErrand();
+    });
+
     $("button[type='button'][name='Traffic']").click(function () {
         CalculatorTraffic();
     });
@@ -158,7 +173,7 @@
         var sum = .0;
         $("input:text[name='Cost']").each(function () {
             var val = parseFloat($(this).val());
-            if (!isNaN(val) && val != undefined) {
+            if (!isNaN(val) && val !== undefined) {
                 sum += val;
             }
         });
@@ -217,7 +232,7 @@
         var $btn = $(this);
         $btn.attr("disabled", "disabled");
         $.getJSON(href, function (data) {
-            if (data.result == 1) {
+            if (data.result === 1) {
                 swal({
                     title: '成功撤回',
                     text: "成功撤回，点击确定完成撤回操作！",

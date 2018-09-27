@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>@(ViewBag.Title)-Hangzhou Loowoo Tech Co.,Ltd</title>
+    <title>@(ViewBag.Title)-@(Identity.EnglishName)</title>
 
     <link rel="icon" href="~/Images/loowootech -small-logo.png" />
     <link rel="shortcut icon" href="~/Images/loowootech -small-logo.png" />
@@ -110,15 +110,20 @@
                     <li class="@(ViewBag.Area.ToLower()=="Address".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Address/Home/Index"><i class="fa fa-address-book"></i><span class="nav-label">通讯录</span></a>
                     </li>
+
                     <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                         <a href="/Expense/Home/Index"><i class="fa fa-desktop"></i><span class="nav-label">报销系统首页</span></a>
                     </li>
-                    @if (Identity.UserRole >= UserRole.Advance)
+                    @if (Identity.UserRole >= UserRole.Admin)
                     {
                         <li class="@(ViewBag.Area.ToLower()=="Project".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
                             <a href="/Project/Home/Index"><i class="fa fa-diamond"></i><span class="nav-label">项目系统首页</span></a>
                         </li>
                     }
+
+                    @*<li class="@(ViewBag.Area.ToLower()=="Voucher".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+                        <a href="/Voucher/Home/Index"><i class="fa fa-folder-o"></i><span class="nav-label">发票</span></a>
+                    </li>*@
 
                     @RenderSection("navigation", false)
 
@@ -150,7 +155,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to Hangzhou Loowoo Tech Co.,Ltd. </span>
+                            <span class="m-r-sm text-muted welcome-message">Welcome to @(Identity.EnglishName) </span>
                         </li>
                         <li>
                             <a href="/Feed/Index"><i class="fa fa-envelope"></i></a>
@@ -179,7 +184,7 @@
             </div>
             <div class="footer">
                 <div>
-                    <strong>Copyright</strong>Hangzhou Loowoo Tech Co.,Ltd  杭州陆吾科技信息咨询有限公司  &copy; 2011-@(DateTime.Now.Year)
+                    <strong>Copyright</strong>@(Identity.EnglishName) @(Identity.Company)  &copy; 2011-@(DateTime.Now.Year)
                 </div>
             </div>
 

@@ -59,6 +59,12 @@ namespace LoowooTech.Managers.Admin
         {
             return DB.Flows.FirstOrDefault(e => e.Name == name);
         }
+
+
+        public List<Flow> GetList(string Name)
+        {
+            return DB.Flows.Where(e => e.Delete == false && e.Name.ToLower() == Name.ToLower()).ToList();
+        }
         
     }
 }

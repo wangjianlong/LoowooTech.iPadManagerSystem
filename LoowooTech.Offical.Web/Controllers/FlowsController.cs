@@ -21,6 +21,12 @@ namespace LoowooTech.Offical.Web.Controllers
             ViewBag.Data = data;
             return View();
         }
+        public ActionResult Detail(int Id)
+        {
+            var data = Core.FlowDataManager.Get(Id);
+            ViewBag.Data = data;
+            return View();
+        }
 
         /// <summary>
         /// 作用：用户自己提交审核

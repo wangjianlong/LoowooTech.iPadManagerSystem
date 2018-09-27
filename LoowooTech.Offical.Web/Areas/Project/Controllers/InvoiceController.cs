@@ -25,7 +25,7 @@ namespace LoowooTech.Offical.Web.Areas.Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Invoice invoice)
+        public ActionResult Save(Models.Project.Invoice invoice)
         {
             if (HttpContext.Request.Files.Count == 0)
             {

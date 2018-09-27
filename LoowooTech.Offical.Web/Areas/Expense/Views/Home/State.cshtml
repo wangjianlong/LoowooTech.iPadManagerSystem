@@ -1,6 +1,7 @@
 ﻿@{ 
     Layout = null;
-    List<SheetFlowDataView> list = ViewBag.List;
+    //List<SheetFlowDataView> list = ViewBag.List;
+    List<Sheet> list = ViewBag.List;
 }
 
 
@@ -40,7 +41,7 @@
             <td>
                 <a href="@(url+item.ID)">@(item.SerialNumber)</a>
             </td>
-            <td>@(item.CompanyName)</td>
+            <td>@(item.Company.Name)</td>
             <td>@(item.Time.ToLongDateString())</td>
             <td>@(item.Count)</td>
             <td>

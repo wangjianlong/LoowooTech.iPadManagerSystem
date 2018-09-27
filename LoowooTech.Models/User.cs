@@ -29,21 +29,6 @@ namespace LoowooTech.Models
         public string iPhone { get; set; }
         public virtual List<UserCompany> Companys { get; set; }
         public string LogoPath { get; set; }
-        //public int? FileId { get; set; }
-        //[ForeignKey("FileId")]
-        //public virtual FileInfo File { get; set; }
-        //[NotMapped]
-        //public string HeadPath
-        //{
-        //    get
-        //    {
-        //        if (File == null)
-        //        {
-        //            return "~/Images/loowootech -head.png";
-        //        }
-        //        return File.Path;
-        //    }
-        //}
         [NotMapped]
         public string AccessToken { get; set; }
 

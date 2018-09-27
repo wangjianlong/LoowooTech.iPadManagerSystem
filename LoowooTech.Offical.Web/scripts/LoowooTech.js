@@ -16,7 +16,7 @@
         }, function (isConfirm) {
             if (isConfirm) {
                 $.getJSON(href, function (data) {
-                    if (data.result == 1) {
+                    if (data.result === 1) {
                         swal({
                             title: "成功删除！",
                             text: "成功删除,点击确定完成删除！",

@@ -57,6 +57,10 @@
         </li>
 
 
+
+    }
+    @if (Identity.UserRole == UserRole.Admin||Identity.Name=="赵斯思")
+    {
         <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="StatisticHead".ToLower()?"active":"")">
             <a href="/Expense/Home/StatisticHead"><i class="fa fa-tasks"></i><span class="nav-label">报销统计</span></a>
         </li>
@@ -74,6 +78,7 @@
             <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Reception".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
                 <a href="/Expense/Reception/Search">招待报销</a>
             </li>
+            
         </ul>
     </li>
 }

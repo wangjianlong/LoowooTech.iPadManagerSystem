@@ -83,7 +83,15 @@
         </div>
         <div class="col-sm-4">
             @{ 
-                Html.RenderPartial("_showFlow", sheet.FlowData as object);
+                if (sheet.FlowData2 != null)
+                {
+                    Html.RenderPartial("_showFlow", sheet.FlowData2 as object);
+                }
+                else
+                {
+                    Html.RenderPartial("_showFlow", sheet.FlowData as object);
+                }
+
             }
         </div>
     </div>

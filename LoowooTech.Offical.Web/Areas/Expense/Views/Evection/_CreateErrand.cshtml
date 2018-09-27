@@ -2,6 +2,7 @@
 
 @{ 
     var persons = Model == null ? "" : string.Join(";", Model.Select(e => e.User.Name).ToArray());
+    var Currenttype = Model == null ? ErrandType.Common : Model.FirstOrDefault().ErrandType;
 }
 
 <script>
@@ -43,8 +44,22 @@
     <div class="ibox-content">
         <div class="alert alert-warning" role="alert">
             <p class="lead">填写说明</p>
-            <p>1、<strong>差补费</strong>：天数*80;</p>
+            <p>1、<strong>差补费</strong>：普通出差：天数*80;驻场出差：天数*100；</p>
             <p>2、当选择出差人员之后，相应填写每个出差人员的出差时间，用于计算出差补贴费用;</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">出差类型：</label>
+            <div class="col-sm-8">
+                @foreach (ErrandType type in Enum.GetValues(typeof(ErrandType)))
+                {
+                    <div class="radio-inline i-checks">
+                        <label>
+                            <input type="radio" name="ErrandType" value="@(type)" @(Currenttype==type?"checked=checked":"") />@(type.GetDescription())
+                        </label>
+                    </div>
+                }
+
+            </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">出差人员：</label>
@@ -77,6 +92,9 @@
             }
         </div>
         <div class="hr-line-dashed"></div>
+        <div class="alert alert-warning" role="alert">
+            <strong>提示！</strong> 您需要选择出差类型并且选择人员出差时间，方可合计出差补；
+        </div>
         <div class="form-group">
             <label class="control-label col-sm-3">差补合计：</label>
             <div class="col-sm-8">

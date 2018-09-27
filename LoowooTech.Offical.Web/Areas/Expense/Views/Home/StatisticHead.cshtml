@@ -3,6 +3,7 @@
     ViewBag.Title = "报销统计";
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
     List<LWTime> list = ViewBag.Times;
+    List<LWTime> list2 = ViewBag.Times2;
 }
 
 <link href="~/Content/css/plugins/morris/morris-0.4.3.min.css" />
@@ -37,6 +38,11 @@
         <a href="/Expense/Home/StatisticDay" class="btn btn-white btn-block" name="TimeSelect">每日报销情况</a>
 
         <h3 class="text-center">日期选择</h3>
+        @foreach(var time  in list2)
+        {
+            <a href="/Expense/Home/Statistic2?year=@(time.Year)&&month=@(time.Month)&&day=@(time.Days)" class="btn btn-white btn-block" name="TimeSelect">@string.Format("{0}年{1}月{2}日", time.Year, time.Month, time.Days)</a>
+        }
+
         @foreach (var time in list)
         {
             <a href="/Expense/Home/Statistic?year=@(time.Year)&&month=@(time.Month)&&day=@(time.Days)" class="btn btn-white btn-block" name="TimeSelect">@string.Format("{0}年{1}月{2}日", time.Year, time.Month, time.Days)</a>

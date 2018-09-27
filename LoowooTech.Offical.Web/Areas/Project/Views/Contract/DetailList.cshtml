@@ -28,6 +28,7 @@
             <th>乙方</th>
             <th>金额【元】</th>
             <th data-hide="all">付款信息</th>
+            <th data-hide="all">合同扫描件</th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +48,23 @@
                                 <tr>
                                     <td>@(pay.Content)</td>
                                     <td>@(pay.Money)</td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                </td>
+                <td>
+                    @if (contract.ContractFiles != null)
+                    {
+                        <table class="table">
+                            @foreach(var file in contract.ContractFiles)
+                            {
+                                <tr>
+                                    <td>@(file.Remark)</td>
+                                    <td>
+                                        <a href="/@(file.FileInfo.Path)">@(file.FileInfo.FileName)</a>
+                                    </td>
+
                                 </tr>
                             }
                         </table>

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LoowooTech.Models.Project
 {
+    /// <summary>
+    /// 项目发票
+    /// </summary>
     [Table("invoice")]
     public class Invoice
     {

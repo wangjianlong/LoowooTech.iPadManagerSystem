@@ -17,7 +17,7 @@
 </div>
 
 
-<form class="form-horizontal" method="post" id="form-invoice" action="/Project/Invoice/Save">
+<form class="form-horizontal" method="post" id="form-invoice" action="/Project/Invoice/Save" enctype="multipart/form-data">
     <div class="modal-body">
         <div class="form-group">
             <label class="control-label col-xs-3">项目名称：</label>
@@ -47,7 +47,7 @@
                     <option value="">请选择合同</option>
                     @foreach(var item in contracts)
                     {
-                        <option value="@(item.ID)">@(item.Name)</option>
+                        <option value="@(item.ID)">@string.Format("{0}-{1}",item.Name,item.CompanyA.Name)</option>
                     }
                 </select>
             </div>

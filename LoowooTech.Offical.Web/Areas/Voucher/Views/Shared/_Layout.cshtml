@@ -1,0 +1,25 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ButtonHead{
+    @RenderSection("ButtonHead", false)
+}
+
+@section Description{
+    @RenderSection("Description", false)
+}
+
+@section navigation{
+    
+    <li class="">
+        <a href="" ><i class="fa fa-search"></i>发票查询</a>
+    </li>
+    
+}
+
+
+@RenderBody()
+

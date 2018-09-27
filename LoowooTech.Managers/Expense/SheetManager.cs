@@ -62,17 +62,38 @@ namespace LoowooTech.Managers.Expense
                         model.Reception = Core.ReceptionManager.GetBySheetId(model.ID);
                         break;
                 }
-                if (flowId > 0)
+                if (model.FlowData2 == null)
                 {
-                    model.FlowData = Core.FlowDataManager.Get(flowId, id);
+                    if (flowId > 0)
+                    {
+                        model.FlowData1 = Core.FlowDataManager.Get(flowId, id);
+                    }
                 }
+                else
+                {
+                    if (model.FlowData2.NodeDatas != null)
+                    {
+                        foreach(var item in model.FlowData2.NodeDatas)
+                        {
+                            if (item.UserIds != null)
+                            {
+                                item.Users = Core.UserManager.Get(item.UserIds);
+                            }
+                        }
+                    }
+                }
+               
                
             }
             return model;
         }
         public List<Sheet> Search(SheetParameter parameter)
         {
-            var query = DB.Sheets.Where(e => e.Delete == false).AsQueryable();
+            var query = DB.Sheets.AsQueryable();
+            if (parameter.Delete.HasValue)
+            {
+                query = query.Where(e => e.Delete == parameter.Delete.Value);
+            }
             if (parameter.Type.HasValue)
             {
                 query = query.Where(e => e.SheetType == parameter.Type.Value);
@@ -97,6 +118,15 @@ namespace LoowooTech.Managers.Expense
             {
                 query = query.Where(e => e.Remark.Contains(parameter.Content));
             }
+            if (parameter.IsCheck.HasValue)
+            {
+                query = query.Where(e => e.IsCheck == parameter.IsCheck.Value);
+            }
+            if (parameter.State.HasValue)
+            {
+                query = query.Where(e => e.FlowData2 != null && e.FlowData2.State == parameter.State.Value);
+            }
+
             query = query.OrderByDescending(e => e.Time).SetPage(parameter.Page);
             return query.ToList();
         }
@@ -113,10 +143,10 @@ namespace LoowooTech.Managers.Expense
         }
    
 
-        public List<Sheet> Search(List<FlowData> flowDatas)
-        {
-            return flowDatas.Select(e => Get(e.InfoId)).ToList();
-        }
+        //public List<Sheet> Search(List<FlowData> flowDatas)
+        //{
+        //    return flowDatas.Select(e => Get(e.InfoId)).ToList();
+        //}
 
         public bool UpdateMoney(int id,double money)
         {

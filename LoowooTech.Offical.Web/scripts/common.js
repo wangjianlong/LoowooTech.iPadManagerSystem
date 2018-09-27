@@ -267,7 +267,7 @@ function LWSubmit(form) {
     var url = $(form).attr("Url");
     console.log("url");
     $.request(href, data, function (json) {
-        if (json.result == 1) {
+        if (json.result === 1) {
             
             if (json.data != null) {
                 url = url + json.data;

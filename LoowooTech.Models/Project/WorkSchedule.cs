@@ -35,8 +35,10 @@ namespace LoowooTech.Models.Project
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public int WorkScheduleId { get; set; }
+        [ForeignKey("WorkScheduleId")]
         public virtual WorkSchedule WorkSchedule { get; set; }
         public int FileId { get; set; }
+        [ForeignKey("FileId")]
         public virtual FileInfo FileInfo { get; set; }
         public bool Delete { get; set; }
     }

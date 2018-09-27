@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "审核报销单";
     Layout = "~/Areas/Expense/Views/Shared/_Layout.cshtml";
-    List<SheetFlowView> sheets = ViewBag.Sheets;
+    //List<SheetFlowView> sheets = ViewBag.Sheets;
+    List<FlowSheetView> sheets = ViewBag.Sheets;
     List<Company> companys = ViewBag.Companys;
     List<User> users = ViewBag.Users;
     List<FlowNode> flowNodes = ViewBag.FlowNodes;
@@ -40,7 +41,7 @@
                 } else {
                     $(this).prop("checked", true);
                 }
-            })
+            });
             sumMoney();
         });
 

@@ -15,7 +15,7 @@ namespace LoowooTech.Models.Admin
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int InfoId { get; set; }
+        public int? InfoId { get; set; }
         public int FlowId { get; set; }
         public virtual Flow Flow { get; set; }
         public FlowDataState State { get; set; }
