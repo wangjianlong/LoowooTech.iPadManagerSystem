@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ButtonHead{
+    @RenderSection("ButtonHead", false)
+}
+
+@section Description{
+    @RenderSection("Description", false)
+}
+
+@section links{
+   
+}
+
+@section scripts{
+   
+}
+
+@section navigation{
+   
+     <li class="@(ViewBag.Area.ToLower()=="Version".ToLower()&&ViewBag.Controller.ToLower()=="Program".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+        <a href="/Version/Program/Index"><i class="fa fa-github-alt"></i><span class="nav-label">程序列表</span></a>
+     </li>
+
+    
+    }
+
+
+
+@RenderBody()
+

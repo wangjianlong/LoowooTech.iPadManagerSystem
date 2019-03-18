@@ -284,6 +284,7 @@
     <Content Include="scripts\LW\Common.js" />
     <Content Include="scripts\LW\Expense.js" />
     <Content Include="scripts\LW\LWChart.js" />
+    <Content Include="scripts\LW\Tablets.js" />
     <Content Include="scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\bootstrap-markdown.js" />
     <Content Include="scripts\plugins\bootstrap-markdown\markdown.js" />
@@ -668,6 +669,21 @@
     <Compile Include="Areas\Project\Controllers\ScheduleController.cs" />
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Project\ProjectControllerBase.cs" />
+    <Compile Include="Areas\Tablets\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\AtlasController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\AuthorityController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\RecordController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\RevertController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\TabletController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\TabletsControllerBase.cs" />
+    <Compile Include="Areas\Tablets\Controllers\TypeController.cs" />
+    <Compile Include="Areas\Tablets\TabletsAreaRegistration.cs" />
+    <Compile Include="Areas\Version\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Version\Controllers\ProgramController.cs" />
+    <Compile Include="Areas\Version\Controllers\VersionController.cs" />
+    <Compile Include="Areas\Version\Controllers\VersionsControllerBase.cs" />
+    <Compile Include="Areas\Version\VersionAreaRegistration.cs" />
     <Compile Include="Areas\Voucher\Controllers\HomeController.cs" />
     <Compile Include="Areas\Voucher\VoucherAreaRegistration.cs" />
     <Compile Include="Areas\Voucher\VoucherControllerBase.cs" />
@@ -852,12 +868,46 @@
     <Content Include="Areas\Voucher\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Voucher\Views\Home\Index.cshtml" />
     <Content Include="Areas\Voucher\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\web.config" />
+    <Content Include="Areas\Tablets\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Tablets\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Tablet\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Tablet\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\Type\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\Type\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Account\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Atlas\Create.cshtml" />
+    <Content Include="manifest.plist" />
+    <Content Include="Areas\Tablets\Views\Account\Detail.cshtml" />
+    <Content Include="Areas\Tablets\Views\Tablet\Detail.cshtml" />
+    <Content Include="Areas\Tablets\Views\Record\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\Record\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Record\Detail.cshtml" />
+    <Content Include="Areas\Tablets\Views\Record\File.cshtml" />
+    <Content Include="Areas\Tablets\Views\Record\Revert.cshtml" />
+    <Content Include="Areas\Tablets\Views\Authority\Create.cshtml" />
+    <Content Include="Areas\Tablets\Views\Authority\Index.cshtml" />
+    <Content Include="Areas\Tablets\Views\Authority\Widget.cshtml" />
+    <Content Include="Areas\Tablets\Views\Tablet\Widget.cshtml" />
+    <Content Include="Areas\Tablets\Views\Revert\Detail.cshtml" />
+    <Content Include="Areas\Version\Views\web.config" />
+    <Content Include="Areas\Version\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Version\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Version\Views\Program\Index.cshtml" />
+    <Content Include="Areas\Version\Views\Program\Detail.cshtml" />
+    <Content Include="Areas\Version\Views\Program\Widget.cshtml" />
+    <Content Include="Areas\Version\Views\Program\Create.cshtml" />
+    <Content Include="Areas\Version\Views\Version\Widget.cshtml" />
+    <Content Include="Areas\Version\Views\Version\Create.cshtml" />
+    <Content Include="Areas\Version\Views\Program\File.cshtml" />
     <None Include="Properties\PublishProfiles\lw.pubxml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
     <Content Include="Views\Personal\Edit.cshtml" />
     <Content Include="Views\Shared\_pagination.cshtml" />
     <Content Include="Views\User\ChangeHead.cshtml" />
+    <Content Include="Views\Shared\FormGroupFile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -877,6 +927,10 @@
     <Folder Include="Areas\Expense\Models\" />
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />
+    <Folder Include="Areas\Tablets\Models\" />
+    <Folder Include="Areas\Tablets\Views\TabletsControllerBase\" />
+    <Folder Include="Areas\Version\Models\" />
+    <Folder Include="Areas\Version\Views\VersionsControllerBase\" />
     <Folder Include="Areas\Voucher\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -884,10 +938,6 @@
     <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">
       <Project>{ab103882-ad22-452a-a35e-9d5048b6b0c4}</Project>
       <Name>LoowooTech.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LoowooTech.iPadManagerSystem\LoowooTech.iPadManagerSystem.csproj">
-      <Project>{F3A8573E-10CF-4D72-8506-6408E2364E2A}</Project>
-      <Name>LoowooTech.iPadManagerSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Managers\LoowooTech.Managers.csproj">
       <Project>{ccd8b2c5-5ae6-4c6c-800d-64f91663cf73}</Project>

@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = null;
+    List<Authority> list = ViewBag.List;
+    AuthorityParameter parameter = ViewBag.Parameter;
+}
+
+<div class="widget-head-color-box navy-bg text-center p-lg">
+    <div class="m-b-md">
+        <a href="/Tablets/Authority/Index" class="btn btn-primary"><h2 class="font-bold no-margins">授权文件</h2></a>
+        <p><small>授权文件信息记录</small></p>
+    </div>
+    <i class="fa fa-shield fa-5x"></i>
+    <div>
+        <span>授权文件上传记录数量：@(parameter.Page.RecordCount)</span>
+        <span><a href="/Tablets/Authority/Index" class="btn btn-primary font-bold">详情</a></span>
+    </div>
+</div>
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>授权文件列表</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <ul class="list-group">
+            @foreach(var item in list)
+            {
+                <li class="list-group-item">
+                    @(item.Name)
+                    @if (item.IsNew)
+                    {
+                        <span class="label label-warning pull-right">NEW</span>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

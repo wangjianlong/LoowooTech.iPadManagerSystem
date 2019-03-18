@@ -1,6 +1,8 @@
 ﻿using LoowooTech.Models;
 using LoowooTech.Models.Admin;
 using LoowooTech.Models.Expense;
+using LoowooTech.Models.Tablets;
+using LoowooTech.Models.Versions;
 using LoowooTech.Models.Voucher;
 using System.Data.Entity;
 
@@ -13,6 +15,10 @@ namespace LoowooTech.Managers
             Database.SetInitializer<LWDbContext>(null);
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+           // modelBuilder.Entity<Tablet>().HasMany(e => e.TabletRecords).WithRequired(e => e.Record).HasForeignKey(e => e.RecordId);
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserCompany> UserCompanys { get; set; }
@@ -77,6 +83,23 @@ namespace LoowooTech.Managers
 
         #region  发票
         public DbSet<EInvoice> EInvoices { get; set; }
+        #endregion
+
+        #region 平板管理系统
+        public DbSet<TabletType> TabletTypes { get; set; }
+        public DbSet<Tablet> Tablets { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Atlas> Atlas { get; set; }
+        public DbSet<Record> Records { get; set; }
+        public DbSet<TabletRecord> TabletRecords { get; set; }
+        public DbSet<Revert> Reverts { get; set; }
+        public DbSet<Authority> Authorities { get; set; }
+        #endregion
+
+        #region 程序版本管理
+        public DbSet<Program> Programs { get; set; }
+        public DbSet<Version> Versions { get; set; }
+        public DbSet<ProgramFile> Program_Files { get; set; }
         #endregion
     }
 }

@@ -1,0 +1,46 @@
+﻿@{ 
+    List<TabletType> types = ViewBag.List;
+}
+
+
+<div class="well">
+    <h5>有效平板类型：@(types.Count)</h5>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>名称</th>
+            <th>厂商</th>
+            <th>年份</th>
+            <th>尺寸【英寸】</th>
+            <th>颜色</th>
+            <th>网络方式</th>
+            <th>容量</th>
+            <th>容量单位</th>
+            <th>备注</th>
+            <th>工具</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in types)
+        {
+            <tr>
+                <td>@(item.Name)</td>
+                <td>@(item.Company)</td>
+                <td>@(item.Year)</td>
+                <td>@(item.Size)</td>
+                <td>@(item.Color)</td>
+                <td>@(item.InternetWay)</td>
+                <td>@(item.Space)</td>
+                <td>@(item.SpaceUnit)</td>
+                <td>@(item.Remark)</td>
+                <td>
+                    <a href="/Tablets/Type/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    <a href="/Tablets/Type/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Tablets/Home/Index"><i class="fa fa-trash"></i>删除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

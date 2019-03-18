@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtlasExtension.cs" />
     <Compile Include="EncryptExtensions.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="JsonExtension.cs" />

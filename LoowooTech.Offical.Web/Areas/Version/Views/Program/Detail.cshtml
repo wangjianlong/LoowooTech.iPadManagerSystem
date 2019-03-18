@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "程序信息查看";
+    Layout = "~/Areas/Version/Views/Shared/_Layout.cshtml";
+    Program program = ViewBag.Program;
+}
+
+@section Description{
+    程序信息查看
+    }
+
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Version/Program/File?id=@(program.ID)" class="btn btn-info btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-file"></i>附件</a>
+        <a href="/Version/Version/Create?id=@(program.ID)" class="btn btn-warning btn-outline"data-toggle="modal" data-target="#Modal"><i class="fa fa-github"></i>发布</a>
+        <a href="/Version/Program/Create?id=@(program.ID)" class="btn btn-primary btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+        <a href="/Version/Program/Delete?id=@(program.ID)" class="btn btn-danger btn-outline" name="Delete" Url="/Version/Program/Index"><i class="fa fa-trash"></i>删除</a>
+        <button class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+    </div>
+    }
+
+
+<div class="row">
+    <div class="col-xs-4">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h2>程序基础信息</h2>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">名称：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(program.Name)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">说明：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(program.Remark)</p>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">登记时间：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(program.Time.ToLongDateString())</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">登记人：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(program.User.Name)</p>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <h3>附件</h3>
+                    @if (program.Program_files != null)
+                    {
+                        var files=program.Program_files.Where(e=>e.Delete==false).OrderByDescending(e=>e.Time).ToList();
+                        if (files.Count == 0)
+                        {
+                            <div class="alert alert-warning">
+                                <span>当前未上传过附件！</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <ul class="list-group">
+                                @foreach (var file in files.Take(20))
+                                {
+                                    <li class="list-group-item">
+                                        <a href="/@(file.FileInfo.Path)">@(file.FileInfo.FileName)</a>
+                                        <a href="/Version/Program/Deletefile?id=@(file.ID)" class="btn btn-danger btn-xs pull-right" name="Delete" Url="/Version/Program/Detail?id=@(program.ID)"><i class="fa fa-trash"></i></a>
+                                        <p>
+                                            <strong class="text-navy">@(file.User.Name)</strong>
+                                            <small>@(file.Time.ToShortDateString()) @(file.Time.ToShortTimeString())</small>
+                                        </p>
+                                      
+                                    </li>
+                                }
+
+
+                            </ul>
+                            if (files.Count > 20)
+                            {
+                                <button type="button" class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i>查看更多</button>
+                            }
+                        }
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h2>版本发布信息</h2>
+            </div>
+            <div class="ibox-content ibox-heading">
+                <h3></h3>
+            </div>
+            <div class="ibox-content inspinia-timeline">
+                @if (program.Versions != null)
+                {
+                    foreach(var item in program.Versions.Where(e => e.Delete == false).OrderByDescending(e => e.Time).Take(20))
+                    {
+                        <div class="timeline-item">
+                            <div class="row">
+                                <div class="col-xs-3 date">
+                                    <i class="fa fa-github"></i>
+                                    @(item.Time.ToLongTimeString())
+                                    <br />
+                                    <small class="text-navy">@(item.Time.ToShortDateString())</small>
+                                </div>
+                                <div class="col-xs-7 content no-top-border">
+                                    <p class="m-b-xs">版本号：<strong>@(item.Number)</strong> </p>
+                                    <p>文件：<a href="/@(item.FileInfo.Path)" class="btn btn-xs btn-primary"><i class="fa fa-download"></i></a></p>
+                                    <p>上传者: <strong class="text-navy">@(item.User.Name)</strong></p>
+                                    @if (string.IsNullOrEmpty(item.Remark) == false)
+                                    {
+                                        var items = item.Remark.Replace("；", ";").Split(';');
+                                        foreach(var it in items)
+                                        {
+                                            <p>@(it)</p>
+                                        }
+                                    }
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

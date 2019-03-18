@@ -1,0 +1,44 @@
+﻿@{ 
+    Layout = null;
+    List<Program> list = ViewBag.List;
+    ProgramParameter parameter = ViewBag.Parameter;
+}
+
+<div class="widget-head-color-box navy-bg text-center p-lg">
+    <div class="m-b-md">
+        <a href="" class="btn btn-primary"><h2 class="font-bold no-margins">程序信息</h2></a>
+    </div>
+    <i class="fa fa-github fa-5x"></i>
+    <div>
+        <span>程序数量：@(parameter.Page.RecordCount)</span>
+        <span><a href="/Version/Program/Index" class="font-bold btn btn-primary">详情</a></span>
+    </div>
+</div>
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h3>程序列表</h3>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <ul class="list-group">
+            @foreach(var item in list)
+            {
+                <li class="list-group-item">
+                    <a href="/Version/Program/Detail?id=@(item.ID)">@(item.Name)</a>
+                    @if (item.IsNew)
+                    {
+                        <span class="label label-warning pull-right">NEW</span>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>

@@ -20,15 +20,15 @@
                         swal({
                             title: "成功删除！",
                             text: "成功删除,点击确定完成删除！",
-                            type:"success"
+                            type: "success"
                         }, function () {
                             location.href = url;
-                        })
+                        });
                         //swal("成功删除", "成功删除", "success");
                     } else {
                         swal("删除失败", json.content, "error");
                     }
-                })
+                });
             } else {
                 swal("取消", "取消删除操作", "error");
             }
@@ -42,7 +42,7 @@
         var $btn = $(this);
         $btn.attr("disabled", "disabled");
         $.getJSON(href, function (data) {
-            if (data.result == 1) {
+            if (data.result === 1) {
                 swal({
                     title: "成功提交",
                     text: "成功提交，点击确定完成提交！",
@@ -97,7 +97,7 @@
         var $btn = $(this);
         $btn.attr("disabled", "disabled");
         $.getJSON(href, function (data) {
-            if (data.result == 1) {
+            if (data.result === 1) {
                 swal({
                     title: "成功撤销确认款项",
                     text: "成功撤销确认款项，点击确定完成提交！",

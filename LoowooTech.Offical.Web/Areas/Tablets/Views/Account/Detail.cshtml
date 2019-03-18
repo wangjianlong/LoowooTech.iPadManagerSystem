@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "开发者账号查看";
+    Layout = "~/Areas/Tablets/Views/Shared/_Layout.cshtml";
+    Account account = ViewBag.Model;
+}
+
+@section Description{
+    开发者账号查看
+    }
+
+@section ButtonHead{
+<div class="title-action">
+    @if (account.Delete == false)
+    {
+        <a href="/Tablets/Account/Create?id=@(account.ID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+        <a href="/Tablets/Account/Delete?id=@(account.ID)" class="btn btn-danger" name="Delete" Url="/Tablets/Home/Index"><i class="fa fa-trash"></i>删除</a>
+        <a href="/Tablets/Atlas/Create?accountId=@(account.ID)" class="btn btn-warning" data-toggle="modal" data-target="#Modal"><i class="fa fa-cloud-upload"></i>发布程序</a>
+    }
+
+    <button class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+</div>
+    }
+
+<div class="row">
+    <div class="col-xs-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content mailbox-content">
+                <div class="file-manager">
+                    <h2>开发者账号信息</h2>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">账号名称：</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.Name)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">密码手机:</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.TelPhone)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">注册时间:</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.RegisterTime.ToString("yyyy-MM-dd"))</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">备注：</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.Remark)</p>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">登记人：</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.User.Name)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">登记时间:</label>
+                            <div class="col-xs-7">
+                                <p class="form-control-static">@(account.Time.ToLongDateString())</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-9 animated fadeInRight">
+        <div class="mail-box-header">
+            程序发布记录
+        </div>
+        <div class="mail-box">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>版本号</th>
+                        <th>程序名称</th>
+                        <th>发布时间</th>
+                        <th>发布人</th>
+                        <th>备注</th>
+                        <th>工具</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (account.Atlas != null && account.Atlas.Count > 0)
+                    {
+                        foreach (var item in account.Atlas.OrderByDescending(e=>e.ID))
+                        {
+                            <tr>
+                                <td>@(item.Number)</td>
+                                <td>@(item.Name)</td>
+                                <td>@(item.PublishTime.ToString("yyyy-MM-dd"))</td>
+                                <td>@(item.User.Name)</td>
+                                <td>@(item.Remark)</td>
+                                <td>
+                                    <a href="/@(item.FileInfo.Path)" target="_blank"><i class="fa fa-download"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+         
+        </div>
+    </div>
+</div>
+
+
+

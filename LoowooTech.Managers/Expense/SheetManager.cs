@@ -24,6 +24,8 @@ namespace LoowooTech.Managers.Expense
             {
                 return false;
             }
+            sheet.FlowDataId = model.FlowDataId;
+
             DB.Entry(model).CurrentValues.SetValues(sheet);
             DB.SaveChanges();
             return true;

@@ -1,6 +1,8 @@
 ﻿using LoowooTech.Managers.Admin;
 using LoowooTech.Managers.Expense;
 using LoowooTech.Managers.Project;
+using LoowooTech.Managers.Tablets;
+using LoowooTech.Managers.Versions;
 using LoowooTech.Managers.Voucher;
 
 namespace LoowooTech.Managers
@@ -87,6 +89,29 @@ namespace LoowooTech.Managers
         #region 发票
         private EInvoiceManager _eInvoiceManager { get; set; }
         public EInvoiceManager EInvoiceManager { get { return _eInvoiceManager == null ? _eInvoiceManager = new EInvoiceManager() : _eInvoiceManager; } }
+        #endregion
+
+        #region 平板管理系统
+        private TabletTypeManager _tabletTypeManager { get; set; }
+        public TabletTypeManager TabletTypeManager { get { return _tabletTypeManager == null ? _tabletTypeManager = new TabletTypeManager() : _tabletTypeManager; } }
+
+        public TabletManager _tabletManager { get; set; }
+        public TabletManager TabletManager { get { return _tabletManager == null ? _tabletManager = new TabletManager() : _tabletManager; } }
+        private AccountManager _accountManager { get; set; }
+        public AccountManager AccountManager { get { return _accountManager == null ? _accountManager = new AccountManager() : _accountManager; } }
+        private AtlasManager _atlasManager { get; set; }
+        public AtlasManager AtlasManager { get { return _atlasManager == null ? _atlasManager = new AtlasManager() : _atlasManager; } }
+        private RecordManager _recordManager { get; set; }
+        public RecordManager RecordManager { get { return _recordManager == null ? _recordManager = new RecordManager() : _recordManager; } }
+        private AuthorityManager _authorityManager { get; set; }
+        public AuthorityManager AuthorityManager { get { return _authorityManager == null ? _authorityManager = new AuthorityManager() : _authorityManager; } }
+        #endregion
+
+        #region 程序版本管理
+        private ProgramManager _programManager { get; set; }
+        public ProgramManager ProgramManager { get { return _programManager == null ? _programManager = new ProgramManager() : _programManager; } }
+        private VersionManager _versionManager { get; set; }
+        public VersionManager VersionManager { get { return _versionManager == null ? _versionManager = new VersionManager() : _versionManager; } }
         #endregion
     }
 }

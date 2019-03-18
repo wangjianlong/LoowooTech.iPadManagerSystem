@@ -1,0 +1,70 @@
+﻿@{ 
+    Layout = null;
+    Record record = ViewBag.Model;
+    List<TabletRecord> leaves = ViewBag.Leaves;
+}
+
+<script src="~/scripts/LW/Tablets.js"></script>
+
+<script>
+    $(function () {
+        $("#form-revert").submit(function () {
+            LWSubmit("#form-revert");
+            return false;
+        });
+    });
+</script>
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">归还</h4>
+</div>
+
+<form class="form-horizontal" method="post" action="/Tablets/Revert/Save" id="form-revert" Url="/Tablets/Record/Detail?id=@(record.ID)">
+    <div class="modal-body">
+        <input type="hidden" name="UserId" value="@(Identity.UserId)" />
+        <input type="hidden" name="RecordId" value="@(record.ID)" />
+        <div class="form-group">
+            <label class="control-label col-xs-3">归还人：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="Operator"  placeholder="归还人" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">归还时间：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control datetime" name="ReturnTime" placeholder="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">归还平板：</label>
+            <div class="col-xs-9">
+                @if (leaves != null)
+                {
+                    if (leaves.Count > 0)
+                    {
+                        foreach(var item in leaves)
+                        {
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" name="TabletIds" value="@(item.TabletId)" />@(item.Tablet.Title)-@(item.Tablet.Type.Title)
+                                </label>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">备注：</label>
+            <div class="col-xs-9">
+                <textarea class="form-control" name="Remark" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> 取消</button>
+    </div>
+</form>

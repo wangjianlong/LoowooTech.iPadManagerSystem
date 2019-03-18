@@ -12,7 +12,7 @@
                     @foreach (var item in Model)
                     {
                         <dt>@(item.User.Name):</dt>
-                        <dd>@(item.Description)</dd>
+                        <dd>出差类型：<span class="badge badge-primary"> @(item.ErrandType.GetDescription()) </span>@(item.Description)</dd>
                     }
                 </dl>
                 <div class="hr-line-dashed"></div>

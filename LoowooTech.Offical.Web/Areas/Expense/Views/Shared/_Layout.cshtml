@@ -78,6 +78,10 @@
             <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Reception".ToLower()&&ViewBag.Action.ToLower()=="Search".ToLower()?"active":"")">
                 <a href="/Expense/Reception/Search">招待报销</a>
             </li>
+
+            <li class="@(ViewBag.Area.ToLower()=="Expense".ToLower()&&ViewBag.Controller.ToLower()=="Home".ToLower()&&ViewBag.Action.ToLower()=="".ToLower()?"active":"")">
+                <a href="">我的报销统计</a>
+            </li>
             
         </ul>
     </li>

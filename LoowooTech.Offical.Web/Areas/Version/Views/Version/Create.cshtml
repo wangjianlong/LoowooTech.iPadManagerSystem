@@ -1,0 +1,37 @@
+﻿@{ 
+    Layout = null;
+    Program program = ViewBag.Program;
+}
+
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">版本信息</h4>
+</div>
+
+<form class="form-horizontal" method="post" action="/Version/Version/Save" id="form-version" enctype="multipart/form-data">
+    <div class="modal-body">
+        <input type="hidden" name="ProgramId" value="@(program.ID)" />
+        <input type="hidden" name="UserId" value="@(Identity.UserId)" />
+        <div class="form-group">
+            <label class="control-label col-xs-3">版本号：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Number" class="form-control" placeholder="程序版本号" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">版本说明：</label>
+            <div class="col-xs-9">
+                <textarea class="form-control" name="Remark" rows="4"></textarea>
+            </div>
+        </div>
+        @{ 
+            Html.RenderPartial("FormGroupFile");
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> 取消</button>
+    </div>
+</form>

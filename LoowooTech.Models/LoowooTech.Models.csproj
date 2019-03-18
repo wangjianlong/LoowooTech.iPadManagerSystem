@@ -80,6 +80,7 @@
     <Compile Include="Expense\Traffic.cs" />
     <Compile Include="FileInfo.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="LWFather.cs" />
     <Compile Include="LWFileInfo.cs" />
     <Compile Include="LWSystem.cs" />
     <Compile Include="LWTime.cs" />
@@ -98,8 +99,24 @@
     <Compile Include="Project\ProjectUser.cs" />
     <Compile Include="Project\WorkSchedule.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Tablets\Account.cs" />
+    <Compile Include="Tablets\Atlas.cs" />
+    <Compile Include="Tablets\Authority.cs" />
+    <Compile Include="Tablets\AuthorityParameter.cs" />
+    <Compile Include="Tablets\Record.cs" />
+    <Compile Include="Tablets\RecordParameter.cs" />
+    <Compile Include="Tablets\Revert.cs" />
+    <Compile Include="Tablets\TabletParameter.cs" />
+    <Compile Include="Tablets\Tablet.cs" />
+    <Compile Include="Tablets\TabletRecord.cs" />
+    <Compile Include="Tablets\TabletType.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Versions\Program.cs" />
+    <Compile Include="Versions\ProgramFile.cs" />
+    <Compile Include="Versions\ProgramParameter.cs" />
+    <Compile Include="Versions\Version.cs" />
+    <Compile Include="Versions\VersionParameter.cs" />
     <Compile Include="Voucher\EInvoice.cs" />
   </ItemGroup>
   <ItemGroup>

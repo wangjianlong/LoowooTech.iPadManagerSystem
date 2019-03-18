@@ -1,0 +1,36 @@
+﻿@{ 
+    Layout = null;
+    List<Account> list = ViewBag.List;
+}
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>账号名称</th>
+            <th>密保手机</th>
+            <th>注册时间</th>
+            <th>备注</th>
+            <th>工具</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>
+                    <a href="/Tablets/Account/Detail?id=@(item.ID)">@(item.Name)</a>
+                </td>
+                <td>@(item.TelPhone)</td>
+                <td>@(item.RegisterTime.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.Remark)</td>
+                <td>
+                    <a href="/Tablets/Account/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
+                    <a href="/Tablets/Account/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete" Url="/Tablets/Home/Index"><i class="fa fa-trash"></i>删除</a>
+                    <a href="/Tablets/Atlas/Create?accountId=@(item.ID)" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#Modal"><i class="fa fa-cloud-upload"></i>发布</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

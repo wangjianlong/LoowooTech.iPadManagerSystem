@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "平板管理主页";
+    Layout = "~/Areas/Tablets/Views/Shared/_Layout.cshtml";
+}
+
+@section Description{
+    欢迎登陆平板管理系统
+}
+
+@section ButtonHead{
+    <div class="title-action">
+        <a href="/Tablets/Account/Create" class="btn btn-success btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus"></i>开发者账号</a>
+        <a href="/Tablets/Type/Create" class="btn btn-info btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-plus"></i>平板类型</a>
+        <a href="/Tablets/Authority/Create" class="btn btn-warning btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-shield"></i>授权文件</a>
+    </div>
+}
+
+
+
+<div class="row">
+    <div class="col-xs-6">
+        @{ 
+            Html.RenderAction("Widget", "Tablet");
+        }
+    </div>
+    <div class="col-xs-6">
+        @{
+            Html.RenderAction("Widget", "Authority");
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>开发者账号</h5>
+                <span class="label label-info"></span>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                @{
+                    Html.RenderAction("Index", "Account");
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>平板类型</h5>
+                <span class="label label-info"></span>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                @{
+                    Html.RenderAction("Index", "Type");
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -50,7 +50,7 @@ namespace LoowooTech.Models.Expense
             get
             {
                 var sb = new StringBuilder();
-                sb.AppendFormat("出差类型：{0}；时间：{1}-{2}；差补金额：{3}元",ErrandType.GetDescription(), StartTime.ToLongDateString(), EndTime.ToLongDateString(), Fee);
+                sb.AppendFormat("时间：{0}-{1}；差补金额：{2}元", StartTime.ToLongDateString(), EndTime.ToLongDateString(), Fee);
                 return sb.ToString();
             }
         }
@@ -86,7 +86,7 @@ namespace LoowooTech.Models.Expense
     {
         [Description("普通出差")]
         Common,
-        [Description("驻场出差")]
+        [Description("驻场外业")]
         Locale
     }
 }

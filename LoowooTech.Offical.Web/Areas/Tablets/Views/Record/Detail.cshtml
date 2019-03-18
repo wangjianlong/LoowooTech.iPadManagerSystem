@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "使用登记查看";
+    Layout = "~/Areas/Tablets/Views/Shared/_Layout.cshtml";
+    Record record = ViewBag.Model;
+}
+
+@section Description{
+    使用登记信息查看
+    }
+
+@section ButtonHead{
+<div class="title-action">
+    <a href="/Tablets/Record/File?id=@(record.ID)" class="btn btn-warning btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-cloud-upload"></i>上传</a>
+    @if (record.TabletRecords == null || record.TabletRecords.Where(e => e.RevertId.HasValue).Count() == 0)
+    {
+        <a href="/Tablets/Record/Create?id=@(record.ID)" class="btn btn-primary btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa fa-edit"></i>编辑</a>
+        <a href="/Tablets/Record/Delete?id=@(record.ID)" class="btn btn-danger btn-outline" name="Delete" Url="/Tablets/Record/Index"><i class="fa fa-trash"></i>删除</a>
+    }
+    
+    @if (record.TabletRecords != null && record.TabletRecords.Where(e => e.RevertId == null).Count() > 0)
+    {
+        <a href="/Tablets/Record/Revert?id=@(record.ID)" class="btn btn-success btn-outline" data-toggle="modal" data-target="#Modal"><i class="fa fa-retweet"></i>归还</a>
+    }
+
+    
+    <button class="btn btn-default btn-outline" onclick="history.back()"><i class="fa fa-arrow-left"></i>返回</button>
+</div>
+
+    }
+
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h2>使用登记信息</h2>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">编号：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.Title)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">项目名称：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.Project.Name)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">地区：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.City.LongName)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">用途/说明：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.Purpose)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">领取时间：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.UseTime.ToString("yyyy-MM-dd"))</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">领取人：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.UseName)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">备注：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.Remark)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">文件：</label>
+                        <div class="col-xs-9">
+                            @if (record.FileId.HasValue&&record.FileInfo!=null)
+                            {
+                                <a href="/@(record.FileInfo.Path)" class="btn btn-primary btn-outline" target="_blank">查看</a>
+                            }
+                            else
+                            {
+                                <p class="form-control-static">未上传</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">登记时间：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.Time.ToLongDateString())</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">登记人：</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">@(record.User.Name)</p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+       
+    </div>
+    <div class="col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h2>平板列表</h2>
+            </div>
+            <div class="ibox-content ibox-heading">
+                @if (record != null && record.TabletRecords != null)
+                {
+                    <h4>@string.Format("登记使用{0}台平板", record.TabletRecords.Count)</h4>
+                }
+            </div>
+            <div class="ibox-content">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>平板编号</th>
+                            <th>平板型号</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (record != null && record.TabletRecords != null)
+                        {
+                            foreach (var item in record.TabletRecords)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/Tablets/Tablet/Detail?id=@(item.TabletId)">@(item.Tablet.Title)</a>
+                                    </td>
+                                    <td>@(item.Tablet.Type.Title)</td>
+                                    <td>
+                                        @if (item.RevertId.HasValue)
+                                        {
+                                           <a href="/Tablets/Revert/Detail?id=@(item.RevertId.Value)"  data-toggle="modal" data-target="#Modal"><label class="label label-primary">归还</label></a>
+                                          
+                                        }
+                                        else
+                                        {
+                                            <label class="label label-danger">使用</label>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

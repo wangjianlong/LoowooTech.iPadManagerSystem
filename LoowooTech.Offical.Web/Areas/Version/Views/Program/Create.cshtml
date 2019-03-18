@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+    Program program = ViewBag.Program;
+}
+
+<script>
+    $(function () {
+        $("#form-program").submit(function () {
+            LWSubmit("#form-program");
+            return false;
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">程序信息</h4>
+</div>
+
+<form class="form-horizontal" method="post" action="/Version/Program/Save" id="form-program" Url="/Version/Program/Detail?id=">
+    <div class="modal-body">
+        <input type="hidden" name="ID" value="@(program==null?0:program.ID)" />
+        <input type="hidden" name="UserId" value="@(program==null?Identity.UserId:program.UserId)" />
+        <div class="form-group">
+            <label class="control-label col-xs-3">名称：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Name" class="form-control" placeholder="程序名称" value="@(program==null?"":program.Name)" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">说明：</label>
+            <div class="col-xs-9">
+                <textarea class="form-control" name="Remark" rows="4">@(program == null ? "" : program.Remark)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> 取消</button>
+    </div>
+</form>

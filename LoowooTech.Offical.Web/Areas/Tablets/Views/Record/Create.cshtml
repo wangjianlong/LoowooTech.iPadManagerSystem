@@ -1,0 +1,129 @@
+﻿@{ 
+    Layout = null;
+    List<Tablet> tablets = ViewBag.Tablets;
+    List<City> citys = ViewBag.Citys;
+    List<Project> projects = ViewBag.Projects;
+    Record record = ViewBag.Model;
+    if (record != null)
+    {
+        ViewBag.CityIds = new int[] { record.CityId };
+    }
+}
+
+<script src="~/scripts/LW/Tablets.js"></script>
+<script>
+    $(function () {
+        $("#form-record").submit(function () {
+            LWSubmit("#form-record");
+            return false;
+        });
+    });
+</script>
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">登记使用记录</h4>
+</div>
+
+<form class="form-horizontal" method="post" action="/Tablets/Record/Save" id="form-record" Url="/Tablets/Record/Index">
+    <div class="modal-body">
+        <input type="hidden" name="ID" value="@(record!=null?record.ID:0)" />
+        <input type="hidden" name="UserId" value="@(record!=null?record.UserId: Identity.UserId)" />
+        <div class="form-group">
+            <label class="control-label col-xs-3">项目：</label>
+            <div class="col-xs-9">
+                <select class="form-control chosen-select" name="ProjectId">
+                    <option value="0">请选择项目</option>
+                    @foreach (var item in projects)
+                    {
+                        <option value="@(item.ID)" @(record!=null&&record.ProjectId==item.ID?"selected=selected":"")>@(item.Name)</option>
+                    }
+                </select>
+                <span class="help-block m-b-none text-navy">如果项目列表中不存在，请在输入框中输入项目名称！</span>
+                <input type="text" class="form-control" name="ProjectName" placeholder="项目列表不存在，请在输入框输入项目名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">地区：</label>
+            <div class="col-xs-9">
+                <select class="form-control chosen-select"  name="CityId">
+                    <option value="0">请选择地区</option>
+                    @foreach(var item in citys)
+                    {
+                        <option value="@(item.ID)" @(record!=null&&record.CityId==item.ID?"selected=selected":"")>@(item.Name)</option>
+                        if (item.Children != null)
+                        {
+                            item.ParentName = item.Name;
+                            Html.RenderPartial("SelectCity", item as object);
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">使用单位：</label>
+            <div class="col-xs-9">
+                <input type="text" name="Company" class="form-control"  placeholder="使用单位"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">用途/说明：</label>
+            <div class="col-xs-9">
+                <textarea class="form-control" rows="3" name="Purpose" required>@(record!=null?record.Purpose:"")</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">领取时间：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control datetime" name="UseTime" readonly value="@(record!=null?record.UseTime.ToString("MM/dd/yyyy"): DateTime.Now.ToString("MM/dd/yyyy"))" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">领取人：</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="UseName" value="@(record!=null?record.UseName:"")" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">平板：</label>
+            <div class="col-xs-9">
+                @if (tablets.Count > 0)
+                {
+                    foreach (var item in tablets)
+                    {
+                        <div class="checkbox i-checks">
+                            <label>
+                                <input type="checkbox" name="TabletIds" value="@(item.ID)" />@(item.Title)-@(item.Type.Title)
+                            </label>
+                        </div>
+                    }
+                }
+
+                @if (record != null && record.TabletRecords != null)
+                {
+                    foreach(var item in record.TabletRecords)
+                    {
+                        <div class="checkbox i-checks">
+                            <label>
+                                <input type="checkbox" name="TabletIds" value="@(item.TabletId)" checked="checked" />@(item.Tablet.Title)-@(item.Tablet.Type.Title)
+                            </label>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">备注：</label>
+            <div class="col-xs-9">
+                <textarea class="form-control" rows="3" name="Remark">@(record!=null?record.Remark:"")</textarea>
+                <span class="help-block m-b-none text-navy">如配备Apple Pencil或者Smart Keyboard以及贵重物品，请登记！</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> 取消</button>
+    </div>
+</form>

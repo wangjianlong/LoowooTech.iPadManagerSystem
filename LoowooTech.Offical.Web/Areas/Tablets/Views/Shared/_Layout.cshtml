@@ -1,0 +1,47 @@
+﻿
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section ButtonHead{
+    @RenderSection("ButtonHead", false)
+}
+
+@section Description{
+    @RenderSection("Description", false)
+}
+@section links{
+    <link rel="stylesheet" href="~/Content/css/plugins/datapicker/datepicker3.css" />
+}
+
+@section scripts{
+    <script src="~/scripts/plugins/datapicker/bootstrap-datepicker.js"></script>
+}
+
+<script>
+    $(function () {
+        $(".datetime").datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+    });
+</script>
+
+@section navigation{
+
+
+
+    <li class="@(ViewBag.Area.ToLower()=="Tablets".ToLower()&&ViewBag.Controller.ToLower()=="Tablet".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+        <a href="/Tablets/Tablet/Index"><i class="fa fa-tablet"></i><span class="nav-label">平板列表</span></a>
+    </li>
+
+    <li class="@(ViewBag.Area.ToLower()=="Tablets".ToLower()&&ViewBag.Controller.ToLower()=="Record".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+        <a href="/Tablets/Record/Index"><i class="fa fa-briefcase"></i><span class="nav-label">使用登记</span></a>
+    </li>
+
+    <li class="@(ViewBag.Area.ToLower()=="Tablets".ToLower()&&ViewBag.Controller.ToLower()=="Authority".ToLower()&&ViewBag.Action.ToLower()=="Index".ToLower()?"active":"")">
+    <a href="/Tablets/Authority/Index"><i class="fa fa-shield"></i><span class="nav-label">授权文件</span></a>
+</li>
+}
+
+@RenderBody()

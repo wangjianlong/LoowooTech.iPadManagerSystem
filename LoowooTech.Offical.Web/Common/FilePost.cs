@@ -11,13 +11,27 @@ namespace LoowooTech.Offical.Web.Common
         private static string _filesDir = "FILES";
 
         private static string[] _pictures = { ".bmp", ".png", ".jpg", ".jpeg", ".tiff" };
+        private static string[] _atlas = { ".apk", ".ipa" };
 
         public static bool IsPictures(string ext)
         {
             return _pictures.Contains(ext);
         }
 
-        public static FileInfo Upload(HttpPostedFileBase file,string folder,int userId)
+        public static bool IsAtlas(string ext)
+        {
+            return _atlas.Contains(ext);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="folder"></param>
+        /// <param name="userId"></param>
+        /// <param name="flag">true：如果服务器中存在相同的文件，则会覆盖替换文件  false: 存在相同文件，会保留原始的文件  </param>
+        /// <returns></returns>
+        public static FileInfo Upload(HttpPostedFileBase file,string folder,int userId,bool flag=false)
         {
             if (file.ContentLength == 0) return null;
             var currentDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _filesDir, folder,DateTime.Now.ToLongDateString());
@@ -29,13 +43,21 @@ namespace LoowooTech.Offical.Web.Common
             //var saveFile = System.IO.Path.Combine(currentDir, file.FileName);
             if (System.IO.File.Exists(saveFile))
             {
-                var newfile = System.IO.Path.GetFileNameWithoutExtension(saveFile) + "-" + DateTime.Now.Ticks.ToString();
-                if (newfile.Length > 256)
+                if (flag == true)
                 {
-                    newfile = newfile.Substring(255);
+                    System.IO.File.Delete(saveFile);
                 }
-                newfile = newfile + System.IO.Path.GetExtension(saveFile);
-                saveFile = newfile;
+                else
+                {
+                    var newfile = System.IO.Path.GetFileNameWithoutExtension(saveFile) + "-" + DateTime.Now.Ticks.ToString();
+                    if (newfile.Length > 256)
+                    {
+                        newfile = newfile.Substring(255);
+                    }
+                    newfile = currentDir+"\\"+ newfile + System.IO.Path.GetExtension(saveFile);
+                    saveFile = newfile;
+                }
+               
             }
             file.SaveAs(saveFile);
             var path = saveFile.Replace(AppDomain.CurrentDomain.BaseDirectory, "");

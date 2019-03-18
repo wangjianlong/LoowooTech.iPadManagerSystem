@@ -158,7 +158,9 @@ namespace LoowooTech.iPadManagerSystem.Models
         [Description("iPad(9.7英寸)")]
         iPad2017,
         [Description("iPad Pro (10.5英寸)")]
-        Pro10
+        Pro10,
+        [Description("iPad Pro (11英寸)")]
+        iPadPro11
     }
 
     public enum Space
