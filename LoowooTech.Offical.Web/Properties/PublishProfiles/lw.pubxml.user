@@ -232,16 +232,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2018 15:41:44</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Detail.cshtml">
-      <publishTime>06/21/2018 16:50:47</publishTime>
+      <publishTime>03/19/2019 10:02:32</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Index.cshtml">
       <publishTime>01/10/2018 10:23:33</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Recent.cshtml">
-      <publishTime>01/10/2018 10:59:54</publishTime>
+      <publishTime>03/19/2019 10:15:55</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/Search.cshtml">
-      <publishTime>06/21/2018 16:14:47</publishTime>
+      <publishTime>03/19/2019 10:16:31</publishTime>
     </File>
     <File Include="Areas/Project/Views/Home/SelectProjectType.cshtml">
       <publishTime>06/21/2018 16:14:14</publishTime>
@@ -400,7 +400,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2018 18:22:05</publishTime>
     </File>
     <File Include="bin/LoowooTech.Managers.dll">
-      <publishTime>03/18/2019 14:40:39</publishTime>
+      <publishTime>03/19/2019 10:15:11</publishTime>
     </File>
     <File Include="bin/LoowooTech.Managers.dll.config">
       <publishTime>10/28/2017 16:02:02</publishTime>
@@ -409,7 +409,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2018 18:22:07</publishTime>
     </File>
     <File Include="bin/LoowooTech.Models.dll">
-      <publishTime>03/18/2019 14:40:39</publishTime>
+      <publishTime>03/19/2019 10:15:11</publishTime>
     </File>
     <File Include="bin/LoowooTech.Models.dll.config">
       <publishTime>10/26/2017 09:05:05</publishTime>
@@ -418,7 +418,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2018 18:22:06</publishTime>
     </File>
     <File Include="bin/LoowooTech.Offical.Web.dll">
-      <publishTime>03/18/2019 14:40:43</publishTime>
+      <publishTime>03/19/2019 10:15:16</publishTime>
     </File>
     <File Include="bin/LoowooTech.Offical.Web.pdb">
       <publishTime>10/30/2018 18:22:11</publishTime>

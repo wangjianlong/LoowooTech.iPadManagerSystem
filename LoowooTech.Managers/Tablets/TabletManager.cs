@@ -78,5 +78,10 @@ namespace LoowooTech.Managers
         {
             return DB.Tablets.Where(e => e.Delete == false).ToList().Where(e=>e.CanUse==true).ToList();
         }
+
+        public bool Exist(string serialNumber,int id)
+        {
+            return DB.Tablets.Any(e => e.SerialNumber == serialNumber && e.ID != id); 
+        }
     }
 }

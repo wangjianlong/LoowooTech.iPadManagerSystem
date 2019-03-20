@@ -13,6 +13,14 @@ namespace LoowooTech.Offical.Web.Common
         private static string[] _pictures = { ".bmp", ".png", ".jpg", ".jpeg", ".tiff" };
         private static string[] _atlas = { ".apk", ".ipa" };
 
+        public static string SaveFolder
+        {
+            get
+            {
+                return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _filesDir);
+            }
+        }
+
         public static bool IsPictures(string ext)
         {
             return _pictures.Contains(ext);

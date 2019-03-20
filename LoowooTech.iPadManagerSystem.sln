@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Offical.Web", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Officel.Internal.API", "LoowooTech.Officel.Internal.API\LoowooTech.Officel.Internal.API.csproj", "{1E0421E5-7AC8-45A6-AD6B-B14012DA23DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.OLDTONEW", "LoowooTech.OLDTONEW\LoowooTech.OLDTONEW.csproj", "{306E7638-62C4-45AF-8A21-B0C02B9634C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1E0421E5-7AC8-45A6-AD6B-B14012DA23DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E0421E5-7AC8-45A6-AD6B-B14012DA23DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E0421E5-7AC8-45A6-AD6B-B14012DA23DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306E7638-62C4-45AF-8A21-B0C02B9634C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306E7638-62C4-45AF-8A21-B0C02B9634C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306E7638-62C4-45AF-8A21-B0C02B9634C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306E7638-62C4-45AF-8A21-B0C02B9634C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

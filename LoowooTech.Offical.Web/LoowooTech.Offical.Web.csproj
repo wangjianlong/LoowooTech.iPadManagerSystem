@@ -93,6 +93,7 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.10\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -671,6 +672,7 @@
     <Compile Include="Areas\Project\ProjectControllerBase.cs" />
     <Compile Include="Areas\Tablets\Controllers\AccountController.cs" />
     <Compile Include="Areas\Tablets\Controllers\AtlasController.cs" />
+    <Compile Include="Areas\Tablets\Controllers\AuthController.cs" />
     <Compile Include="Areas\Tablets\Controllers\AuthorityController.cs" />
     <Compile Include="Areas\Tablets\Controllers\HomeController.cs" />
     <Compile Include="Areas\Tablets\Controllers\RecordController.cs" />
@@ -928,6 +930,7 @@
     <Folder Include="Areas\Memo\Models\" />
     <Folder Include="Areas\Project\Models\" />
     <Folder Include="Areas\Tablets\Models\" />
+    <Folder Include="Areas\Tablets\Views\Auth\" />
     <Folder Include="Areas\Tablets\Views\TabletsControllerBase\" />
     <Folder Include="Areas\Version\Models\" />
     <Folder Include="Areas\Version\Views\VersionsControllerBase\" />

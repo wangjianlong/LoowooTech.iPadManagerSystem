@@ -59,7 +59,10 @@ namespace LoowooTech.Offical.Web.Areas.Tablets.Controllers
         public ActionResult Save(Tablet tablet)
         {
             tablet.SerialNumber = tablet.SerialNumber.ToUpper();
-
+            if (Core.TabletManager.Exist(tablet.SerialNumber, tablet.ID))
+            {
+                return ErrorJsonResult("当前系统中已存在相同的序列号！");
+            }
             if (tablet.ID > 0)
             {
                 if (!Core.TabletManager.Edit(tablet))
@@ -69,6 +72,7 @@ namespace LoowooTech.Offical.Web.Areas.Tablets.Controllers
             }
             else
             {
+                
                 var id = Core.TabletManager.Add(tablet);
                 if (id <= 0)
                 {

@@ -96,13 +96,13 @@ namespace LoowooTech.Managers.Project
                     query = query.OrderByDescending(e => e.ID);
                     break;
                 case Models.LWOrder.DeTime:
-                    query = query.OrderByDescending(e => e.CreateTime);
+                    query = query.OrderByDescending(e => e.Time);
                     break;
                 case Models.LWOrder.ID:
                     query = query.OrderBy(e => e.ID);
                     break;
                 case Models.LWOrder.Time:
-                    query = query.OrderBy(e => e.CreateTime);
+                    query = query.OrderBy(e => e.Time);
                     break;
             }
             query = query.SetPage(parameter.Page);

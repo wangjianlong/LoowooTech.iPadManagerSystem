@@ -66,6 +66,7 @@
                             <th>项目名称</th>
                             <th>地区</th>
                             <th>用途/说明</th>
+                            <th>使用者</th>
                             <th>领取时间</th>
                             <th>领取人</th>
                         </tr>
@@ -80,6 +81,7 @@
                                 <td>@(item.Project.Name)</td>
                                 <td>@(item.City.LongName)</td>
                                 <td>@(item.Purpose)</td>
+                                <td>@(item.Company)</td>
                                 <td>@(item.UseTime.ToString("yyyy-MM-dd"))</td>
                                 <td>@(item.UseName)</td>
                             </tr>

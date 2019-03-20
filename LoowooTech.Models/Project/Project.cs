@@ -10,15 +10,14 @@ using System.Threading.Tasks;
 namespace LoowooTech.Models.Project
 {
     [Table("project")]
-    public class Project
+    public class Project:LWFather
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Name { get; set; }
-        public DateTime CreateTime { get; set; } = DateTime.Now;
         [NotMapped]
-        public string Serial { get { return string.Format("P{0}{1}{2}{3}",CreateTime.Year,CreateTime.Month.ToString("00"),CreateTime.Day.ToString("00"),ID.ToString("0000")); } }
+        public string Serial { get { return string.Format("P{0}{1}{2}{3}",Time.Year,Time.Month.ToString("00"),Time.Day.ToString("00"),ID.ToString("0000")); } }
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public string SerialNumber { get; set; }
